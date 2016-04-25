@@ -3,11 +3,12 @@
 @section('title', 'Create an Article')
 
 @section('content')
-	<h1>Article: Create</h1>
+	<h1>Write a new Article</h1>
 
-	{!! Form::open() !!}
+@include('errors.articleError')
 
-
+	{!! Form::open(['url' => 'articles']) !!}
+		@include('articles.form', ['submitButtonLabel' => 'Create Article'])
 	{!! Form::close() !!}
 
 @stop
