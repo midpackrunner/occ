@@ -12,7 +12,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'username', 'email', 'password'
+        'name', 'email', 'password',
     ];
 
     /**
@@ -21,11 +21,12 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token'
+        'password', 'remember_token', 'user_type'
     ];
 
 
     public function articles() {
         return $this->hasMany('App\Article');
     }
+
 }

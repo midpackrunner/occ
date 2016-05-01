@@ -9,6 +9,13 @@ use App\Http\Requests\CreateArticleRequest;
 use Illuminate\Support\Facades\Auth;
 class ArticlesController extends Controller {
 
+	
+	public function __construct() {
+		//$this->middleware('auth', ['only' => 'create']);
+		$this->middleware('demo', ['only' => 'create']);
+
+	}
+
 	/**
 	 * Returns all articles within the publish_at value
 	 *
@@ -22,15 +29,18 @@ class ArticlesController extends Controller {
 
 	public function show($id) {
 
-		$article = Article::findOrFail($id);
-		$article->body = nl2br($article->body);
-		// to debug -> dd($article)   , then return $article
-		return view('articles.show')->with('article', $article);
+			$article = Article::findOrFail($id);
+			$article->body = nl2br($article->body);
+			// to debug -> dd($article)   , then return $article
+			return view('articles.show')->with('article', $article);
 	}
 
 	public function create() {
 
 		// to debug -> dd($article)   , then return $article
+/*		if (Auth::guest()) {     //<- One way to go about it, but redundant
+			return redirect('articles');  //<- See constructor
+		}*/
 		return view('articles.create');
 	}
 
