@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Laravel - A PHP Framework For Web Artisans
  *
@@ -16,9 +17,20 @@
 | into the script here so that we don't have to worry about manual
 | loading any of our classes later on. It feels nice to relax.
 |
- */
+*/
+//echo getcwd(); 
 
-require __DIR__ .'/../bootstrap/autoload.php';
+//Defining this function here causes the helper function by the same name to be
+//skipped, thereby allowing its functionality to be overridden. This is
+//required to use a "non-standard" location for Laravel's "public" directory.
+
+function public_path($path = '')
+{
+    return realpath(__DIR__);
+}
+
+
+require __DIR__.'/../web_app1/bootstrap/autoload.php';
 
 /*
 |--------------------------------------------------------------------------
@@ -30,9 +42,9 @@ require __DIR__ .'/../bootstrap/autoload.php';
 | will load up this application so that we can run it and send
 | the responses back to the browser and delight our users.
 |
- */
+*/
 
-$app = require_once __DIR__ .'/../bootstrap/app.php';
+$app = require_once __DIR__.'/../web_app1/bootstrap/app.php';
 
 /*
 |--------------------------------------------------------------------------
@@ -44,14 +56,15 @@ $app = require_once __DIR__ .'/../bootstrap/app.php';
 | the client's browser allowing them to enjoy the creative
 | and wonderful application we have prepared for them.
 |
- */
+*/
 
-$kernel = $app->make(Illuminate\Contracts\Http\Kernel::class );
+$kernel = $app->make(Illuminate\Contracts\Http\Kernel::class);
 
 $response = $kernel->handle(
-	$request = Illuminate\Http\Request::capture()
+    $request = Illuminate\Http\Request::capture()
 );
 
 $response->send();
 
 $kernel->terminate($request, $response);
+

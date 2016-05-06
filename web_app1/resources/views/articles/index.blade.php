@@ -1,4 +1,4 @@
-@extends('layout.master')
+@extends('layouts.app')
 
 @section('title', 'Articles')
 
@@ -16,4 +16,4 @@
 	</article>
 	@endforeach
 
-@stop
+@endsection

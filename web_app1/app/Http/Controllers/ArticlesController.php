@@ -11,7 +11,7 @@ class ArticlesController extends Controller {
 
 	
 	public function __construct() {
-		//$this->middleware('auth', ['only' => 'create']);
+		$this->middleware('auth', ['only' => 'create']);
 		$this->middleware('demo', ['only' => 'create']);
 
 	}
@@ -27,9 +27,16 @@ class ArticlesController extends Controller {
 		return view('articles.index')->with('articles', $articles);
 	}
 
-	public function show($id) {
+	/**
+	 * See RouteServiceProvider->boot for model binding.  Without binding
+	 * you would need to have show($id), however, using binding, the $id key
+	 * is replaced with the object itself.  This means, within this function
+	 * you do not have to query the DB manually with:
+	 * 
+	 * 					$article = Article::findOrFail($id);
+	 */
+	public function show(Article $article) {
 
-			$article = Article::findOrFail($id);
 			$article->body = nl2br($article->body);
 			// to debug -> dd($article)   , then return $article
 			return view('articles.show')->with('article', $article);
@@ -38,8 +45,8 @@ class ArticlesController extends Controller {
 	public function create() {
 
 		// to debug -> dd($article)   , then return $article
-/*		if (Auth::guest()) {     //<- One way to go about it, but redundant
-			return redirect('articles');  //<- See constructor
+        /* if (Auth::guest()) {     //<- One way to go about it, but redundant
+			return redirect('articles');  //<- See constructor for middleware
 		}*/
 		return view('articles.create');
 	}
@@ -59,9 +66,8 @@ class ArticlesController extends Controller {
 		return redirect('articles');
 	}
 
-	public function edit($id) {
+	public function edit(Article $article) {
 
-		$article = Article::findOrFail($id);
 		return view('articles.edit')->with('article', $article);
 	}
 

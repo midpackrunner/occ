@@ -26,11 +26,16 @@ Route::get('/', function () {
 // Route::get('articles/{id}/edit', 'ArticlesController@edit');
 
 Route::resource('articles', 'ArticlesController');
+Route::resource('appointments', 'AppointmentController');
+Route::get('appointments/getAppointmentsByClass/{className}', 'AppointmentController@getAppointmentsByClass');
+
+
 
 Route::controllers([
 	'auth' => 'Auth\AuthController',
 	'password' => 'Auth\PasswordController',
 ]);
+
 Route::auth();
 
 Route::get('/home', 'HomeController@index');

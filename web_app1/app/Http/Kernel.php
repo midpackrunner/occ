@@ -19,6 +19,7 @@ class Kernel extends HttpKernel
 
     /**
      * The application's route middleware groups.
+     * Ran for every single request
      *
      * @var array
      */
@@ -49,5 +50,6 @@ class Kernel extends HttpKernel
         'can' => \Illuminate\Foundation\Http\Middleware\Authorize::class,
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
+        'demo' => \App\Http\Middleware\Demo::class,
     ];
 }

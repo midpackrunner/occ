@@ -19,3 +19,22 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'remember_token' => str_random(10),
     ];
 });
+
+// see vendor/fzaninotto/Faker for options
+$factory->define(App\Appointment::class, function (Faker\Generator $faker) {
+	return [
+		'appointment_name' => $faker->numerify('App#'),
+		'appointment_date' => $faker->dateTimeBetween("now", '2016-06-30'),
+        'appointment_time' => $faker->time(),
+        'doctor_id' => $faker->numberBetween(1, 19)
+	];
+});
+
+// see vendor/fzaninotto/Faker for options
+$factory->define(App\Doctor::class, function (Faker\Generator $faker) {
+    return [
+        'first_name' => $faker->firstName(),
+        'last_name' => $faker->lastName(),
+    ];
+});
+

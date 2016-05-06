@@ -3,7 +3,8 @@
 <html>
     <head>
         <title>@yield('title')</title>
-        <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap.min.css') }}">
+         <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+
          <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
          <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
          <!--[if lt IE 9]>
@@ -16,8 +17,8 @@
             @yield('content')
         </div>
 
-     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-      <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+    <script src="js/jQuery.1.12.3.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
       <script src="//cdn.jsdelivr.net/webshim/1.14.5/polyfiller.js"></script>
       <script>
       webshims.setOptions('forms-ext', {types: 'date'});

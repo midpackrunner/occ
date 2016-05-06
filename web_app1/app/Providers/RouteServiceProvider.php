@@ -27,6 +27,10 @@ class RouteServiceProvider extends ServiceProvider
         //
 
         parent::boot($router);
+
+        // Route Model binding 
+        // Reads as: bind the articles key to Model App/Article
+        $router->model('articles', 'App\Article');
     }
 
     /**

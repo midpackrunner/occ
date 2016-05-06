@@ -1,4 +1,4 @@
-@extends('layout.master')
+@extends('layouts.app')
 
 @section('title', 'Article Details')
 
@@ -7,7 +7,7 @@
 	<h1>Article Details</h1>
 
 	<article>
-		<div class="panel panel-default">
+		<div class="panel panel-primary">
 		<div class="panel-heading">{{ $article->title }}</div>
 		<div class="panel-body"> {!! $article->body !!}</div>
 		</div>
