@@ -2,7 +2,7 @@
 
 		<div class="form-group">
 			{!! Form::label('title', 'Title') !!}
-			{!! Form::text('title', null, ['class' => 'form-control']) !!}
+			{!! Form::text('title', null, ['class' => 'form-control col-md-6']) !!}
 		</div>
 
 		<div class="form-group">

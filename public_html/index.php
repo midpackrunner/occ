@@ -30,7 +30,7 @@ function public_path($path = '')
 }
 
 
-require __DIR__.'/../web_app1/bootstrap/autoload.php';
+require __DIR__.'/../occ/bootstrap/autoload.php';
 
 /*
 |--------------------------------------------------------------------------
@@ -44,7 +44,7 @@ require __DIR__.'/../web_app1/bootstrap/autoload.php';
 |
 */
 
-$app = require_once __DIR__.'/../web_app1/bootstrap/app.php';
+$app = require_once __DIR__.'/../occ/bootstrap/app.php';
 
 /*
 |--------------------------------------------------------------------------

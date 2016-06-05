@@ -71,9 +71,7 @@ class ArticlesController extends Controller {
 		return view('articles.edit')->with('article', $article);
 	}
 
-	public function update($id, CreateArticleRequest $request) {
-
-		$article = Article::findOrFail($id);
+	public function update($article, CreateArticleRequest $request) {
 
 		$article->update($request->all());
 
