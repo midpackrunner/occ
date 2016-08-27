@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use PayPal;
 use Auth;
+use Carbon;
+use App\MembershipVerifiedPayments;
+
 
 class PaymentController extends Controller
 {
@@ -27,14 +30,21 @@ class PaymentController extends Controller
             'log.LogLevel' => 'FINE'
         ));
 
+        $this->middleware('auth');
+
     }
 
 	public function index() {
 		return view('payment.index');
 	}
 
+	public function membership_pay_by_check()
+	{
+		return view('auth.member_confirmation_pay_by_check');
+	}
+
     /*
-    * Process payment using PayPal express checkout.
+    * Process membership payment using PayPal express checkout.
     * Either the user is paying for a class or membership.
     */
     // $amount, $usr_email, $class=null, $mem_type=null
@@ -95,9 +105,15 @@ class PaymentController extends Controller
 	    return redirect($redirectUrl);
     }
 
-
-
-    public function from_pay_pal(Request $request)
+    /**
+     * Completes PayPal payment.  After user has been redirected
+     * to express checkout, the request is sent back here.  This
+     * method finishes the "accepting" payment phase.  Transaction
+     * is finalized here.
+     *
+     * @return     Confirmation of membership payment
+     */
+    public function membership_from_pay_pal(Request $request)
     {
 
     	$id = $request->get('paymentId');
@@ -105,25 +121,40 @@ class PaymentController extends Controller
 	    $payer_id = $request->get('PayerID');
 
 	    $payment = PayPal::getById($id, $this->_apiContext);
-
 	    $paymentExecution = PayPal::PaymentExecution();
-
 	    $paymentExecution->setPayerId($payer_id);
 	    $executePayment = $payment->execute($paymentExecution, $this->_apiContext);
+
+	    $pop = new MembershipVerifiedPayments();
+	    $pop->date_verified = Carbon::now();
+	    $pop->verified_by = 'paypal_auto';
+	    $pop->membership_id = Auth::user()->user_profile
+	    								  ->membership->id;
+	    $pop->save();
+
+	    Auth::user()->user_profile->membership
+						   ->verified_payments()->save($pop);
 
 	    return view('auth.member_confirmation_pay_by_paypal');
     }
 
-    public function cancelled_pay(Request $request)
+    /**
+     * Handles when a User declines to pay through pay pal express.
+     *
+     */
+    public function member_cancel_pay_by_paypal(Request $request)
     {
     	
-    	return $request;
+    	
+    	return view('auth.member_cancel_pay_by_paypal');
     }
 
 
 
     /**
-     * Creates a web profile.  This changes the look of the PayPal express.
+     * Creates a web profile.  This changes the look of the 
+     * PayPal express.  Removes the Shipping Address as it is 
+     * not needed for membership payments.
      */
     public function createWebProfile()
     {
@@ -134,10 +165,11 @@ class PaymentController extends Controller
     	$flowConfig->setLandingPageType("Billing"); //Set the page type
 
     	// 190 X 60 target
-    	$presentation->setLogoImage("https://www.example.com/images/logo.jpg")->setBrandName("Example ltd");
+    	//$presentation->setLogoImage("68.169.149.104/img/occ_brand.png")
+    	$presentation->setBrandName("Obedience Club of Chattanooga");
     	$inputFields->setAllowNote(true)->setNoShipping(1)->setAddressOverride(0);
 
-    	$webProfile->setName("Example " . uniqid())
+    	$webProfile->setName("OCC " . uniqid())
     	    ->setFlowConfig($flowConfig)
     	    // Parameters for style and presentation.
     	    ->setPresentation($presentation)

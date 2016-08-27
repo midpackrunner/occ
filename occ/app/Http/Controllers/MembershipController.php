@@ -2,25 +2,38 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
-use App\Http\Requests;
-use File;
 use App;
-use PDF;
+use App\Http\Requests;
+use App\UserProfile;
+use Auth;
 use Carbon;
+use File;
+use Illuminate\Http\Request;
+use PDF;
 
 class MembershipController extends Controller
 {
-    //
+    public function __construct()
+    {
+        //$this->middleware('auth');
+    }
     // TODO: get already created membership application pdf
     // so user can download.
-    public function membership_application()
+    public function membership_application($id)
     {
+        //dd($id);
+        if (Auth::user()->role->type == 'admin' || 
+            Auth::user()->user_profile->id == $id) {
+            $usr_prf = UserProfile::findOrFail($id);
+            $fname = $usr_prf->first_name;
+            $lname = $usr_prf->last_name;
+            $file_nm = $lname . "_" . $fname . ".pdf"; 
 
-    	$pdf = PDF::loadView('memberships.membership_application');
-    	$pdf->save(config('membership_docs').'test_mem_app.pdf');
-		return $pdf->stream('membership_application.pdf');
+            $file_path = config('app.membership_docs'). $file_nm;
+            //dd(config('app.membership_docs'));
+            return response()->download($file_path);
+        }
+        return redirect('/home');
 
     }
 
@@ -34,12 +47,12 @@ class MembershipController extends Controller
     public static function make_mmbrshp_application(array $data)
     {
 
-        $f_nm = $data['first_name'];
-    	$l_nm = $data['last_name'];
+        $f_nm = ucfirst($data['first_name']);
+    	$l_nm = ucfirst($data['last_name']);
 
     	$date = Carbon::now()->toDateString();
-    	$file_nm = $l_nm . "_" . $f_nm . "_" . $date . ".pdf"; 
+    	$file_nm = $l_nm . "_" . $f_nm . ".pdf"; 
     	$pdf = PDF::loadView('memberships.membership_application', $data);
-    	$pdf->save('/var/www/html/membership_docs/'. $file_nm);
+    	$pdf->save(config('app.membership_docs'). $file_nm);
     }
 }

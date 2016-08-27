@@ -58,18 +58,21 @@
 
 			<div class="panel panel-primary">
 				<div class="panel-heading">Your Memebership Details: </div>
-				@if ($user_profile->membership == null)
-				<p class="text-danger text-center">You are currently not a registered member.  You can find information on registering <a href="#">here</a></p>
-				@else
-				<dl class="dl-horizontal">
-					<dt> Membership Type: </dt>
-					<dd> {{ ucfirst($user_profile->membership->membership_type->name) }} </dd>
-				</dl>
-				<dl class="dl-horizontal">
-					<dt> Membership Expires: </dt>
-					<dd> {{ ucfirst($user_profile->membership->end_date) }} </dd>
-				</dl>
-				@endif
+				<div class="panel-body">
+					@if ($user_profile->membership == null)
+					<p class="text-danger text-center">You are currently not a registered member.  You can find information on registering <a href="#">here</a></p>
+					@else
+					<dl class="dl-horizontal">
+						<dt> Membership Type: </dt>
+						<dd> {{ ucfirst($user_profile->membership->membership_type->name) }} </dd>
+					</dl>
+					<dl class="dl-horizontal">
+						<dt> Membership Expires: </dt>
+						<dd> {{ ucfirst($user_profile->membership->end_date) }} </dd>
+					</dl>
+					@endif
+					<a class="btn btn-primary btn-sm pull-right" href="{{ url('membership_application/' . $user_profile->id) }}" role="button">Print Membership Application</a>
+				</div>
 			</div>
 
 			<div class="panel panel-primary">

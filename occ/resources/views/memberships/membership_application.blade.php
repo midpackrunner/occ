@@ -23,7 +23,7 @@
 	@if($membership_type == 2)
 	<div id="household" style="position:absolute;top:170px;left:220px"><img  src= "img/checkmark.png" ALT="Bad link"></div>
 	@endif
-	@if($membership_type = 3)
+	@if($membership_type == 3)
 	<div id="associate" style="position:absolute;top:170px;left:440px"><img  src= "img/checkmark.png" ALT="Bad link"></div>
 	@endif
 

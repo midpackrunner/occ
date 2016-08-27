@@ -14,33 +14,36 @@
 Route::get('/', 'HomeController@index');
 Route::get('/home', 'HomeController@index');
 Route::auth();
+
+// ------  Payment Routes
 Route::get('/create_membership_paypal_payout', 'PaymentController@create_membership_paypal_payout');
 Route::get('/member_cancel_pay_by_paypal', 'PaymentController@cancelled_pay');
-Route::get('/member_confirmation_pay_by_paypal', 'PaymentController@from_pay_pal');
+Route::get('/member_confirmation_pay_by_paypal', 'PaymentController@membership_from_pay_pal');
+Route::get('/member_confirmation_pay_by_check', 'PaymentController@membership_pay_by_check');
+Route::get('/member_cancel_pay_by_paypal', 'PaymentController@member_cancel_pay_by_paypal');
 
 
 
-Route::get('/member_confirmation_pay_by_check', 'NewMemberController@pay_by_check');
-
-Route::get('membership_application', 'MembershipController@membership_application');
+// ------- Member and Profile related Routes
+Route::get('membership_application/{id}', 'MembershipController@membership_application');
 Route::resource('profiles', 'User\UserProfileController');
 Route::resource('phone_numbers', 'PhoneNumberController');
 Route::get('/volunteer/create', array('as' =>'volunteer.create', 'uses' =>'VolunteerHourController@create'));
 Route::post('/volunteer', array('as' =>'volunteer', 'uses' =>'VolunteerHourController@store'));
 
 
+// ------- Public facing routes
 Route::get('/contact', 'ContactController@index');
-
 Route::resource('announcements', 'AnnouncementController');
 
-// Pet Related Routes
+// ------- Pet Related Routes
 Route::resource('pets', 'PetController');
 Route::get('/pet_added_conformation', 'PetController@confirmation');
 Route::post('/log_hours', 'PetController@log_hours');
 Route::get('/download_med_rec/{med_rec_id}', 'PetController@download_med_rec');
 
 
-// Class Related Routes
+// ------- Class Related Routes
 Route::get('/pre_class_prep', 'ClassController@pre_class_prep');
 Route::get('/class_info', 'ClassController@class_info');
 Route::get('/classes_schedule', 'ClassController@schedule');
@@ -50,7 +53,7 @@ Route::post('/post_class_sign_up', 'ClassController@post_class_sign_up');
 
 
 
-
+// -------- Instructor Related Routes
 Route::resource('instructors', 'InstructorController');
 Route::get('/instructor_bios', 'InstructorController@instructor_bios');
 

@@ -121,15 +121,15 @@ return [
     'max_viewable_members' => 15,
     'max_viewable_rosters' => 3,
     'max_viewable_classes' => 15,
-    'schedule_folder' => '/home/crisgo/schedule_data/',
-    'temp_folder' => '/home/crisgo/occ/temp/',
-    'membership_docs' => '/home/crisgo/membership_docs/',
-    'med_records_location' => '/home/crisgo/pet_records/',
+    // 'schedule_folder' => '/home/crisgo/schedule_data/',
+    // 'temp_folder' => '/home/crisgo/occ/temp/',
+    // 'membership_docs' => '/home/crisgo/membership_docs/',
+    // 'med_records_location' => '/home/crisgo/pet_records/',
 
-    //'schedule_folder' => '/var/www/html/schedule_data/',
-    //'temp_folder' => '/var/www/html/occ/temp/',
-    //'membership_docs' => '/var/www/html/membership_docs/',
-    //'med_records_location' => '/var/www/html/pet_records/',
+    'schedule_folder' => '/var/www/html/schedule_data/',
+    'temp_folder' => '/var/www/html/occ/temp/',
+    'membership_docs' => '/var/www/html/membership_docs/',
+    'med_records_location' => '/var/www/html/pet_records/',
 
     /*
     |--------------------------------------------------------------------------
