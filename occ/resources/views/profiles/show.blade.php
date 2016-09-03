@@ -71,7 +71,10 @@
 						<dd> {{ ucfirst($user_profile->membership->end_date) }} </dd>
 					</dl>
 					@endif
+					<a class="btn btn-primary btn-sm" href="{{ url('memberships/' . $user_profile->membership->id . '/edit') }}" role="button">Renew Membership</a>
+					@if ($user_profile->membership->membership_type->id != 4)
 					<a class="btn btn-primary btn-sm pull-right" href="{{ url('membership_application/' . $user_profile->id) }}" role="button">Print Membership Application</a>
+					@endif
 				</div>
 			</div>
 

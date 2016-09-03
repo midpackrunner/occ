@@ -21,7 +21,7 @@ class CreateUserProfilesTable extends Migration
             $table->string('state', 80)->nullable();
             $table->string('zip')->nullable();
             $table->boolean('is_occ_member')->nullable();
-            $table->integer('total_volunteer_hrs')->nullable();
+            $table->decimal('total_volunteer_hrs', 5,2)->nullable();
 
             $table->timestamps();
 

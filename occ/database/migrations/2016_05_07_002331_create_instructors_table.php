@@ -13,6 +13,7 @@ class CreateInstructorsTable extends Migration
     public function up()
     {
         Schema::create('instructors', function (Blueprint $table) {
+            $table->softDeletes();
             $table->increments('id');
             $table->timestamps();
             $table->string('first_name', 50);
@@ -22,6 +23,10 @@ class CreateInstructorsTable extends Migration
             $table->integer('biography_id')->unsigned();
             $table->foreign('biography_id')
                   ->references('id')->on('biographies')
+                  ->onDelete('cascade');
+            $table->integer('user_id')->unsigned();
+            $table->foreign('user_id')
+                  ->references('id')->on('users')
                   ->onDelete('cascade');
         });
     }
@@ -33,6 +38,9 @@ class CreateInstructorsTable extends Migration
      */
     public function down()
     {
+        Schema::table('instructors', function ($table) {
+            $table->dropForeign('instructors_user_id_foreign');
+        });
         Schema::drop('instructors');
     }
 }

@@ -121,6 +121,7 @@ return [
     'max_viewable_members' => 15,
     'max_viewable_rosters' => 3,
     'max_viewable_classes' => 15,
+    'max_viewable_med_recs' => 10,
     // 'schedule_folder' => '/home/crisgo/schedule_data/',
     // 'temp_folder' => '/home/crisgo/occ/temp/',
     // 'membership_docs' => '/home/crisgo/membership_docs/',
@@ -130,6 +131,7 @@ return [
     'temp_folder' => '/var/www/html/occ/temp/',
     'membership_docs' => '/var/www/html/membership_docs/',
     'med_records_location' => '/var/www/html/pet_records/',
+    'instructor_img_loc' => 'img/instructors/',
 
     /*
     |--------------------------------------------------------------------------

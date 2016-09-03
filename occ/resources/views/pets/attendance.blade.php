@@ -9,7 +9,14 @@
 @include('info_pop_ups.error_flash')
 		<div class="row">
 			<div class="col-md-2 col-md-offset-8"><button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#log-hour">Log Hours</button></div>
-			<div class="col-md-2"><a class="btn btn-primary btn-sm" href="{{url('roster/none/none/1')}}" role="button">Back to Full Roster</a></div>
+			
+			@if(Auth::user()->isAdmin())
+			<div class="col-md-2"><a class="btn btn-primary btn-sm" href="{{url('roster/list/none/none/1')}}" role="button">Back to Full Roster</a></div>
+			@else
+			<div class="col-md-2"><a class="btn btn-primary btn-sm" href="{{url('roster/list/' . 
+			Auth::user()->instructor->id
+			.'/none/1')}}" role="button">Back to Your Roster</a></div>
+			@endif
 		</div>
 		<div class="spacer-sm"></div>
 		<div class="row">

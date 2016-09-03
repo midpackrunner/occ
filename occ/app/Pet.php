@@ -18,9 +18,11 @@ class Pet extends Model
     	return $this->belongsTo('App\User');
     }
 
+    // to get max $pet->med_records->max('shots_expire');
     public function med_records() {
         return $this->hasMany('App\MedicalRecord');
     }
+
 
     public function attendance() {
         return $this->belongsToMany('App\Classes', 'class_attendances')

@@ -40,8 +40,10 @@ return [
         'secret' => 'ELFqMdRwNjJcFOE5sAYK2TjY9CgKRGlcWIJOobenC6PNgxBqUGBERouQF_l-NuYhJbusbClsh7EWx9M-',
         'membership_return_url' => 'http://68.169.149.104/member_confirmation_pay_by_paypal',
         'membership_cancel_url' => 'http://68.169.149.104/member_cancel_pay_by_paypal',
-        'class_return_url' => 'http://68.169.149.104/fromPayPal',
-        'class_cancel_url' => 'http://68.169.149.104/fromPayPal',
+        'membership_renewal_return_url' => 'http://68.169.149.104/member_renewal_confirmation_pay_by_paypal',
+        'membership_renewal_cancel_url' => 'http://68.169.149.104/member_renewal_cancel_pay_by_paypal',
+        'class_confirmation_paypal' => 'http://68.169.149.104/class_confirmation_paypal',
+        'class_cancel_paypal' => 'http://68.169.149.104/class_cancel_paypal',
     ],
 
 ];

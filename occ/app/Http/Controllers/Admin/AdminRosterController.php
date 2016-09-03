@@ -15,9 +15,10 @@ use App\Lib\RosterFileManager;
 
 class AdminRosterController extends Controller
 {
-    public function __construct() {
+    public function __construct() 
+    {
         $this->middleware('auth');
-        $this->middleware('admin');
+        $this->middleware('adminOrInstructor');
     }  
 
     /**
@@ -116,6 +117,18 @@ class AdminRosterController extends Controller
 
         $file_mngr->write_to_file();
         return response()->download($file_mngr->get_file_path());
+    }
+
+    public function verified_payment($class_id, $pet_id)
+    {
+        $pet = Pet::findOrFail($pet_id);
+        $class = Classes::findOrFail($class_id);
+        $pet_piv = $class->pets()->where('pet_id', $pet_id)->first();
+        $pet_piv->pivot->verified_payment = 1;
+        $pet_piv->pivot->save();
+
+        session()->flash('flash_message', 'Payment for ' . $pet->name . "'s attendance has been marked as verified.");
+        return redirect()->back();
     }
     
 }

@@ -14,7 +14,8 @@ class CreateInstructorRequest extends Request
      */
     public function authorize()
     {
-        if(Auth::user()->role->type == 'admin') {
+        if(Auth::user()->role->type == 'admin' or 
+                                   Auth::user()->role->type == 'instructor' ) {
             return true;
         }
         return false;

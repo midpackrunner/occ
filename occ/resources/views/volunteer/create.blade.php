@@ -28,9 +28,18 @@
 
 
 		<div class="form-group{{ $errors->has('hours') ? ' has-error' : '' }}">
-			{!! Form::label('hours', 'Total Hours: ', ['class' => 'control-label col-md-3 col-md-offset-5']) !!}
+			{!! Form::label('hours', 'Total Hours: ', ['class' => 'control-label col-md-4']) !!}
 			<div class="col-md-2">
 				{!! Form::input('number','hours', '0', ['class' => 'form-control']) !!}
+				@if ($errors->has('hours'))
+				<span class="help-block">
+					<strong>{{ $errors->first('hours') }}</strong>
+				</span>
+				@endif
+			</div>
+			{!! Form::label('hours', 'Minutes: ', ['class' => 'control-label col-md-2']) !!}
+			<div class="col-md-2">
+				{!! Form::select('minutes', array('0'=> 0,'15' => 15, '30'=> 30,'45' => 45), null, ['class' => 'form-control']) !!}
 				@if ($errors->has('hours'))
 				<span class="help-block">
 					<strong>{{ $errors->first('hours') }}</strong>

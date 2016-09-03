@@ -70,7 +70,7 @@ class Classes extends Model
     {
         return $this->belongsToMany('App\Pet')
                     ->withPivot('is_completed', 'logged_hours', 'verified_payment')
-                    ->withTimestamps();;
+                    ->withTimestamps();
     }
 
     public function attendees()

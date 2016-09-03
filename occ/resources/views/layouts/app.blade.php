@@ -85,6 +85,18 @@
               <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
             </ul>
           </li>
+          @elseif (Auth::user()->isInstructor())
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+              {{ "Welcome " . Auth::user()->user_profile->first_name  . " " . Auth::user()->user_profile->last_name}} <span class="caret"></span>
+            </a>
+
+            <ul class="dropdown-menu" role="menu">
+              <li><a href=" {{ url('/profiles', Auth::user()->user_profile->id) }} "><i class="fa fa-btn fa-sign-out"></i>My Profile</a></li>
+              <li><a href=" {{ url('/instructor/roster/'. Auth::user()->id) }} "><i class="fa fa-btn fa-sign-out"></i>My Class Roster(s)</a></li>
+              <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
+            </ul>
+          </li>
           @else
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">

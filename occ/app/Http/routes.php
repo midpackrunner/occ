@@ -21,8 +21,15 @@ Route::get('/member_cancel_pay_by_paypal', 'PaymentController@cancelled_pay');
 Route::get('/member_confirmation_pay_by_paypal', 'PaymentController@membership_from_pay_pal');
 Route::get('/member_confirmation_pay_by_check', 'PaymentController@membership_pay_by_check');
 Route::get('/member_cancel_pay_by_paypal', 'PaymentController@member_cancel_pay_by_paypal');
+Route::get('/member_renewal_confirmation_pay_by_paypal/{mem_id}', 'PaymentController@member_renewal_confirmation_pay_by_paypal');
+Route::get('/member_renewal_cancel_pay_by_paypal', 'PaymentController@member_renewal_cancel_pay_by_paypal');
+Route::get('/renew_membership_paypal_payout/{mem_id}', 'PaymentController@renew_membership_paypal_payout');
 
 
+Route::get('/class_pay_with_pay_pal/{token}', 'PaymentController@class_pay_with_pay_pal');
+Route::get('/class_confirmation_paypal/{token}', 'PaymentController@class_confirmation_paypal');
+
+Route::get('/class_cancel_paypal/{token}', 'PaymentController@class_cancel_paypal');
 
 // ------- Member and Profile related Routes
 Route::get('membership_application/{id}', 'MembershipController@membership_application');
@@ -30,7 +37,10 @@ Route::resource('profiles', 'User\UserProfileController');
 Route::resource('phone_numbers', 'PhoneNumberController');
 Route::get('/volunteer/create', array('as' =>'volunteer.create', 'uses' =>'VolunteerHourController@create'));
 Route::post('/volunteer', array('as' =>'volunteer', 'uses' =>'VolunteerHourController@store'));
-
+Route::match(array('PUT', 'PATCH'),'memberships/{membership}', array('as'=> 'memberships.update', 
+									 'uses' => 'MembershipController@update'));
+Route::get('memberships/{membership}/edit', array('as'=> 'memberships.edit', 
+									 'uses' => 'MembershipController@edit'));
 
 // ------- Public facing routes
 Route::get('/contact', 'ContactController@index');
@@ -56,17 +66,20 @@ Route::post('/post_class_sign_up', 'ClassController@post_class_sign_up');
 // -------- Instructor Related Routes
 Route::resource('instructors', 'InstructorController');
 Route::get('/instructor_bios', 'InstructorController@instructor_bios');
+Route::get('/instructor/roster/{user_id}', 'InstructorController@instructor_roster');
 
 
-
+//********************************************************************//
 //***********                Admin Routes        *********************//
+//********************************************************************//
+
 Route::get('/admin', 'Admin\AdminMainController@index');
 Route::get('/update_membership/{usr_prf_id}/edit/', 
 							   array('as' => 'admin.update_membership', 'uses' => 'Admin\AdminMembersController@update_membership_status'));
 Route::get('members/{page}/{filters}', 'Admin\AdminMembersController@members');
 Route::get('download_members/{filters}', 'Admin\AdminMembersController@download_members');
 Route::resource('class_details', 'Admin\AdminClassDetailController');
-Route::get('roster/{inst_filter}/{session_filter}/{curr_page}', 'Admin\AdminRosterController@roster');
+Route::get('roster/list/{inst_filter}/{session_filter}/{curr_page}', 'Admin\AdminRosterController@roster');
 Route::get('roster_details/claimed_hours/{pet_id}/{class_id}', 'Admin\AdminRosterController@claimed_hours');
 
 Route::post('roster_details/claimed_hours/delete/{pet_id}/{class_id}/{date}', array('uses' => 'Admin\AdminRosterController@destroy', 'as' => 'roster.delete'));
@@ -74,8 +87,16 @@ Route::post('roster_details/claimed_hours/delete/{pet_id}/{class_id}/{date}', ar
 Route::post('/admin_log_hours/', 'Admin\AdminRosterController@admin_log_hours');
 Route::get('/download_roster/{inst_fltr}/{session_fltr}', 'Admin\AdminRosterController@download_roster');
 
-
+// ------- Admin Class/Course
 Route::resource('classes', 'Admin\AdminClassesController');
 Route::get('/classes_full_list/{curr_page}', 'Admin\AdminClassesController@classes_full_list');
 Route::get('/upload_schedule', 'Admin\AdminClassesController@upload_schedule');
 Route::post('/upload_schedule', 'Admin\AdminClassesController@post_schedule');
+
+// -------- Admin Medical Records
+Route::get('medical_records/{curr_page}', 'Admin\AdminMedicalRecordsController@index');
+Route::get('medical_records/{med_id}/edit', array('uses' => 'Admin\AdminMedicalRecordsController@edit', 
+												  'as' => 'medical_record.edit'));
+Route::match(array('PUT', 'PATCH'), 'medical_records/{med_id}', array('uses' => 'Admin\AdminMedicalRecordsController@update',
+																'as' => 'medical_record.update'));
+Route::get('roster/verified_payment/{class_id}/{pet_id}', 'Admin\AdminRosterController@verified_payment');

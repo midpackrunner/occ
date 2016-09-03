@@ -157,7 +157,7 @@
                 <div class="col-md-8">
                   @foreach ($interests_list as $interest_item)
                   <label class="checkbox-inline">
-                    <input type="checkbox" name="interests[]" value="{{ $interest_item->id }}">{{ $interest_item->name }}</input>        
+                    {{ Form::checkbox('interests[]', $interest_item->id)}} {{ $interest_item->name}}
                   </label>    
                   @endforeach 
                 </div>  
@@ -175,7 +175,8 @@
               </div>
               <div class="row">
                 <div class="col-md-10 col-md-offset-1">
-                  <textarea class="form-control" rows="5" id="skills" name="special_skills"></textarea>
+                  {{Form::textarea('special_skills', null, ['id' => 'skills', 'class' => 'form-control'])}}
+                  
                 </div>
               </div>
             </div>
@@ -189,108 +190,110 @@
 
               <div class="col-md-6">
                 @foreach ($membership_types as $membership_type)
-                <label class="radio-inline"><input class="memberships" type="radio" name="membership_type" value="{{ $membership_type->id }}"
-                  @if ($membership_type->name == "student") checked @endif > {{ $membership_type->name . " (" . $membership_type->cost . "/yr)" }} </label>
-                  @endforeach
-
-                  @if ($errors->has('membership_type'))
-                  <span class="help-block">
-                    <strong>{{ $errors->first('membership_type') }}</strong>
-                  </span>
-                  @endif
-                </div>
-              </div>
-
-              <div class="form-group {{ $errors->has('payment_method') ? 'has-error' : ''}}">
-                <label class="col-md-4 control-label">Payment Method: 
-                  <span data-toggle="modal" data-target="#payment-method-info"class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
+                <label class="radio-inline">
+                  {{ Form::radio('membership_type', $membership_type->id, false, ['class' => 'memberships'])}} {{$membership_type->name}}
                 </label>
+                @endforeach
 
-                @include('info_pop_ups.paymentInfoModal')
-                <div class="col-md-6">
-                  @foreach ($payment_methods as $payment_method)
-                  <label class="radio-inline"><input type="radio" name="payment_method" value="{{ $payment_method }}"
-                    @if ($payment_method == "paypal") checked @endif >{{ $payment_method }}</label>
-                    @endforeach
-
-                    @if ($errors->has('payment_method'))
-                    <span class="help-block">
-                      <strong>{{ $errors->first('payment_method') }}</strong>
-                    </span>
-                    @endif
-                  </div>
-                </div>
-
-                <div class="sponsors form-group{{ $errors->has('sponsor1') ? ' has-error' : '' }}">
-                  <label class="col-md-4 control-label">Member Sponsor's Name (1)</label>
-
-                  <div class="col-md-6">
-                    <input type="text" class="form-control" name="sponsor1" value="{{ old('sponsor1') }}">
-
-                    @if ($errors->has('sponsor1'))
-                    <span class="help-block">
-                      <strong>{{ $errors->first('sponsor1') }}</strong>
-                    </span>
-                    @endif
-                  </div>
-                </div>
-                <div class=" sponsors form-group{{ $errors->has('sponsor2') ? ' has-error' : '' }}">
-                  <label class="col-md-4 control-label">Member Sponsor's Name (2)</label>
-
-                  <div class="col-md-6">
-                    <input type="text" class="form-control" name="sponsor2" value="{{ old('sponsor2') }}">
-
-                    @if ($errors->has('sponsor2'))
-                    <span class="help-block">
-                      <strong>{{ $errors->first('sponsor2') }}</strong>
-                    </span>
-                    @endif
-                  </div>
-                </div>
-
-
-                <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                  <label class="col-md-4 control-label">Password</label>
-
-                  <div class="col-md-6">
-                    <input type="password" class="form-control" name="password">
-
-                    @if ($errors->has('password'))
-                    <span class="help-block">
-                      <strong>{{ $errors->first('password') }}</strong>
-                    </span>
-                    @endif
-                  </div>
-                  <div class="col-md-4"></div>
-                  <div class="col-md-6"><h6>(Must contain one uppercase, one numerical value, and be 8 characters long)</h6></div>
-                </div>
-
-                <div class="form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
-                  <label class="col-md-4 control-label">Confirm Password</label>
-
-                  <div class="col-md-6">
-                    <input type="password" class="form-control" name="password_confirmation">
-
-                    @if ($errors->has('password_confirmation'))
-                    <span class="help-block">
-                      <strong>{{ $errors->first('password_confirmation') }}</strong>
-                    </span>
-                    @endif
-                  </div>
-                </div>
-                <div class="form-group">
-                  <div class="col-md-6 col-md-offset-4">
-                    <button type="submit" class="btn btn-primary">
-                      <i class="fa fa-btn fa-user"></i>Register
-                    </button>
-                  </div>
-                </div>
-              </form>
+                @if ($errors->has('membership_type'))
+                <span class="help-block">
+                  <strong>{{ $errors->first('membership_type') }}</strong>
+                </span>
+                @endif
+              </div>
             </div>
-          </div> <!-- end of panel -->
-        </div>
-      </div>
-    </div>
 
-    <script src="{{ asset('js/register.js') }}"></script>
-    @endsection
+
+            <div class="sponsors form-group{{ $errors->has('sponsor1') ? ' has-error' : '' }}">
+              <label class="col-md-4 control-label">Member Sponsor's Name (1)</label>
+
+              <div class="col-md-6">
+                <input type="text" class="form-control" name="sponsor1" value="{{ old('sponsor1') }}">
+
+                @if ($errors->has('sponsor1'))
+                <span class="help-block">
+                  <strong>{{ $errors->first('sponsor1') }}</strong>
+                </span>
+                @endif
+              </div>
+            </div>
+            <div class=" sponsors form-group{{ $errors->has('sponsor2') ? ' has-error' : '' }}">
+              <label class="col-md-4 control-label">Member Sponsor's Name (2)</label>
+
+              <div class="col-md-6">
+                <input type="text" class="form-control" name="sponsor2" value="{{ old('sponsor2') }}">
+
+                @if ($errors->has('sponsor2'))
+                <span class="help-block">
+                  <strong>{{ $errors->first('sponsor2') }}</strong>
+                </span>
+                @endif
+              </div>
+            </div>
+
+            <div class="form-group {{ $errors->has('payment_method') ? 'has-error' : ''}}">
+              <label class="col-md-4 control-label">Payment Method: 
+                <span data-toggle="modal" data-target="#payment-method-info"class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
+              </label>
+
+              @include('info_pop_ups.paymentInfoModal')
+              <div class="col-md-6">
+                @foreach ($payment_methods as $payment_method)
+                <label class="radio-inline">
+                 {{ Form::radio('payment_method', $payment_method)}} {{$payment_method}}
+               </label>
+               @endforeach
+
+               @if ($errors->has('payment_method'))
+               <span class="help-block">
+                <strong>{{ $errors->first('payment_method') }}</strong>
+              </span>
+              @endif
+            </div>
+          </div>
+
+          <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
+            <label class="col-md-4 control-label">Password</label>
+
+            <div class="col-md-6">
+              <input type="password" class="form-control" name="password">
+
+              @if ($errors->has('password'))
+              <span class="help-block">
+                <strong>{{ $errors->first('password') }}</strong>
+              </span>
+              @endif
+            </div>
+            <div class="col-md-4"></div>
+            <div class="col-md-6"><h6>(Must contain one uppercase, one numerical value, and be 8 characters long)</h6></div>
+          </div>
+
+          <div class="form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
+            <label class="col-md-4 control-label">Confirm Password</label>
+
+            <div class="col-md-6">
+              <input type="password" class="form-control" name="password_confirmation">
+
+              @if ($errors->has('password_confirmation'))
+              <span class="help-block">
+                <strong>{{ $errors->first('password_confirmation') }}</strong>
+              </span>
+              @endif
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-md-6 col-md-offset-4">
+              <button type="submit" class="btn btn-primary">
+                <i class="fa fa-btn fa-user"></i>Register
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div> <!-- end of panel -->
+  </div>
+</div>
+</div>
+
+<script src="{{ asset('js/register.js') }}"></script>
+@endsection

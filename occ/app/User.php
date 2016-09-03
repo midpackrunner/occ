@@ -44,6 +44,9 @@ class User extends Authenticatable
         return $this->belongsTo('App\Role', 'roles_id');
     }
 
+    public function instructor() {
+        return $this->hasOne('App\Instructor');
+    }
     /**
      * Returns true if the user is an admin, otherwise returns
      * false.
@@ -55,6 +58,12 @@ class User extends Authenticatable
         return false;
     }
 
+    public function isInstructor() {
+        if ($this->role->type == 'instructor') {
+            return true;
+        }
+        return false;
+    }
 
     public function pets() {
         return $this->hasMany('App\Pet');

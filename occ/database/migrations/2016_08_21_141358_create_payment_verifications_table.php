@@ -35,7 +35,7 @@ class CreatePaymentVerificationsTable extends Migration
     public function down()
     {
         Schema::table('membership_verified_payments', function ($table) {
-            $table->dropForeign('membership_verified_membership_id_foreign');
+            $table->dropForeign('membership_verified_payments_membership_id_foreign');
         });
         Schema::drop('membership_verified_payments');
     }

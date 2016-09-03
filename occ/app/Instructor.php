@@ -19,4 +19,9 @@ class Instructor extends Model
     {
     	return $this->belongsTo('App\Biography', 'biography_id');
     }
+
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
 }

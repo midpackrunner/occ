@@ -11,8 +11,8 @@ class PetSeeder extends Seeder
      */
     public function run()
     {
-        //  Add two pet profiles to user with id of 20
-        //  20 will always be a member
+        //  Add two pet profiles to user with id of 21
+        //  21 will always be a member
         App\Pet::create([
 			'name' => 'Dude',
 			'gender' => 'Male',
@@ -27,7 +27,7 @@ class PetSeeder extends Seeder
 			'is_spayed_neutered' => '1',
 			'birth_date' => '2016-01-01',
 			'breed' => 'German Sheperd',
-			'user_id' => '20',
+			'user_id' => '21',
 		]);
 
     }

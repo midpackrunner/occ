@@ -4,7 +4,8 @@ namespace App\Http\Requests;
 
 use App\Http\Requests\Request;
 use Auth;
-class VolunteerHourRequest extends Request
+
+class MembershipRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,10 +14,10 @@ class VolunteerHourRequest extends Request
      */
     public function authorize()
     {
-        if (!Auth::guest()) {
-            return true;
+        if (Auth::guest()) {
+            return false;
         }
-        return false;
+        return true;
     }
 
     /**
@@ -27,9 +28,8 @@ class VolunteerHourRequest extends Request
     public function rules()
     {
         return [
-            'description' => 'required|string',
-            'hours' => 'required|integer|max:40',
-            'minutes' => 'required|integer|max:45'
+            'membership_type_id' => 'required|integer',
+            'payment_method' => 'required|in:check,paypal'
         ];
     }
 }

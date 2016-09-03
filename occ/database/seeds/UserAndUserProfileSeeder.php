@@ -24,7 +24,7 @@ class UserAndUserProfileSeeder extends Seeder
         $c_user_profile->is_occ_member = true;
         $c_user_profile->save();
         
-        $numberOfUsers = 18;
+        $numberOfUsers = 19;
         // create users
         $users = factory(App\User::class, $numberOfUsers)->make();
         foreach ($users as $user) {
@@ -32,9 +32,9 @@ class UserAndUserProfileSeeder extends Seeder
         }
 
 
-        $index = $numberOfUsers;
+        $index = $numberOfUsers + 1;
         // create user profiles
-        $user_profiles = factory(App\UserProfile::class, $numberOfUsers)->make();
+        $user_profiles = factory(App\UserProfile::class, $numberOfUsers + 1)->make();
         foreach ($user_profiles as $user_profile) {
             $user_profile->user_id = App\User::find($index)->id;
             $user_profile->save();
@@ -49,8 +49,9 @@ class UserAndUserProfileSeeder extends Seeder
         ]);
             
 
-            $user_profile->user_id = App\User::find(20)->id;
-            $user_profile->save();
+        $user_profile->user_id = App\User::find(21)->id;
+        $user_profile->save();
+
 
 
     }

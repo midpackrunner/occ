@@ -39,6 +39,7 @@ class DatabaseSeeder extends Seeder
         DB::table('class_attendances')->delete();
         DB::table('medical_records')->delete();
         DB::table('membership_verified_payments')->delete();
+        DB::table('temp_paypal_class_signups')->delete();
 
 
 
@@ -68,8 +69,8 @@ class DatabaseSeeder extends Seeder
         DB::table('class_attendances')->truncate();
         DB::table('medical_records')->truncate();
         DB::table('membership_verified_payments')->truncate();
-
-
+        DB::table('temp_paypal_class_signups')->truncate();
+        
 
 
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
@@ -78,6 +79,8 @@ class DatabaseSeeder extends Seeder
         // $this->call(UsersTableSeeder::class);
         $this->call(RolesSeeder::class);
         $this->call(UserAndUserProfileSeeder::class);
+        $this->call(ProdMemberships::class);            // Prod
+        $this->call(ProdUserandUserProfile::class);     // Prod
         $this->call(MembershipSeeder::class);
         $this->call(PhoneNumberSeeder::class);
         $this->call(InterestSeeder::class);
@@ -86,7 +89,7 @@ class DatabaseSeeder extends Seeder
         $this->call(PetSeeder::class);
         $this->call(ClassesDetailsSeeder::class);
         $this->call(BiographySeeder::class);
-        $this->call(InstructorSeeder::class);
+        $this->call(InstructorSeeder::class);           // Prod
         $this->call(ClassSeeder::class);
         $this->call(BreedsSeeder::class);
         $this->call(SpecialSkillSeeder::class);

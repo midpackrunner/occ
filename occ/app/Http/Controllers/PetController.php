@@ -18,7 +18,7 @@ class PetController extends Controller
     
     public function __construct() {
         $this->middleware('auth');
-        $this->middleware('pet_owner');
+        $this->middleware('pet_owner', ['except' =>['download_med_rec']]);
     }
     /**
      * Display a listing of the resource.
@@ -57,11 +57,11 @@ class PetController extends Controller
         $has_record = false;
 
         $pet = new Pet($request->all());
+        Auth::user()->pets()->save($pet);
         if($request->hasFile('pet_record')) {
             $this->handle_pet_record($pet, $request->file('pet_record'));
             $has_record = true;
         }
-        Auth::user()->pets()->save($pet);
         $pet_name = $pet->name;
 
         return view('pets.confirmation', compact('has_record', 'pet_name'));
@@ -99,11 +99,11 @@ class PetController extends Controller
     public function update(CreatePetRequest $request, $pet)
     {
         $pet->update($request->all());
+        Auth::user()->pets()->save($pet);
         if($request->hasFile('pet_record')) {
             $this->handle_pet_record($pet, $request->file('pet_record'));
             $has_record = true;
         }
-        Auth::user()->pets()->save($pet);
         session()->flash('flash_message', $pet->name . '\'s profile has been updated!');
         return redirect()->action('User\UserProfileController@show', 
                                    Auth::user()->user_profile->id);
@@ -185,6 +185,7 @@ class PetController extends Controller
         $pet_record->move($dest_path, $file_nm);
         $med_rec = new MedicalRecord();
         $med_rec->path_to_medical_record = $dest_path . $file_nm;  
+        $med_rec->pet_id = $pet->id;
         $pet->med_records()->save($med_rec);
         $med_rec->save();
     }

@@ -115,15 +115,7 @@
 			
 			<dl class="dl-horizontal">
 				<dt>Cost: </dt>
-				<dd> $ 
-				@if (Auth::user()->hasFiveOrMoreClasses())
-				{{$class->details->cost - 35 }}
-				@elseif (Auth::user()->hasSuccessiveClass(substr($class->begin_date, 0, 4), $class->session))
-				{{$class->details->cost - $user_profile->membership->membership_type->discount_on_classes - 10}}
-				@else
-				{{$class->details->cost - $user_profile->membership->membership_type->discount_on_classes}}
-				@endif
-				</dd>
+				<dd> $ {{$class_cost}}</dd>
 			</dl>
 
 		</blockquote>	

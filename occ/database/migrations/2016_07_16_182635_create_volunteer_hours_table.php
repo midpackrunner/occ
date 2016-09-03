@@ -16,6 +16,7 @@ class CreateVolunteerHoursTable extends Migration
             $table->increments('id');
             $table->string('description');
             $table->integer('hours');
+            $table->integer('minutes');
             $table->boolean('is_sync')->default(false);
             $table->timestamps();
 

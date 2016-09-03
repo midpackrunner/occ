@@ -12,6 +12,7 @@
 			<table class="table table-striped table-hover table-responsive">
 				<tr>
 					<th>Instructor's ID</th>
+					<th>Email</th>
 					<th>First Name</th>
 					<th>Last Name</th>
 					<th>Created At</th>
@@ -22,6 +23,7 @@
 				@foreach ($instructors as $instructor)
 				<tr>
 					<td><center> {{ $instructor->id }}</center></td>
+					<td>{{$instructor->user->email}}</td>
 					<td> {{ $instructor->first_name }}</td>
 					<td> {{ $instructor->last_name }}</a></td>
 					<td> {{ $instructor->created_at }}</td>

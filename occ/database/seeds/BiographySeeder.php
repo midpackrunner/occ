@@ -111,5 +111,22 @@ Julia teaches AKC S.T.A.R. puppy class, Beginning Agility , and Freestyle. She h
  One of her dogs broke the world\'s record for running the longest human dog tunnel, 309 people long. Julia is an educator at the Tennessee Aquarium. In addition to dogs, her animal training experience includes elephants, sea lions, birds and horses.',
 			'path_to_pic'  => ''
 		]);
+    
+    // 10
+	DB::table('biographies')->insert([
+			'bio' => 'Linda Maddox: To Be Completed',
+			'path_to_pic'  => ''
+		]);
+
+	DB::table('biographies')->insert([
+			'bio' => 'Jamie Morgan: To Be Completed',
+			'path_to_pic'  => ''
+	]);
+
+	DB::table('biographies')->insert([
+			'bio' => 'Debbie Tuthill: To Be Completed',
+			'path_to_pic'  => ''
+	]);
+
     }
 }

@@ -17,7 +17,9 @@ class CreateMedicalRecordsTable extends Migration
             $table->timestamps();
             $table->integer('pet_id')->unsigned()->nullable();
             $table->boolean('shots_verified')->default(0);
+            
 
+            $table->date('shots_expire')->nullable();
             // store medical records in separate folder
             $table->string('path_to_medical_record')->nullable();
 

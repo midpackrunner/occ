@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class VolunteerHour extends Model
 {
   	protected $fillable = [
-  		'description', 'hours', 'is_sync'
+  		'description', 'hours', 'minutes','is_sync'
   	];
 
   	/**
@@ -32,11 +32,26 @@ class VolunteerHour extends Model
   	public static function sync_hours($user)
   	{
   		$user_prf = $user->user_profile;
-  		$total_hrs = $user_prf->total_volunteer_hrs;
+  		$total_hrs = $user_prf->total_volunteer_hrs; 
   		foreach ($user_prf->volunteer_hours as $vol_hr) {
   			if(! $vol_hr->is_sync)
   			{
-	  			$total_hrs += $vol_hr->hours;
+          $min = $vol_hr->minutes;
+          switch ($min) {   // switch minutes into fractions of hour
+            case 15:
+              $min = .25;
+              break;
+            case 30:
+              $min = .50;
+              break;
+            case 45:
+              $min = .75;
+              break;
+            default:
+              $min = 0;
+              break;
+          }
+	  			$total_hrs += $vol_hr->hours + $min;
   				$vol_hr->is_sync = 1;
   				$vol_hr->save();
   			}
