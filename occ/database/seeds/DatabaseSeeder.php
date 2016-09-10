@@ -40,6 +40,9 @@ class DatabaseSeeder extends Seeder
         DB::table('medical_records')->delete();
         DB::table('membership_verified_payments')->delete();
         DB::table('temp_paypal_class_signups')->delete();
+        DB::table('revenue_resources')->delete();
+        DB::table('survey_answers')->delete();
+
 
 
 
@@ -70,8 +73,9 @@ class DatabaseSeeder extends Seeder
         DB::table('medical_records')->truncate();
         DB::table('membership_verified_payments')->truncate();
         DB::table('temp_paypal_class_signups')->truncate();
+        DB::table('revenue_resources')->truncate();
+        DB::table('survey_answers')->truncate();
         
-
 
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
 
@@ -96,8 +100,8 @@ class DatabaseSeeder extends Seeder
         $this->call(VolunteerHourSeeder::class);
         $this->call(MedicalRecordSeeder::class);
         $this->call(MembershipVerifiedPaymentsSeeder::class);
-
-
+        $this->call(ProdRevenueResourceSeeder::class);
+        $this->call(SurveyAnswerSeeder::class);
 
 
     }

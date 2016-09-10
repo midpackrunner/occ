@@ -25,6 +25,8 @@ class CreatePetsTable extends Migration
 
             //foreign keys            
             $table->integer('user_id')->unsigned();
+
+            $table->softDeletes();
         });
     }
 

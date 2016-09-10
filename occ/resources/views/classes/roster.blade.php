@@ -137,7 +137,7 @@
 						<tr>
 							<td>{{$pet->name}}</td>
 							<td>{{$pet->breed}}</td>
-							<td>{{$pet->user->user_profile->first_name . " " . $pet->user->user_profile->last_name}}</td>
+							<td><a href="#" data-toggle="modal" data-target="#myModal{{$pet->user->user_profile->id}}">{{$pet->user->user_profile->first_name . " " . $pet->user->user_profile->last_name}}</a></td>
 							<td>{{$pet->user->email}}</td>
 							<td>
 								@foreach($pet->user->user_profile->phone_numbers as $ph_num)
@@ -160,9 +160,70 @@
 				</table>
 			</div>
 		</div>
+		<?php $i++ ?>
 		@endforeach
 	</div>
 </div>
 
+@foreach ($classes as $class)	
+@foreach ($class->pets as $pet)
+<div id="myModal{{$pet->user->user_profile->id}}" class="modal fade" role="dialog">
+	<div class="modal-dialog">
 
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">{{$pet->user->user_profile->first_name . " " . $pet->user->user_profile->last_name . "'s Contact Info and Registered Dogs"}}</h4>
+			</div>
+			<div class="modal-body">
+				<dl class="dl-horizontal">
+					<dt>Phone Number(s):</dt>
+					@foreach($pet->user->user_profile->phone_numbers as $number)
+					<dd>
+						{!! $number->number !!} ({!! $number->type !!})
+					</dd>
+					<dd>
+
+					</dd>
+					@endforeach
+				</dl>
+				<dl class="dl-horizontal">
+					<dt>Address:</dt>
+					<dd>
+						<address>
+							{!! $pet->user->user_profile->street_address !!} <br/>
+							{!! $pet->user->user_profile->city !!}, {!! $pet->user->user_profile->state !!}, 
+							{!! $pet->user->user_profile->zip !!} 
+						</address>
+					<dd>
+				</dl>
+				@if (count($pet->user->user_profile->interests) != 0)
+				<dl class="dl-horizontal">
+					<dt>Interests:</dt>
+					@foreach($pet->user->user_profile->interests as $interest)
+					<dd>
+					 {{$interest->name }}
+					</dd>
+					@endforeach
+				</dl>
+				@endif 
+				<dl class="dl-horizontal">
+					<dt>Registered Dogs:</dt>    <!-- This is WRONG -->
+					@foreach($pet->user->user_profile->user->pets as $pet)
+					<dd>
+					 {{$pet->name   . ' Birthdate: ' . $pet->birth_date }}
+					</dd>
+					@endforeach
+				</dl>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+
+		</div>
+	</div>
+	@endforeach
+	@endforeach
 @endsection

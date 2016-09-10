@@ -96,8 +96,8 @@ class InstructorController extends Controller
 	 *
 	 */
 	public function update(CreateInstructorRequest $request, $instructor) {
-
-		if ($request->email != $instructor->user_id) {  // user email has changed
+		// user email has changed
+		if ($request->email != $instructor->user_id) {  
 			$user = User::findOrFail($instructor->user_id);
 			$user->roles_id = Role::where('type', 'general')->first()->id;
 			$user->save();			
@@ -106,7 +106,7 @@ class InstructorController extends Controller
         $destinationPath = config('app.instructor_img_loc');
 		$instructor->update($request->all());
 		$instructor->save();
-		$instructor_bio = $instructor->bio; 
+		$instructor_bio = $instructor->bio;
         $fileName = $instructor->first_name . '_' . $instructor->last_name;
         if($request->hasFile('img_of_instructor')) {
             $request->file('img_of_instructor')->move($destinationPath, 
@@ -148,7 +148,12 @@ class InstructorController extends Controller
 	private function handleImgFormat($path_to_img) {
 		$thumb = new \Imagick();
 		$thumb->readImage($path_to_img);
-		$thumb->resizeImage(223,231,\Imagick::FILTER_LANCZOS,1);
+		$d = $thumb->getImageGeometry();
+		$w = $d['width'];
+		$h = $d['height'];
+		$ratio = $h / $w;
+		$h = 250 * $ratio;
+		$thumb->resizeImage(250,$h,\Imagick::FILTER_LANCZOS,1, TRUE);
 		$thumb->writeImage($path_to_img);
 		$thumb->clear();
 		$thumb->destroy(); 

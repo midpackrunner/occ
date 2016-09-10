@@ -97,4 +97,9 @@ class UserProfile extends Model
       return $this->hasMany('App\VolunteerHour');
     }
 
+    public function survey_answer()
+    {
+      return $this->hasOne('App\UserProfile');
+    }
+
 }
