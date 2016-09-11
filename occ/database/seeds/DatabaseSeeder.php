@@ -42,6 +42,7 @@ class DatabaseSeeder extends Seeder
         DB::table('temp_paypal_class_signups')->delete();
         DB::table('revenue_resources')->delete();
         DB::table('survey_answers')->delete();
+        DB::table('states')->delete();
 
 
 
@@ -75,6 +76,7 @@ class DatabaseSeeder extends Seeder
         DB::table('temp_paypal_class_signups')->truncate();
         DB::table('revenue_resources')->truncate();
         DB::table('survey_answers')->truncate();
+        DB::table('states')->truncate();
         
 
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
@@ -102,6 +104,7 @@ class DatabaseSeeder extends Seeder
         $this->call(MembershipVerifiedPaymentsSeeder::class);
         $this->call(ProdRevenueResourceSeeder::class);
         $this->call(SurveyAnswerSeeder::class);
+        $this->call(ProdStateSeeder::class);
 
 
     }

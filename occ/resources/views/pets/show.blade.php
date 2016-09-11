@@ -43,6 +43,7 @@
 		@endif
 
 		<h3 class='text-primary'>{{$pet->name}}'s Current Medical Record(s)</h3>
+		<h5 class='text-info'>Our records show {{$pet->name}} shot(s) expire on {{$pet->med_records->max('shots_expire')}}</h5>
 		@if(count($pet->med_records) > 0)
 		<table class="table table-striped table-primary table-hover table-responsive">
 		<tr>
@@ -51,10 +52,12 @@
 		</tr>
 		<tbody>
 		@foreach($pet->med_records as $med_rec)
+		@if(!$med_rec->record_is_hardcopy)
 		<tr>
 			<td>{{$med_rec->created_at}}</td>
 			<td><a class="btn btn-primary btn-sm" href="{{ url('/download_med_rec/' . $med_rec->id) }}">Download Medical Record</a></td>
 		</tr>
+		@endif
 		@endforeach
 		</tbody>
 		</table>	

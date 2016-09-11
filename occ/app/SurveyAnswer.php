@@ -12,6 +12,6 @@ class SurveyAnswer extends Model
 
     public function user_prf()
     {
-    	return $this->belongsTo('App\UserProfile');
+    	return $this->belongsTo('App\UserProfile', 'user_profile_id');
     }
 }

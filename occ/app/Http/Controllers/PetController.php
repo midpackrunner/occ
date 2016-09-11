@@ -59,7 +59,7 @@ class PetController extends Controller
         $pet = new Pet($request->all());
         Auth::user()->pets()->save($pet);
         if($request->hasFile('pet_record')) {
-            $this->handle_pet_record($pet, $request->file('pet_record'));
+            PetController::handle_pet_record($pet, $request->file('pet_record'));
             $has_record = true;
         }
         $pet_name = $pet->name;
@@ -101,7 +101,7 @@ class PetController extends Controller
         $pet->update($request->all());
         Auth::user()->pets()->save($pet);
         if($request->hasFile('pet_record')) {
-            $this->handle_pet_record($pet, $request->file('pet_record'));
+            PetController::handle_pet_record($pet, $request->file('pet_record'));
             $has_record = true;
         }
         session()->flash('flash_message', $pet->name . '\'s profile has been updated!');
@@ -172,7 +172,7 @@ class PetController extends Controller
 
     // handles the saving of a pet's medical records.
     // All files created will be unique with timestamp.
-    private function handle_pet_record($pet, $pet_record)
+    public static function handle_pet_record($pet, $pet_record)
     {
         $dest_path = config('app.med_records_location');
         $usr_prf = Auth::user()->user_profile;
@@ -188,5 +188,6 @@ class PetController extends Controller
         $med_rec->pet_id = $pet->id;
         $pet->med_records()->save($med_rec);
         $med_rec->save();
+        return $med_rec;
     }
 }

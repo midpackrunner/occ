@@ -60,6 +60,7 @@ Route::get('/classes_schedule', 'ClassController@schedule');
 Route::get('/classes_schedule/{page_schedule}', 'ClassController@schedule');
 Route::get('/class_sign_up/{class_id}', 'ClassController@class_sign_up');
 Route::post('/post_class_sign_up', 'ClassController@post_class_sign_up');
+Route::resource('class_details', 'ClassDetailController');
 
 
 
@@ -78,7 +79,6 @@ Route::get('/update_membership/{usr_prf_id}/edit/',
 							   array('as' => 'admin.update_membership', 'uses' => 'Admin\AdminMembersController@update_membership_status'));
 Route::get('members/{page}/{filters}', 'Admin\AdminMembersController@members');
 Route::get('download_members/{filters}', 'Admin\AdminMembersController@download_members');
-Route::resource('class_details', 'Admin\AdminClassDetailController');
 Route::get('roster/list/{inst_filter}/{session_filter}/{curr_page}', 'Admin\AdminRosterController@roster');
 Route::get('roster_details/claimed_hours/{pet_id}/{class_id}', 'Admin\AdminRosterController@claimed_hours');
 
@@ -95,8 +95,8 @@ Route::post('/upload_schedule', 'Admin\AdminClassesController@post_schedule');
 
 // -------- Admin Medical Records
 Route::get('medical_records/{curr_page}', 'Admin\AdminMedicalRecordsController@index');
-Route::get('medical_records/{med_id}/edit', array('uses' => 'Admin\AdminMedicalRecordsController@edit', 
-												  'as' => 'medical_record.edit'));
-Route::match(array('PUT', 'PATCH'), 'medical_records/{med_id}', array('uses' => 'Admin\AdminMedicalRecordsController@update',
-																'as' => 'medical_record.update'));
+Route::get('medical_records/{med_id}/edit', array('uses' => 'Admin\AdminMedicalRecordsController@edit', 'as' => 'medical_record.edit'));
+Route::get('medical_records/create/{usr_id}', array('uses' => 'Admin\AdminMedicalRecordsController@create', 'as' => 'medical_record.create'));
+Route::post('medical_records/store', array('uses' => 'Admin\AdminMedicalRecordsController@store', 'as' => 'medical_record.store'));
+Route::match(array('PUT', 'PATCH'), 'medical_records/{med_id}', array('uses' => 'Admin\AdminMedicalRecordsController@update', 'as' => 'medical_record.update'));
 Route::get('roster/verified_payment/{class_id}/{pet_id}', 'Admin\AdminRosterController@verified_payment');

@@ -8,10 +8,10 @@ class MedicalRecord extends Model
 {
     protected $fillable = [
 		'shots_verified', 'path_to_medical_records', 'pet_id',
-		'shots_expire',
+		'shots_expire', 'record_is_hardcopy',
     ];
 
     public function pet() {
-    	return $this->belongsTo('App\Pet');
+    	return $this->belongsTo('App\Pet', 'pet_id');
     }
 }

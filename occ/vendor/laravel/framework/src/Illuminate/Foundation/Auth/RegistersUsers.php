@@ -6,7 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Interest;
 use App\MembershipType;
-use App\Shared_Data\States;
+use App\State;
+use App\RevenueResource;
 
 trait RegistersUsers
 {
@@ -34,12 +35,13 @@ trait RegistersUsers
         }
         $interests_list = Interest::all();
         $membership_types = MembershipType::all();
-        $states_obj = new States();
-        $states = $states_obj->get_states();
+        $states = State::all();
+        $rev_resources = RevenueResource::all();
         $payment_methods = ['paypal', 'check'];
 
 
-        return view('auth.register', compact('interests_list', 'membership_types', 'payment_methods', 'states'));
+
+        return view('auth.register', compact('interests_list', 'membership_types', 'payment_methods', 'states', 'rev_resources'));
     }
 
     /**

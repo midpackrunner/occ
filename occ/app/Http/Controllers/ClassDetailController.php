@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -9,11 +9,11 @@ use App\Http\Requests;
 use App\ClassesDetail;
 use Auth;
 
-class AdminClassDetailController extends Controller
+class ClassDetailController extends Controller
 {
     public function __construct() {
-        $this->middleware('auth');
-        $this->middleware('admin');
+        $this->middleware('auth', ['except' =>['show']]);
+        $this->middleware('admin', ['except' =>['show']]);
     }  
 
     /**

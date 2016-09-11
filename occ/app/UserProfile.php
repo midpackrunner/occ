@@ -99,7 +99,7 @@ class UserProfile extends Model
 
     public function survey_answer()
     {
-      return $this->hasOne('App\UserProfile');
+      return $this->hasOne('App\SurveyAnswer');
     }
 
 }

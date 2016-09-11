@@ -1,76 +1,42 @@
-<div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-    {!! Form::label('name', 'Name', ['class' => 'control-label col-md-4']) !!}
+
+<div class="form-group{{ $errors->has('shots_verified') ? ' has-error' : '' }}">
+    {!! Form::label('shots_verified', 'Verified', ['class' => 'control-label col-md-4']) !!}
     <div class="col-md-6">
-        {!! Form::text('name', null, ['class' => 'form-control']) !!}
-        @if ($errors->has('name'))
+        {!! Form::select('shots_verified', array('1' => 'Yes', '0' => 'No'), null, ['class' => 'form-control']) !!}
+        @if ($errors->has('shots_verified'))
         <span class="help-block">
-            <strong>{{ $errors->first('name') }}</strong>
+            <strong>{{ $errors->first('shots_verified') }}</strong>
         </span>
         @endif
     </div>
 </div>
 
-<div class="form-group{{ $errors->has('gender') ? ' has-error' : '' }}">
-    {!! Form::label('gender', 'Gender', ['class' => 'control-label col-md-4']) !!}
+<div class="form-group{{ $errors->has('shots_expire') ? ' has-error' : '' }}">
+    {!! Form::label('shots_expire', 'Shots Expire On: ', ['class' => 'control-label col-md-4']) !!}
     <div class="col-md-6">
-        {!! Form::select('gender', array('Male' => 'Male', 'Female' => 'Female'), null, ['class' => 'form-control']) !!}
-        @if ($errors->has('gender'))
+        {!! Form::input('date','shots_expire', date('Y-m-d'), ['class' => 'form-control']) !!}
+        @if ($errors->has('shots_expire'))
         <span class="help-block">
-            <strong>{{ $errors->first('gender') }}</strong>
+            <strong>{{ $errors->first('shots_expire') }}</strong>
         </span>
         @endif
     </div>
 </div>
 
-<div class="form-group">
-    <label class="control-label col-md-4">Spayed/Neutered?</label>
+<div class="form-group{{ $errors->has('record_is_hardcopy') ? ' has-error' : '' }}">
+    {!! Form::label('record_is_hardcopy', 'Is this Record stored online?', ['class' => 'control-label col-md-4']) !!}
     <div class="col-md-6">
-        @if(isset($pet))
-        @if ($pet->is_spayed_neutered == 1)
-        <label class="radio-inline"><input type="radio" name="is_spayed_neutered" value="1" checked>Yes</label>
-        <label class="radio-inline"><input type="radio" name="is_spayed_neutered" value="0">No</label>
-        @else
-        <label class="radio-inline"><input type="radio" name="is_spayed_neutered" value="1">Yes</label>
-        <label class="radio-inline"><input type="radio" name="is_spayed_neutered" value="0" checked>No</label>        
-        @endif
-        @else
-        <label class="radio-inline"><input type="radio" name="is_spayed_neutered" value="1">Yes</label>
-        <label class="radio-inline"><input type="radio" name="is_spayed_neutered" value="0" checked>No</label>
-        @endif
-    </div>
-</div>
-
-<div class="form-group{{ $errors->has('birth_date') ? ' has-error' : '' }}">
-    {!! Form::label('birth_date', 'Birth Date: ', ['class' => 'control-label col-md-4']) !!}
-    <div class="col-md-6">
-        {!! Form::input('date','birth_date', date('Y-m-d'), ['class' => 'form-control']) !!}
-        @if ($errors->has('birth_date'))
+        {!! Form::select('record_is_hardcopy', array('0' => 'Yes', '1' => 'No'), $hardcopy_default, ['class' => 'form-control', 'id' => 'rec-hardcopy']) !!}
+        @if ($errors->has('record_is_hardcopy'))
         <span class="help-block">
-            <strong>{{ $errors->first('birth_date') }}</strong>
+            <strong>{{ $errors->first('record_is_hardcopy') }}</strong>
         </span>
         @endif
     </div>
 </div>
 
-<div class="form-group{{ $errors->has('breed') ? ' has-error' : '' }}">
-    {!! Form::label('breed', 'Breed', ['class' => 'control-label col-md-4']) !!}
-    <div class="col-md-6">
-        @if (isset($breeds))
-        {!! Form::select('breed-select', $breeds, null,['class' => 'form-control', 'onchange' => 'CheckBreed(this.value);', 'id' => 'breed-select']) !!}
-        {!! Form::text('breed', null, ['class' => 'form-control', 'id' => 'breed', 'style' => 'display:none;', 'placeholder' => 'Please supply a breed description of your pet']) !!}
-        @else
-        {!! Form::text('breed', null, ['class' => 'form-control', 'id' => 'breed']) !!}
-        @endif
-        @if ($errors->has('breed'))
-        <span class="help-block">
-            <strong>{{ $errors->first('breed') }}</strong>
-        </span>
-        @endif
-    </div>
-</div>
-
-<div class="form-group">
-    <label class="control-label col-md-8 ">Would you like to upload your pet's vaccination records at this time?</label>
+<div class="form-group" id="upload-form-group">
+    <label class="control-label col-md-8 ">Would you like to upload the pet's vaccination records at this time?</label>
     <div class="col-md-4">
         <label class="radio-inline"><input class="upl_record_opt"type="radio" name="has_records" value="1" {{ $errors->has('pet_record') ? ' checked' : '' }}>Yes</label>
         <label class="radio-inline"><input class="upl_record_opt"type="radio" name="has_records" value="0" {{ $errors->has('pet_record') ? ' ' : 'checked' }}>No</label>
@@ -99,6 +65,13 @@
 
 <script>
     $(document).ready(function() {
+        if ($("#rec-hardcopy").val() == 1) {
+            $("#upload-form-group").show();
+        } else {
+
+            $("#upload-form-group").hide();
+        }
+
         $(".upl_record_opt").on('change', function() {
             if ($(this).val() == 1) {
                 $(".rec-upload").show(250);
@@ -110,6 +83,19 @@
         if($(".rec-upload").hasClass("has-error")) {
             $(".rec-upload").show();
         }
+        $("#rec-hardcopy").on('change', function() {
+            console.log($(this).val());
+            if ($(this).val() == 1) {
+                $("#upload-form-group").show(250);
+            } else {
+                $("#upload-form-group").hide(250);
+            }
+        });
+
+        if($("#rec-hardcopy").hasClass("has-error")) {
+            $("#rec-hardcopy").show();
+        }
+
     });
 </script>
 

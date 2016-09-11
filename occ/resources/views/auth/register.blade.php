@@ -82,7 +82,11 @@
               <label class="col-md-4 control-label">State</label>
 
               <div class="col-md-3">
-                <select class="form-control selectpicker" id="state-selector" name="state"></select>
+                <select class="form-control"  name="state" required="required">
+                  @foreach($states as $state)
+                  <option value="{{ $state->abbrv }}" @if (old('state') == $state->abbrv) selected="selected" @endif>{{ $state->state }}</option>
+                  @endforeach 
+                </select>
                 
 
                 @if ($errors->has('state'))
@@ -127,9 +131,10 @@
 
               <div class="col-md-2">
                 <select class="form-control selectpicker" name="phone_type">
-                  <option value="mobile">Mobile</option>
-                  <option value="home">Home</option>
-                  <option value="work">Work</option>
+
+                  <option value="mobile" @if (old('phone_type') == "mobile") selected="selected" @endif>Mobile</option>
+                  <option value="home" @if (old('phone_type') == "home") selected="selected" @endif>Home</option>
+                  <option value="work" @if (old('phone_type') == "work") selected="selected" @endif>Work</option>
                 </select>
 
                 @if ($errors->has('phone_type'))
@@ -143,7 +148,7 @@
             
 
             <div class="form-group">
-              <label class="col-md-6 control-label">Are you willing to work on Club committees?</label>
+              <label class="col-md-6 control-label">Will you volunteer to help with the Club? <small>Volunteer hours can be used to take classes</small></label>
 
               <div class="col-md-6">
                 <label class="radio-inline"><input type="radio" name="willing_to_work" value="yes" checked>Yes</label>
@@ -230,6 +235,41 @@
                 @endif
               </div>
             </div>
+
+            <div class="form-group{{ $errors->has('rev_resource') ? ' has-error' : '' }}">
+              <label class="col-md-4 control-label">How did you here about Us?</label>
+
+              <div class="col-md-3">
+                <select class="form-control" id="rev-resource" name="rev_resource" required="required">
+                  @foreach($rev_resources as $rev_resource)
+                  <option value="{{ $rev_resource->resource }}" @if (old('rev_resource') == $rev_resource->resource) selected="selected" @endif>{{ $rev_resource->resource }}</option>
+                  @endforeach 
+                </select>
+                
+                @if ($errors->has('rev_resources'))
+                <span class="help-block">
+                  <strong>{{ $errors->first('rev_resources') }}</strong>
+                </span>
+                @endif
+              </div>
+            </div>
+
+            <div class=" hear-about-us-details form-group{{ $errors->has('survey_details') ? ' has-error' : '' }}">
+              <label class="col-md-4 control-label" id="rev-resource-lbl">Other Source: </label>
+
+              <div class="col-md-6">
+                <input type="text" class="form-control" name="survey_details" value="{{ old('survey_details') }}">
+
+                @if ($errors->has('survey_details'))
+                <span class="help-block">
+                  <strong>{{ $errors->first('survey_details') }}</strong>
+                </span>
+                @endif
+              </div>
+            </div>
+
+
+
 
             <div class="form-group {{ $errors->has('payment_method') ? 'has-error' : ''}}">
               <label class="col-md-4 control-label">Payment Method: 

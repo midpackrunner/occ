@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Carbon;
 
 class User extends Authenticatable
 {
@@ -69,6 +70,16 @@ class User extends Authenticatable
         return $this->hasMany('App\Pet');
     }
 
+    public function count_pets_with_expired_shots() {
+        $cnt = 0;
+        foreach ($this->pets as $pet) {
+            $max_expired = $pet->med_records->max('shots_expire');
+            if ($max_expired < Carbon::now()) {
+                $cnt++;
+            }
+        }
+        return $cnt;
+    }
     /**
      * Returns boolean if the User has signed up for a class from the
      * session prior to that given by $session_id

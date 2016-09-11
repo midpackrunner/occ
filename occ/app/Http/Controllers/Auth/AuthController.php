@@ -11,6 +11,7 @@ use App\SpecialSkill;
 use App\Membership;
 use App\MembershipType;
 use App\MembershipSponsor;
+use App\SurveyAnswer;
 use App\Http\Controllers\MembershipController;
 
 use Validator;
@@ -73,6 +74,7 @@ class AuthController extends Controller
             'sponsor1' => 'required_unless:membership_type, 4',
             'sponsor2' => 'required_unless:membership_type, 4',
             'payment_method' => 'required',
+            'survey_details' => 'required_if:rev-resource,Other',
 
 /*            'password' => ['required','min:6','confirmed',     <--production
                            'regex:^\S*(?=\S{8,})(?=\S*[a-z])(?=\S*[A-Z])(?=\S*[\d])\S*$^'],*/
@@ -97,6 +99,7 @@ class AuthController extends Controller
         // Create PDF membership application
         MembershipController::make_mmbrshp_application($data);
         
+        // handle roll, password
         $role = Role::firstOrCreate(['type' => 'general_user']);
         $user = User::create([
             'email' => $data['email'],
@@ -105,6 +108,7 @@ class AuthController extends Controller
             'has_logged_in_once' => 1
         ]);
 
+        // create profile
         $user_profile = UserProfile::create([
             'first_name' => ucfirst($data['first_name']),
             'last_name' => ucfirst($data['last_name']),
@@ -117,6 +121,7 @@ class AuthController extends Controller
             'user_id' => $user->id
         ]);
 
+        // attach phone number to profile
         $phone_number = PhoneNumber::create([
             'number' => $data['phone_number'],
             'type' => $data['phone_type'], 
@@ -178,6 +183,16 @@ class AuthController extends Controller
             ]);
 
         }
+        // how did they hear about us
+        $rev_resource = $data['rev_resource'];
+        $survey_details = $data['survey_details'];
+        $survey_answer = SurveyAnswer::create([
+            'response' => $rev_resource,
+            'details' => $survey_details,
+            'user_profile_id' => $user_profile->id,
+        ]);
+
+        $survey_answer->save();
 
         // branch: if user is paying by check redirect to confirmation
         // page.  Otherwise user is paying by paypal
