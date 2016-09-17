@@ -23,6 +23,10 @@
 			<div class="panel panel-primary">
 				<div class="panel-heading">Contact Information</div>
 				<div class="panel-body">
+					<dl class="dl-horizontal">
+					<dt>Email: </dt>
+					<dd>{{Auth::user()->email}}</dd>
+					</dl>
 					@if ($user_profile->street_address != null)
 					<dl class="dl-horizontal">
 						<dt>Phone Number(s):</dt>

@@ -38,8 +38,18 @@ class ClassesDetailsSeeder extends Seeder
 	        'minimum_age_requirement' => 6.00,
 	        'maximum_age_requirement' => 18.00,
 		]);
+
 		App\ClassesDetail::create([
-	        'title' => 'Beginner Obedience I',
+	        'title' => 'Puppy Agility',
+	        'description' => 'Prerequisite:  Puppies must be 8 weeks old and have two sets of puppy shots.  The purpose of this class is to introduce handlers and puppies to the foundation skills needed for beginning agility. The class structure will be based on games to introduce movement and different surfaces. Activities such as targeting, front and rear end awareness, introducing ending behaviors for the contact equipment, flat work skills, beginning work with two by two weaves and basic obedience skills such as sit, down, stay, will be some of the activities offered in the class.
+Most work will be on lead, so puppies must be fitted with a flat buckle collar and a six-foot leash. No choke, pinch, gentle leaders or corrective harnesses will be allowed. Owners need to bring lots of soft treats and a crate. Also may want to bring water/Gatorade/PowerAde and a portable fan for dog/puppy crates.  Teams may repeat Puppy Agility or take an obedience course until they reach 5 months in age in order to qualify for the Agility 1 – Foundations.',
+	        'cost' => 90.00,
+	        'is_active' => 1,
+	        'minimum_age_requirement' => 5.00,
+	        'maximum_age_requirement' => 12.00,
+		]);
+		App\ClassesDetail::create([
+	        'title' => 'Beginner Obedience 1',
 	        'description' => 'This class is for dogs 1 year and older. It introduces you and your dog to the basic obedience commands of sit, down, stay, come, leave it, and walking on a loose leash which make living with your dog easier. You will begin to learn leadership and social skills.',
 	        'cost' => 80.00,
 	        'is_active' => 1,
@@ -48,7 +58,7 @@ class ClassesDetailsSeeder extends Seeder
 		]);
 
 		App\ClassesDetail::create([
-	        'title' => 'Beginner Obedience II',
+	        'title' => 'Beginner Obedience 2',
 	        'description' => 'In this class we will continue to work on the relationship between you and your dog. We will also improve your dog\'s ability to sit, down, come, stay, heel on a loose leash, etc. We will begin to ask your dog to perform these behaviors under increasingly distracting circumstances. Dog-handler teams develop skills needed to progress to other classes such as CGC, Rally, Competition Obedience, and Agility.',
 	        'cost' => 80.00,
 	        'is_active' => 1,
@@ -94,8 +104,8 @@ class ClassesDetailsSeeder extends Seeder
 
 //
 		App\ClassesDetail::create([
-	        'title' => 'Canine Good Citizen',
-	        'description' => 'This class is for those who would like to earn an AKC Canine Good Citizen (CGC) certification or title. Dog must be at least six months of age to be CGC tested. This class teaches your dog to sit politely for petting and grooming, walk on a loose leash through a crowd, sit and down and stay on command, come when called, behave politely around a stranger or another dog, and be confident when facing distractions or being left with a trusted person. AKC charges $8 to register after passing the test. The OCC charges $10 for non members who are not in the CGC class. NOTE THIS WILL BE A COMBINATION COURSE WITH THERAPY DOG.',
+	        'title' => 'Freestyle',
+	        'description' => 'CanineFreestyle DogWork® is a performance activity for dog and human teams. Teams train movement behaviors technically, creatively and artistically. The objective is to illustrate the delight of working as a team and to participate with others in a friendly environment learning to craft DogWork Presentations. This beginning class will teach movement concepts and suggest ways for each team to build a movement vocabulary. Also taught will be basic choreography to begin crafting the DogWork Presentation. Dogs should already be able to heel, come and stay. Off-lead work is ideal, but on-lead is permissible. Handlers should wear close-toed shoes with backs and be prepared to get on the floor. Lots of high-value treats are a must. To see examples of teams performing in this sport visit http://www.canine-freestyle.org/.',
 	        'cost' => 80.00,
 	        'is_active' => 1,
 	        'minimum_age_requirement' => 6.00,
@@ -111,48 +121,32 @@ class ClassesDetailsSeeder extends Seeder
 	        'maximum_age_requirement' => 900.00,
 		]);
 		App\ClassesDetail::create([
-	        'title' => 'Beginner Agility',
-	        'description' => 'Must know sit, stay, come, and OK. Emphasis on fun, exercise, and safety on an agility course while learning how to do tunnels, the tire, hoops, the chute, beginner weave poles, and jumps. New obstacles will include the A-frame, dog walk, teeter, and the table as well as those learned in Fun Circles. Basic obedience will continue to be emphasized. You will be sequencing 3-5 obstacles by the end of this class. Will continue to emphasize basic obedience. (This is a combination of what use to be called Fun Circles and Fun Contacts)',
+	        'title' => 'Agility 1 Foundations',
+	        'description' => 'The purpose of this class is to introduce handlers and dogs to basic agility skills and safety. The class structure will be based on shaping behaviors through the use of clicker training. Activities such as targeting, flat work skills, beginning work with two by two weaves, and contact work will be some of the activities offered in the class.  Most work will be on lead, so dogs must be fitted with a flat buckle collar and a six-foot leash. No choke, pinch, gentle leaders or corrective harnesses will be allowed. Owners need to bring lots of soft treats and a crate. Also may want to bring water/Gatorade/PowerAde and a portable fan for dog/puppy crates.',
 	        'cost' => 90.00,
 	        'is_active' => 1,
 	        'minimum_age_requirement' => 6.00,
 	        'maximum_age_requirement' => 900.00,
 		]);
 		App\ClassesDetail::create([
-	        'title' => 'Beginner Agility II',
-	        'description' => 'to do',
+	        'title' => 'Agility 2 Beginner',
+	        'description' => 'The purpose of this class is to continue skills learned in Agility Foundation. Along with proofing targeting, contact and flat work skills, the teams will begin short sequences and handling drills.  While some work will be on lead, most of the course work will be off lead, so owners must provide a crate for their dog. Dogs must be fitted with a flat buckle collar and a six-foot leash. No choke, pinch, gentle leaders or corrective harnesses will be allowed.  Owners need to bring lots of soft treats and a crate. Also may want to bring water/Gatorade/PowerAde and a portable fan for dog/puppy crates.  Teams should expect to repeat Agility 2 – Beginning.',
 	        'cost' => 90.00,
 	        'is_active' => 1,
 	        'minimum_age_requirement' => 6.00,
 	        'maximum_age_requirement' => 900.00,
 		]);
 		App\ClassesDetail::create([
-	        'title' => 'Intermediate Agility',
-	        'description' => 'to do',
+	        'title' => 'Agility 3 Intermediate',
+	        'description' => 'The purpose of this class is to polish skills learned in Beginning Agility and to ready teams to compete in the AKC ACT 1 and 2 Agility Trials. Sequences, handling skills and course work will be a major portion of this class. This course will be primarily off lead, so owners must provide a crate for their dog. Dogs must be fitted with a flat buckle collar and a six-foot leash. No choke, pinch, gentle leaders or corrective harnesses will be allowed. Owners need to bring lots of soft treats and a crate. Also may want to bring water/Gatorade/PowerAde and a portable fan for dog/puppy crates.  Teams should expect to repeat Agility 3 – Intermediate if they are not able to successfully complete the AKC ACT 1 and 2 trials',
 	        'cost' => 90.00,
 	        'is_active' => 1,
 	        'minimum_age_requirement' => 6.00,
 	        'maximum_age_requirement' => 900.00,
 		]);
 		App\ClassesDetail::create([
-	        'title' => 'Agility Beginner Comp. A',
-	        'description' => 'to do',
-	        'cost' => 90.00,
-	        'is_active' => 1,
-	        'minimum_age_requirement' => 6.00,
-	        'maximum_age_requirement' => 900.00,
-		]);
-		App\ClassesDetail::create([
-	        'title' => 'Agility Beginner Comp. B',
-	        'description' => 'to do',
-	        'cost' => 90.00,
-	        'is_active' => 1,
-	        'minimum_age_requirement' => 6.00,
-	        'maximum_age_requirement' => 900.00,
-		]);
-		App\ClassesDetail::create([
-	        'title' => 'Agility Novice Comp',
-	        'description' => 'to do',
+	        'title' => 'Competition Agility Novice',
+	        'description' => 'The purpose of this class is to ready the agility teams for AKC Novice Agility. Handling skills, contacts, weaves, etc. will be proofed. Sequences and course work will make up the majority of the class. This course is available to all teams that have previously competed in agility trials or successfully competed in the AKC ACT 1 and 2 trials.  This course will be off lead, so owners must provide a crate for their dog. Dogs must be fitted with a flat buckle collar and a six-foot leash. No choke, pinch, gentle leaders or corrective harnesses will be allowed.. Owners need to bring lots of soft treats and a crate. Also may want to bring water/Gatorade/PowerAde and a portable fan for dog/puppy crates',
 	        'cost' => 90.00,
 	        'is_active' => 1,
 	        'minimum_age_requirement' => 6.00,
@@ -167,8 +161,8 @@ class ClassesDetailsSeeder extends Seeder
 	        'maximum_age_requirement' => 900.00,
 		]);
 		App\ClassesDetail::create([
-	        'title' => 'Agility Master Comp',
-	        'description' => 'to do',
+	        'title' => 'Competition Agility Open/Excellence/Masters',
+	        'description' => 'Prerequisite: Novice or Open/Excellent/Masters level completion experience. The purpose of this class is to ready the agility teams for AKC Open/Excellent/Master Agility. Handling skills, contacts, weaves, etc. will be proofed. Sequences and course work will make up the majority of the class. This course is available to all teams that have previously competed in agility trials at the Open/Excellent/Masters level or have completed the Novice Competition class.  This course will be off lead, so owners must provide a crate for their dog. Dogs must be fitted with a flat buckle collar and a six-foot leash. No choke, pinch, gentle leaders or corrective harnesses will be allowed.  Owners need to bring lots of soft treats and a crate. Also may want to bring water/Gatorade/PowerAde and a portable fan for dog/puppy crates. ',
 	        'cost' => 90.00,
 	        'is_active' => 1,
 	        'minimum_age_requirement' => 6.00,
@@ -185,18 +179,10 @@ class ClassesDetailsSeeder extends Seeder
 		]);
 
 		App\ClassesDetail::create([
-	        'title' => 'Puppy Agility',
-	        'description' => 'to do',
-	        'cost' => 90.00,
-	        'is_active' => 1,
-	        'minimum_age_requirement' => 5.00,
-	        'maximum_age_requirement' => 12.00,
-		]);
-
-		App\ClassesDetail::create([
 	        'title' => 'CGC Prep',
-	        'description' => 'to do',
-	        'cost' => 80.00,
+	        'description' => '(3 weeks only - first two prep for test and third is the test)
+Prerequisite Intermediate Obedience. This class is for those who would like to earn an AKC Canine Good Citizen (CGC) certification or title. This class is strictly designed to provide you the opportunity to work with your dog for two sessions on the test elements prior to taking the CGC Test during the third class.  (Dog must be at least six months of age to be CGC tested. AKC charges $8 to register for the CGC certification after passing the test.  OCC charges $10 for non members who are not in the Intermediate Obedience class.)',
+	        'cost' => 55.00,
 	        'is_active' => 1,
 	        'minimum_age_requirement' => 6.00,
 	        'maximum_age_requirement' => 900.00,
@@ -210,20 +196,20 @@ class ClassesDetailsSeeder extends Seeder
 		$adv_pup= App\ClassesDetail::where('title', '=' , 'Advanced Puppy Obedience')->first();
 		$adv_pup->pre_reqs()->attach($star_pup);
 
-		$begin_obd_1= App\ClassesDetail::where('title', '=' , 'Beginner Obedience I')->first();
-		$begin_obd_2= App\ClassesDetail::where('title', '=' , 'Beginner Obedience II')->first();
+		$pup_agil = App\ClassesDetail::where('title', '=' , 'Puppy Agility')->first();
+
+		$begin_obd_1= App\ClassesDetail::where('title', '=' , 'Beginner Obedience 1')->first();
+		$begin_obd_2= App\ClassesDetail::where('title', '=' , 'Beginner Obedience 2')->first();
 		$begin_obd_2->pre_reqs()->attach($begin_obd_1);
 
-		$canine_good_citizen= App\ClassesDetail::where('title', '=' , 'Canine Good Citizen')->first();
-		$canine_good_citizen->pre_reqs()->attach($begin_obd_2);
+
 
 		$therapy_dog= App\ClassesDetail::where('title', '=' , 'Therapy Dog')->first();
-		$therapy_dog->pre_reqs()->attach($canine_good_citizen);
 
 		$beg_rally_obed= App\ClassesDetail::where('title', '=' , 'Beginner Rally Obedience')->first();
 		$beg_rally_obed->pre_reqs()->attach($begin_obd_2);
 		$beg_rally_obed->pre_reqs()->attach($therapy_dog);
-		$beg_rally_obed->pre_reqs()->attach($canine_good_citizen);
+
 
 
 		$rally_obed = App\ClassesDetail::where('title', '=' , 'Rally Obedience')->first();
@@ -233,33 +219,25 @@ class ClassesDetailsSeeder extends Seeder
 		$comp_obed->pre_reqs()->attach($rally_obed);
 		
 		// Agility classes
-		$begin_agil_1= App\ClassesDetail::where('title', '=' , 'Beginner Agility')->first();
-		$begin_agil_1->pre_reqs()->attach($begin_obd_1);
-		$begin_agil_1->pre_reqs()->attach($adv_pup);
+		$agil_1_found= App\ClassesDetail::where('title', '=' , 'Agility 1 Foundations')->first();
+		$agil_1_found->pre_reqs()->attach($better_begin);
+		$agil_1_found->pre_reqs()->attach($star_pup);
+		$agil_1_found->pre_reqs()->attach($begin_obd_1);
+		$agil_1_found->pre_reqs()->attach($pup_agil);
 
-		$begin_agil_2= App\ClassesDetail::where('title', '=' , 'Beginner Agility II')->first();
-		$begin_agil_2->pre_reqs()->attach($begin_agil_1);
 
-		$inter_agil= App\ClassesDetail::where('title', '=' , 'Intermediate Agility')->first();
+
+		$begin_agil_2= App\ClassesDetail::where('title', '=' , 'Agility 2 Beginner')->first();
+		$begin_agil_2->pre_reqs()->attach($agil_1_found);
+
+		$inter_agil= App\ClassesDetail::where('title', '=' , 'Agility 3 Intermediate')->first();
 		$inter_agil->pre_reqs()->attach($begin_agil_2);
 
-		$agil_begin_comp_a= App\ClassesDetail::where('title', '=' , 'Agility Beginner Comp. A')->first();
+		$comp_agil_nov= App\ClassesDetail::where('title', '=' , 'Agility 3 Intermediate')->first();
+		$comp_agil_nov->pre_reqs()->attach($begin_agil_2);
+
+		$agil_begin_comp_a= App\ClassesDetail::where('title', '=' , 'Competition Agility Novice')->first();
 		$agil_begin_comp_a->pre_reqs()->attach($inter_agil);
-
-		$agil_begin_comp_b= App\ClassesDetail::where('title', '=' , 'Agility Beginner Comp. B')->first();
-		$agil_begin_comp_b->pre_reqs()->attach($agil_begin_comp_a);
-
-
-		$agil_novice_comp= App\ClassesDetail::where('title', '=' , 'Agility Novice Comp')->first();
-		$agil_novice_comp->pre_reqs()->attach($agil_begin_comp_b);
-
-		$agil_adv_comp = App\ClassesDetail::where('title', '=' , 'Agility Advanced Comp')->first();
-		$agil_adv_comp->pre_reqs()->attach($agil_novice_comp);
-
-		$agil_master_compp= App\ClassesDetail::where('title', '=' , 'Agility Master Comp')->first();
-		$agil_master_compp->pre_reqs()->attach($agil_novice_comp);
-
-
 		
 			
     }

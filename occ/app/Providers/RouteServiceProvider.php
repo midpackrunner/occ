@@ -30,6 +30,7 @@ class RouteServiceProvider extends ServiceProvider
 
         // Add bindings here
         $router->model('pets', 'App\Pet');
+        $router->model('faqs', 'App\FAQ');
         $router->model('instructors', 'App\Instructor');
     }
 

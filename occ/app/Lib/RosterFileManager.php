@@ -49,7 +49,8 @@ class RosterFileManager
 	protected function get_header()
 	{
 		return '"Session",' . '"Class Title",' .  '"Begin Date",'.'"End Date",' . '"Day",' .
-			   '"Instructor 1",' . '"Instructor 2",' . '"Owner",' . '"Pet Name",' . "\"Claimed Hours\"," . 
+			   '"Instructor 1",' . '"Instructor 2",' . '"Owner",' . '"Pet Name",' . '"Breed",' .
+			   "\"Claimed Hours\"," . 
 			   '"Email","Phone Number 1","Phone Number 2"'."\n";
 	}
 
@@ -66,6 +67,7 @@ class RosterFileManager
 		
 		$owner = null;
 		$pet_name = null;
+		$breed = null;
 		$clm_hrs = null;
 		$ph_nmbr_1 = null;
 		$ph_nmbr_2 = "n/a";
@@ -92,6 +94,7 @@ class RosterFileManager
 				$owner = $pet->user->user_profile->first_name . " " . 
 						 $pet->user->user_profile->last_name;
 				$pet_name = $pet->name;
+				$breed = $pet->breed;
 				$clm_hrs = $pet->pivot->logged_hours;
 				$ph_nmbr_1 = $pet->user->user_profile->phone_numbers[0]->number;
 				if(count($pet->user->user_profile->phone_numbers) > 1) {
@@ -104,6 +107,7 @@ class RosterFileManager
                               '"' . $day . '"' . ',' . '"' . $instrctr_1 . '"' . ',' .
                               '"' . $instrctr_2 . '"' . ',' .
                               '"' . $owner . '"' . ',' . '"' . $pet_name . '"' . ',' .
+                              '"' . $breed . '"' .',' .
                               '"' . $clm_hrs . '"' . ',' . '"' . $email . '"' . ',' .
                               '"' . $ph_nmbr_1 . '"' . ',' .
                               '"' . $ph_nmbr_2 . '"' .$delmtr;

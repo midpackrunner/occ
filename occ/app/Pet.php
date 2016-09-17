@@ -23,12 +23,14 @@ class Pet extends Model
         return $this->hasMany('App\MedicalRecord');
     }
 
-
+    // relation pet's attendance per class
     public function attendance() {
         return $this->belongsToMany('App\Classes', 'class_attendances')
                     ->withPivot('attended_date')
                     ->withTimestamps();
     }
+
+    // relation pet's classes
     public function classes()
     {
     	return $this->belongsToMany('App\Classes')
@@ -36,16 +38,19 @@ class Pet extends Model
     				->withTimestamps();
     }
 
+    // get upcoming classes the pet is registered for
     public function upcoming_classes()
     {
     	return $this->classes()->where('end_date', '>=', Carbon::now());
     }
 
+    // get all classses the pet has completed
     public function completed_classes()
     {
         return $this->classes()->where('is_completed', true);
     }
 
+    // check if pet has taken a class
     public function has_taken($class)
     {
         $has_taken = false;
@@ -57,6 +62,7 @@ class Pet extends Model
         return $has_taken;
     }
 
+    // Remove claimed attendance hours
     public static function detach_claimed_attendance($pet_id, $class_id, $date) 
     {
         DB::table('class_attendances')->where([

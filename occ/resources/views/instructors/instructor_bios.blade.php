@@ -17,6 +17,7 @@ $path_to_img = str_replace('\\', '/', $path_to_img);
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				<h4 class="text-primary">{{ $instructor->first_name . " " . $instructor->last_name}}</h4>
+				<small>{{Auth::guest() ?  '' : $instructor->user->email}}</small>
 			</div>
 			<div class="panel-body">
 				@if (isset($instructor->bio->path_to_pic) && ($instructor->bio->path_to_pic != ''))

@@ -43,6 +43,7 @@ class DatabaseSeeder extends Seeder
         DB::table('revenue_resources')->delete();
         DB::table('survey_answers')->delete();
         DB::table('states')->delete();
+        DB::table('faqs')->delete();
 
 
 
@@ -77,6 +78,7 @@ class DatabaseSeeder extends Seeder
         DB::table('revenue_resources')->truncate();
         DB::table('survey_answers')->truncate();
         DB::table('states')->truncate();
+        DB::table('faqs')->truncate();
         
 
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
@@ -105,6 +107,7 @@ class DatabaseSeeder extends Seeder
         $this->call(ProdRevenueResourceSeeder::class);
         $this->call(SurveyAnswerSeeder::class);
         $this->call(ProdStateSeeder::class);
+        $this->call(ProdFAQSeeder::class);
 
 
     }

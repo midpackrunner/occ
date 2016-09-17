@@ -615,6 +615,7 @@ return array(
     'PetSeeder' => $baseDir . '/database/seeds/PetSeeder.php',
     'PhoneNumberSeeder' => $baseDir . '/database/seeds/PhoneNumberSeeder.php',
     'Positioner' => $vendorDir . '/dompdf/dompdf/include/positioner.cls.php',
+    'ProdFAQSeeder' => $baseDir . '/database/seeds/ProdFAQSeeder.php',
     'ProdMemberships' => $baseDir . '/database/seeds/ProdMemberships.php',
     'ProdRevenueResourceSeeder' => $baseDir . '/database/seeds/ProdRevenueResourceSeeder.php',
     'ProdStateSeeder' => $baseDir . '/database/seeds/ProdStateSeeder.php',

@@ -16,7 +16,7 @@ class CreateTableFAQS extends Migration
             $table->increments('id');
             $table->timestamps();
             $table->string('question');
-            $table->string('answer')->nullable();
+            $table->longText('answer')->nullable();
         });
     }
 

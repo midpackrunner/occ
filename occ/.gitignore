@@ -6,3 +6,4 @@ Homestead.json
 .env.example
 occ.sublime-project
 occ.sublime-workspace
+../

@@ -45,6 +45,7 @@ Route::get('memberships/{membership}/edit', array('as'=> 'memberships.edit',
 // ------- Public facing routes
 Route::get('/contact', 'ContactController@index');
 Route::resource('announcements', 'AnnouncementController');
+Route::resource('faqs', 'FAQController');
 
 // ------- Pet Related Routes
 Route::resource('pets', 'PetController');

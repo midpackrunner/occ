@@ -92,7 +92,7 @@ class ClassSeeder extends Seeder
 			'vacant' =>   6,
 			'on_hold' =>  0,
 			'is_open' => 'yes',
-			'class_details_id' => App\ClassesDetail::where('title', '=' , 'Canine Good Citizen')->first()->id,
+			'class_details_id' => App\ClassesDetail::where('title', '=' , 'Rally Obedience')->first()->id,
         ]);
         $instructor = App\Instructor::where('last_name', '=', 'Gregory')->first();
         $class->instructors()->attach($instructor); 
