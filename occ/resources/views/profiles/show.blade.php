@@ -24,8 +24,8 @@
 				<div class="panel-heading">Contact Information</div>
 				<div class="panel-body">
 					<dl class="dl-horizontal">
-					<dt>Email: </dt>
-					<dd>{{Auth::user()->email}}</dd>
+						<dt>Email: </dt>
+						<dd>{{Auth::user()->email}}</dd>
 					</dl>
 					@if ($user_profile->street_address != null)
 					<dl class="dl-horizontal">
@@ -130,10 +130,30 @@
 						</td>
 						<td>
 							<a class="btn btn-warning btn-sm" href="{{ route('pets.edit', $pet->id) }}" role="button">Edit</a>
-							<a class="btn btn-danger btn-sm jq-postback"  href="{{ route('pets.destroy', $pet->id) }}" data-method="delete" role="button">Delete</a>
+							<button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#delete-{{$pet->id}}">Delete</button>
 							<a class="btn btn-info btn-sm" href="{{ route('pets.show', $pet->id) }}" role="button">View Details</a>
 						</td>
-					</tr>				
+					</tr>
+
+					<div class="modal fade" id="delete-{{$pet->id}}">
+						<div class="modal-dialog" role="document">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									</button>
+									<h4 class="modal-title text-warning">Pet Profile Removal Confirmation</h4>
+								</div>
+								<div class="modal-body">
+									<p class="test-warning">We are sorry to see you are removing {{$pet->name}}'s Profile.  Are you sure you wish to proceed?</p>
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+									<a class="btn btn-danger btn-sm jq-postback"  href="{{ route('pets.destroy', $pet->id) }}" data-method="delete" role="button">Delete</a>
+								</div>
+							</div><!-- /.modal-content -->
+						</div><!-- /.modal-dialog -->
+					</div><!-- /.modal -->				
 					@endforeach
 				</tbody>
 			</table>

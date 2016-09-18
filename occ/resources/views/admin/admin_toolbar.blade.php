@@ -41,7 +41,7 @@
 
         <!-- Branding Image -->
         <a class="navbar-brand" href="{{ url('/') }}">
-          Back to Public Website
+          Public Website
         </a>
       </div>
 
@@ -53,17 +53,24 @@
         <ul class="nav navbar-nav">
           <li><a href="{{ url('/class_details') }}">Classes</a></li>
         </ul>
+        
         <ul class="nav navbar-nav">
-        <li><a href="{{ url('/members/1/none') }}">Members</a></li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+              Members <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu" role="menu">
+              <li><a href="{{ url('/members/1/none') }}">Members Dashboard</a></li>
+              <li><a href="{{ url('/medical_records/1') }}">Medical Records</a></li>
+              <li><a href="{{ url('/volunteer') }}">Volunteer Time Verification</a></li>
+            </ul>
+          </li>      
         </ul>
         <ul class="nav navbar-nav">
-        <li><a href="{{ url('/roster/list/none/none/1') }}">Roster</a></li>
+          <li><a href="{{ url('/roster/list/none/none/1') }}">Roster</a></li>
         </ul>
         <ul class="nav navbar-nav">
           <li><a href="{{ url('/instructors') }}">Instructors</a></li>
-        </ul>
-        <ul class="nav navbar-nav">
-          <li><a href="{{ url('/medical_records/1') }}">Medical Records</a></li>
         </ul>
         <ul class="nav navbar-nav">
           <li><a href="{{ url('/announcements') }}">Anouncements</a></li>

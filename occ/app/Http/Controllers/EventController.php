@@ -5,13 +5,14 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
-use App\FAQ;
-use App\Http\Requests\FAQRequest;
+use App\Http\Requests\EventRequest;
+
+use App\Event;
 use Auth;
 
-class FAQController extends Controller
+
+class EventController extends Controller
 {
-    
     public function __construct() {
         $this->middleware('admin', ['except' =>['index']]);
     }
@@ -23,9 +24,8 @@ class FAQController extends Controller
      */
     public function index()
     {
-        $faqs = FAQ::all();
-        return view('faqs.index', compact('faqs'));
-
+        $events = Event::upcoming()->get();
+        return view('events.index', compact('events'));
     }
 
     /**
@@ -35,7 +35,7 @@ class FAQController extends Controller
      */
     public function create()
     {
-        return view('faqs.create');
+        return view('events.create');
     }
 
     /**
@@ -44,11 +44,12 @@ class FAQController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(FAQRequest $request)
+    public function store(EventRequest $request)
     {
-        $faq = new FAQ($request->all());
-        $faq->save();
-        return redirect()->route('faqs.index');
+        $event = new Event($request->all());
+        $event->save();
+        dd($event);
+        return redirect()->route('events.index');
     }
 
     /**
@@ -57,9 +58,9 @@ class FAQController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(FAQ $faq)
+    public function show($id)
     {
-        // not used.
+        //
     }
 
     /**
@@ -68,9 +69,10 @@ class FAQController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(FAQ $faq)
+    public function edit(Event $event)
     {
-        return view('faqs.edit')->with('faq', $faq);
+        return view('events.edit')->with('event', $event);
+        //
     }
 
     /**
@@ -80,10 +82,10 @@ class FAQController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(FAQRequest $request, $faq)
+    public function update(EventRequest $request, $event)
     {
-        $faq->update($request->all());
-        return redirect()->route('faqs.index');
+        $event->update($request->all());
+        return redirect()->route('events.index');
     }
 
     /**
@@ -92,12 +94,12 @@ class FAQController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($faq)
+    public function destroy($event)
     {
         if (!Auth::user()->isAdmin()) {
             return 'forbidden';
         }
-        $faq->delete();
-        return 'success';        
+        $event->delete();
+        return 'success';  
     }
 }

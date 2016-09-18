@@ -56,6 +56,9 @@ class AdminRosterController extends Controller
                                      'instructors', 'curr_instrctr', 'session_filter', 'max_session', 'inst_filter'));
     }
 
+    /**
+     * Shows claimed attendance hours.
+     */
     public function claimed_hours($pet_id, $class_id)
     {
         $pet = Pet::findOrFail($pet_id);
@@ -64,11 +67,9 @@ class AdminRosterController extends Controller
         //dd($attendance);
         return view('pets.attendance', compact('pet', 'attendance', 'class'));
     }
+
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * Remove claimed hours.
      */
     public function destroy($pet_id, $class_id, $date)
     {
@@ -77,12 +78,9 @@ class AdminRosterController extends Controller
         return redirect()->action('Admin\AdminRosterController@claimed_hours', 
                                    ['pet_id' => $pet_id, 'class_id' => $class_id]);
     }
+
     /**
      * Log class hours on a user's behalf
-     *
-     * @param      \Illuminate\Http\Request  $request  The request
-     *
-     * @return     back to roster_details/claimed_hours
      */
     public function admin_log_hours(Request $request)
     {
@@ -111,6 +109,13 @@ class AdminRosterController extends Controller
                                    ['pet_id' => $pet->id, 'class_id' => $class->id]);
     }
 
+    /**
+     * Download Roster with given filters
+     *
+     * @param      <type>  $inst_filter     The instance filter
+     * @param      <type>  $session_filter  The session filter
+     *
+     */
     public function download_roster($inst_filter, $session_filter)
     {
         $file_mngr = new RosterFileManager($inst_filter, $session_filter);
@@ -119,6 +124,9 @@ class AdminRosterController extends Controller
         return response()->download($file_mngr->get_file_path());
     }
 
+    /**
+     * Verify payment for a class per pet.
+     */
     public function verified_payment($class_id, $pet_id)
     {
         $pet = Pet::findOrFail($pet_id);

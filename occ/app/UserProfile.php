@@ -5,9 +5,13 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use DB;
 use Carbon;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
 class UserProfile extends Model
 {
     //
+
+    use SoftDeletes;
 
   	protected $fillable = [
   		'first_name', 'last_name', 'street_address',

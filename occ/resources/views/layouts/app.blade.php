@@ -67,6 +67,9 @@
           <li><a href="{{ url('/faqs') }}">FAQ</a></li>
         </ul>
         <ul class="nav navbar-nav">
+          <li><a href="{{ url('/events') }}">Events</a></li>
+        </ul>
+        <ul class="nav navbar-nav">
           <li><a href="{{ url('/contact') }}">Contact Us</a></li>
         </ul>
 

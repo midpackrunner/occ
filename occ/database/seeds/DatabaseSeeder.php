@@ -44,6 +44,7 @@ class DatabaseSeeder extends Seeder
         DB::table('survey_answers')->delete();
         DB::table('states')->delete();
         DB::table('faqs')->delete();
+        DB::table('events')->delete();
 
 
 
@@ -79,6 +80,7 @@ class DatabaseSeeder extends Seeder
         DB::table('survey_answers')->truncate();
         DB::table('states')->truncate();
         DB::table('faqs')->truncate();
+        DB::table('events')->truncate();
         
 
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
@@ -96,7 +98,7 @@ class DatabaseSeeder extends Seeder
         $this->call(AnnouncementSeeder::class);
         $this->call(PetSeeder::class);
         $this->call(ClassesDetailsSeeder::class);
-        $this->call(BiographySeeder::class);
+        $this->call(BiographySeeder::class);            // Prod
         $this->call(InstructorSeeder::class);           // Prod
         $this->call(ClassSeeder::class);
         $this->call(BreedsSeeder::class);
@@ -107,7 +109,8 @@ class DatabaseSeeder extends Seeder
         $this->call(ProdRevenueResourceSeeder::class);
         $this->call(SurveyAnswerSeeder::class);
         $this->call(ProdStateSeeder::class);
-        $this->call(ProdFAQSeeder::class);
+        $this->call(ProdFAQSeeder::class);         // Prod
+        $this->call(EventSeeder::class);
 
 
     }

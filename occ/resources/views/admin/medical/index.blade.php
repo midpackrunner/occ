@@ -40,7 +40,7 @@
 					{{$user->user_profile->first_name . ' '. $user->user_profile->last_name . '\'s Registered Pets   '}}
 					<small style="color: rgb(255,255,255)">{{$user->email}} 
 					</small>
-						<button class="pull-right btn btn-primary"type="button" data-toggle="collapse" data-target="#dropdown_{{$user->user_profile->last_name. $user->user_profile->last_name}}" aria-expanded="false" aria-controls="dropdown_{{$user->email}}">
+						<button class="pull-right btn {{($user->count_pets_with_expired_shots() > 0) ? 'btn-danger': 'btn-primary'}}"type="button" data-toggle="collapse" data-target="#dropdown_{{$user->user_profile->last_name. $user->user_profile->last_name}}" aria-expanded="false" aria-controls="dropdown_{{$user->email}}">
 							<span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
 						</button>
 				</h4>

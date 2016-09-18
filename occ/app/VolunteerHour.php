@@ -7,7 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class VolunteerHour extends Model
 {
   	protected $fillable = [
-  		'description', 'hours', 'minutes','is_sync'
+  		'description', 'hours', 'minutes','is_sync', 'verified',
+      'verified_by'
   	];
 
   	/**
@@ -17,6 +18,20 @@ class VolunteerHour extends Model
   	{
   		return $query->where('hours', '!=', 0);
   	}
+
+    /**
+     * Return only those hours that need verification
+     * 
+     * to retrieve count:
+     * 
+     *  $count = VolunteerHour::where('verified', '!=', 1)->count();
+     *
+     */
+    public function scopeNeedsVerification($query)
+    {
+      return $query->where('verified', 0);
+    }
+
 
 
   	public function user_profile()

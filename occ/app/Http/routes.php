@@ -33,19 +33,19 @@ Route::get('/class_cancel_paypal/{token}', 'PaymentController@class_cancel_paypa
 
 // ------- Member and Profile related Routes
 Route::get('membership_application/{id}', 'MembershipController@membership_application');
-Route::resource('profiles', 'User\UserProfileController');
-Route::resource('phone_numbers', 'PhoneNumberController');
-Route::get('/volunteer/create', array('as' =>'volunteer.create', 'uses' =>'VolunteerHourController@create'));
-Route::post('/volunteer', array('as' =>'volunteer', 'uses' =>'VolunteerHourController@store'));
+
 Route::match(array('PUT', 'PATCH'),'memberships/{membership}', array('as'=> 'memberships.update', 
 									 'uses' => 'MembershipController@update'));
+Route::resource('profiles', 'User\UserProfileController');
+Route::resource('phone_numbers', 'PhoneNumberController');
+Route::resource('volunteer', 'VolunteerHourController');
 Route::get('memberships/{membership}/edit', array('as'=> 'memberships.edit', 
 									 'uses' => 'MembershipController@edit'));
-
 // ------- Public facing routes
 Route::get('/contact', 'ContactController@index');
 Route::resource('announcements', 'AnnouncementController');
 Route::resource('faqs', 'FAQController');
+Route::resource('events', 'EventController');
 
 // ------- Pet Related Routes
 Route::resource('pets', 'PetController');

@@ -12,6 +12,13 @@
 <div class="spacer-sm"></div>
 <div class="row">
 	<div class="col-md-10">
+		@if(!Auth::guest() && Auth::user()->isAdmin())
+		<a class="btn btn-primary btn-sm pull-right" href="{{ route('faqs.create') }}" role="button">Add a FAQ</a>
+		@endif
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-10">
 		@foreach ($faqs as $faq)
 		<dl>
 			<dt class="text-primary">{{$faq->question}}</dt>
@@ -31,7 +38,7 @@
 						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 							<span aria-hidden="true">&times;</span>
 						</button>
-						<h4 class="modal-title">Warning</h4>
+						<h4 class="modal-title text-warning">Warning</h4>
 					</div>
 					<div class="modal-body">
 						<p class="test-warning">Are you sure you want to delete this FAQ?</p>
@@ -70,7 +77,6 @@
 	    		alert('Forbidden: You do not have rights to delete');
 	    	}    
 	    	else if (data == 'success'){
-	    		alert('Question and Answer have been removed');
 	    		location.reload(); 
 	    	}
 	    	else {
