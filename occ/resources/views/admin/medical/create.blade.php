@@ -9,7 +9,7 @@
 	<h3>New Medical Record Verification </h3>
 	<div class="row">
 		<div class="col-md-5 col-md-offset-6">
-		<a class="btn btn-primary btn-sm" href="{{ url('/medical_records/1')}}" role="button">Back to Medical Records Listing</a>
+		<a class="btn btn-primary btn-sm" href="{{ url('medical_records/1/none')}}" role="button">Back to Medical Records Listing</a>
 		</div>
 	</div>
 	<div class="spacer-sm"></div>
