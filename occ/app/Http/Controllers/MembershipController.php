@@ -36,6 +36,7 @@ class MembershipController extends Controller
 
             $file_path = config('app.membership_docs'). $file_nm;
             //dd(config('app.membership_docs'));
+            
             return response()->download($file_path);
         }
         return redirect('/home');
@@ -79,7 +80,6 @@ class MembershipController extends Controller
      */
     public static function make_mmbrshp_application(array $data)
     {
-
         $f_nm = ucfirst($data['first_name']);
     	$l_nm = ucfirst($data['last_name']);
 
@@ -87,5 +87,11 @@ class MembershipController extends Controller
     	$file_nm = $l_nm . "_" . $f_nm . ".pdf"; 
     	$pdf = PDF::loadView('memberships.membership_application', $data);
     	$pdf->save(config('app.membership_docs'). $file_nm);
+    }
+
+    public function mem_app_temp()
+    {
+        $pdf = PDF::loadView('memberships.membership_application');
+        return $pdf->stream();
     }
 }

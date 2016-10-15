@@ -117,12 +117,12 @@ Julia teaches AKC S.T.A.R. puppy class, Beginning Agility , and Freestyle. She h
 			'bio' => 'Linda Maddox: To Be Completed',
 			'path_to_pic'  => ''
 		]);
-
+	// 11
 	DB::table('biographies')->insert([
 			'bio' => 'Jamie Morgan: To Be Completed',
 			'path_to_pic'  => ''
 	]);
-
+	// 12
 	DB::table('biographies')->insert([
 			'bio' => 'Debbie Tuthill: To Be Completed',
 			'path_to_pic'  => ''

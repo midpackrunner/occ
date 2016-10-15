@@ -49,6 +49,13 @@
 				<p class="bg-danger"> {{ $result }}</p>
 			@endforeach
 		@endif
+		@if(isset($num_of_naming_errors))
+		@if ($num_of_naming_errors > 0)
+		<h3>Class or Instructor Naming Errors</h3>
+		<p class="bg-danger"> {{ $num_of_records }} Record(s) not added due to a mismatch in either the Class Title Or the Instructor's Last name</p>
+		<p class="bg-danger">Please check the supplied file against the Class Schedule to determine which class schedule(s) was not added.</p>
+		@endif
+		@endif
 	</div>
 </div>
 

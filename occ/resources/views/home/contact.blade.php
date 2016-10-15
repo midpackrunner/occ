@@ -35,7 +35,7 @@
 <div class="row">
 	<div class='col-md-6 col-md-offset-2'>
 		<h4>For Questions about Training, including classes:</h4>
-		<a href="mailto:occchattanooga@gmail.com">occchattanooga@gmail.com</a>
+		<a href="mailto:trainingdirector@chattanoogaobedienceclub.org">trainingdirector@chattanoogaobedienceclub.org</a>
 	</div>
 </div>
 <div class="row">

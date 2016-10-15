@@ -12,6 +12,7 @@
 	<div class="col-md-10">
 	<p class="lead">Below are progression charts and details for the classes offered by the Obedience Club of Chattanooga.  All Classes are 1 day per week and 6 week long courses.  All Courses <strong> MUST </strong>be taken in order unless an instructor has evaluated your dog and approves an exemption.</p>
 	@include('classes.class_charts')
+	<h4 class="text-danger">All Agility Courses require dogs be in crates whenever another dog is off leash running a course.</h4>
 		<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 			@foreach ($class_details as $detail)
 			@if ($detail->is_active == 1)

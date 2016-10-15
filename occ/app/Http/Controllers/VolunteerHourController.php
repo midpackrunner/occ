@@ -15,7 +15,7 @@ class VolunteerHourController extends Controller
 
     public function __construct() {
         $this->middleware('auth');
-        $this->middleware('admin', ['except' =>['create', 'store']]);
+        //$this->middleware('admin', ['except' =>['create', 'store']]);
     }
  /**
      * Display a listing of the resource.
@@ -50,7 +50,7 @@ class VolunteerHourController extends Controller
         $user_profile->volunteer_hours()->save($vol_hr);
         VolunteerHour::sync_hours(Auth::user());
 
-        return redirect()->action('User\UserProfileController@show', array('user_profile' => $user_profile))->with('confirm_vol_hrs', 'Your request to add ' . $vol_hr->hours . ' hours and '. $vol_hr->minutes.' minutes to your profile has been received.  We will review your request and contact you if there is any issues.  Thank you.'); 
+        return redirect()->action('User\UserProfileController@show', array('user_profile' => $user_profile))->with('confirm_vol_hrs', 'Your request to add ' . $vol_hr->hours . ' hours and '. $vol_hr->minutes.' minutes to your profile has been received.  We will review your request and contact you if there are any issues.  Thank you.'); 
     }
 
     /**
@@ -113,7 +113,10 @@ class VolunteerHourController extends Controller
         if (!Auth::user()->isAdmin()) {
             return 'forbidden';
         }
-        $vol_hr->delete();
-        return 'success';        
+        $vol = VolunteerHour::findOrFail($vol_hr);
+        $usr = $vol->user_profile->user;
+        VolunteerHour::deduct_hours($usr, $vol->hours, $vol->minutes);
+        $vol->delete();
+        return 'delete_success';        
     }
 }

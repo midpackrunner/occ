@@ -26,16 +26,27 @@ class AdminMedicalRecordsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($curr_page)
+    public function index($curr_page, $filter)
     {
-        $users = User::all();
+        $users_t = User::all();
+        if ($filter == 'expired') {
+            $users = collect();
+            foreach($users_t as $user) {
+                if($user->has_pet_with_expired_shots()) {
+                    $users->push($user);
+                }
+            }
+        } else {
+            $users = $users_t;
+        }
+
         $page_helper = new PaginationHelper($users, 
                                 config('app.max_viewable_med_recs'), $curr_page);
         $num_of_pages = $page_helper->get_num_of_pages();
         $users = $page_helper->get_sliced_collection();
 
         return view('admin.medical.index', compact('users', 'curr_page',
-                                            'num_of_pages')); 
+                                            'num_of_pages', 'filter')); 
     }
 
     /**
@@ -72,7 +83,7 @@ class AdminMedicalRecordsController extends Controller
         $med_rec->shots_expire = $request->shots_expire;
         $med_rec->save();
         \Session::flash('flash_message', 'Successfully Updated Medical Records ');
-        return redirect()->action('Admin\AdminMedicalRecordsController@index', ['curr_page' => 1]);
+        return redirect()->action('Admin\AdminMedicalRecordsController@index', ['curr_page' => 1, 'filter' => 'none']);
     }
 
     /**

@@ -7,9 +7,8 @@
 	</div>
 
 	<div class="row">
-		<div class="col-md-12">
-
-		</div>
+	@include('admin.admin_notifications_partial')
+	@include('admin.admin_class_overview_partial')
 	</div>
 
 @endsection

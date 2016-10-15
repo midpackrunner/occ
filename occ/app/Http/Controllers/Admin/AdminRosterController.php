@@ -12,6 +12,7 @@ use App\Instructor;
 use App\Pet;
 use App\Lib\PaginationHelper;
 use App\Lib\RosterFileManager;
+use Carbon\Carbon;
 
 class AdminRosterController extends Controller
 {
@@ -44,7 +45,7 @@ class AdminRosterController extends Controller
             $classes->hasInstructor($inst_filter);
         }
         if ($session_filter != 'none') {
-            $classes->ofSession($session_filter);
+            $classes->ofSession($session_filter, Carbon::now()->year);
         }
         $classes = $classes->get();
         $page_helper = new PaginationHelper($classes, 

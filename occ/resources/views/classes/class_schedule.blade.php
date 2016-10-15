@@ -2,28 +2,10 @@
 
 @section('content')
 
-@section('title', 'Class Schedule')
+@section('title', 'Class Registration')
 @include('classes.class_nav_bar')
 
-@if(Auth::guest())
-<div class="row">
-	<div class="col-md-1"></div>
-	<div class="col-md-10">
-	<p class="text-danger"><strong>To sign up for a class, you must become a member.  If you are already a member, you must Log in before signing up for a class.</strong></p>
-	</div>
-</div>
-@else
-<div class="row">
-	<div class="col-md-1"></div>
-	<div class="col-md-10">
-	@if (count(Auth::user()->pets) == 0)
-	<p class="text-danger"><strong>To sign up for a class, you must register at least one dog.  Your dog can be registered on your <i>profile</i> page or by <a href=" {{ url('/profiles', Auth::user()->user_profile->id) }} ">clicking here</a></strong></p>
-	@else
-	<p class="text-info"><strong>Be sure to register your dog before signing up for a class.  Your dog can be registered on your <i>profile</i> page or by <a href=" {{ url('/profiles', Auth::user()->user_profile->id) }} ">clicking here</a>.</strong></p>
-	@endif
-	</div>
-</div>
-@endif
+@include('classes.class_registration_instructions')
 
 
 <div class="row">

@@ -188,7 +188,7 @@
 					@foreach($pet->upcoming_classes as $class)
 					<tr>
 						<td>{{$pet->name}}</td>
-						<td><a class="center" href="{{ url('/classes/'. $class->id) }}" role="button">{{$class->details->title}}</a></td>
+						<td><a class="center" href="{{ url('/class_details/'. $class->id) }}" role="button">{{$class->details->title}}</a></td>
 						<td>{{$class->begin_date}}</td>
 						<td>{{$class->end_date}}</td>
 						<td>{{$class->day_of_week}} at {{$class->time}}</td>

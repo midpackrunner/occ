@@ -76,14 +76,29 @@ class VolunteerHour extends Model
 
   	}
   	// deducts hours from user's profile
-  	public static function deduct_hours($user, $hours)
+  	public static function deduct_hours($user, $hours, $min=0)
   	{
-  		$user_prf = $user->user_profile;
-  		if($user_prf->total_volunteer_hrs < $hours)
+      switch ($min) {   // switch minutes into fractions of hour
+        case 15:
+          $min = .25;
+          break;
+        case 30:
+          $min = .50;
+          break;
+        case 45:
+          $min = .75;
+          break;
+        default:
+          $min = 0;
+          break;
+      }
+  		$calc_hrs = $hours + $min;
+      $user_prf = $user->user_profile;
+  		if($user_prf->total_volunteer_hrs < $calc_hrs)
   		{
   			return false;
   		}
-  		$user_prf->total_volunteer_hrs -= $hours;
+  		$user_prf->total_volunteer_hrs -= $calc_hrs;
   		$user_prf->save();
 
   		return true;

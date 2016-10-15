@@ -24,7 +24,11 @@
 		<div class="col-md-6 col-md-offset-6">
 			<ul class="pagination pagination-lg pull-right">
 				@for ($i = 1; $i <= $num_of_pages; $i++)
-				<li class= <?php if($i == $curr_page) echo "active"; ?> ><a href="{{ $i }}"> {{$i}}</a></li>
+				@if(Request::is('medical_records/*/none'))
+				<li class= <?php if($i == $curr_page) echo "active"; ?> ><a href="{{ '/medical_records/' . $i . '/none'  }}"> {{$i}}</a></li>
+				@else
+				<li class= <?php if($i == $curr_page) echo "active"; ?> ><a href="{{ '/medical_records/' . $i . '/expired'  }}"> {{$i}}</a></li>
+				@endif
 				@endfor
 			</ul>
 		</div>

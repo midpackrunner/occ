@@ -58,7 +58,8 @@ class MemberFileManager
 
 	protected function get_header()
 	{
-		return '"First Name",' . '"Last Name",' .  '"Primary Phone",'.'"Street Address",' . '"City",' .
+		return '"First Name",' . '"Last Name",' . '"Email",' . '"Primary Phone",'.
+		       '"Secondary Phone",' . '"Street Address",' . '"City",' .
 			   '"State",' . '"Zip",' . '"Membership Type",' . "\"Membership Expiration\" \n";
 	}
 
@@ -80,7 +81,17 @@ class MemberFileManager
 		foreach ($this->members as $usr_prf) {
 			$f_nm = $usr_prf->first_name;
 			$l_nm = $usr_prf->last_name;
-			$prmry_phone = $usr_prf->phone_numbers->first()->number;
+			$email = $usr_prf->user->email;
+			if($usr_prf->phone_numbers()->count() == 1) {
+				$prmry_phone = $usr_prf->phone_numbers->first()->number;
+				$sec_phone = 'none';
+			} elseif ($usr_prf->phone_numbers()->count() == 2) {
+				$prmry_phone = $usr_prf->phone_numbers->first()->number;
+				$sec_phone = $usr_prf->phone_numbers->get(1)->number;
+			} else {
+				$prmry_phone = 'none';
+				$sec_phone = 'none';
+			}
 			$st_addr = $usr_prf->street_address;
 			$city = $usr_prf->city;
 			$state = $usr_prf->state;
@@ -93,7 +104,8 @@ class MemberFileManager
 				$mem_end_dt = null;
 			}
 			$usr_prf_recrd = '"'. $f_nm . '"' . ',' . '"' . $l_nm . '"' . ',' . '"' .
-							 $prmry_phone . '"' . ',' . '"' .
+							 $email . '"' . ',' . '"' .
+							 $prmry_phone . '"' . ',' . '"' . $sec_phone . '"' . ',' . '"' .
 			                 $st_addr . '"' . ',' . '"' . $city . '"' . ',' . '"' . 
 			                 $state . '"' . ',' . '"' . $zip . '"' . ',' . '"' .
 							 $mem_type . '"' . ',' .  '"' . $mem_end_dt . '"' . $delmtr;

@@ -65,22 +65,18 @@ class AuthController extends Controller
             'email' => 'required|email|max:255|unique:users',
             'password' => 'required|min:6|confirmed',
             'street_address' => 'required|min:4',
-            'city' => 'required|alpha_num|min:2',
+            'city' => 'required|min:2',
             'state' => 'required|alpha_num|min:2',
             'zip' => 'required|integer',
             'phone_number' => 'required',
             'phone_type' => 'required',
             'membership_type' => 'required',
-            'sponsor1' => 'required_unless:membership_type, 4',
-            'sponsor2' => 'required_unless:membership_type, 4',
             'payment_method' => 'required',
             'survey_details' => 'required_if:rev-resource,Other',
 
-/*            'password' => ['required','min:6','confirmed',     <--production
-                           'regex:^\S*(?=\S{8,})(?=\S*[a-z])(?=\S*[A-Z])(?=\S*[\d])\S*$^'],*/
+            //'password' => ['required','min:6','confirmed',
+              //             'regex:^\S*(?=\S{8,})(?=\S*[a-z])(?=\S*[A-Z])(?=\S*[\d])\S*$^'],
         ], [
-            'sponsor1.required_unless' => "All membership applications require an OCC sponsor EXCEPT for student memberships",
-            'sponsor2.required_unless' => "All membership applications require an OCC sponsor EXCEPT for student memberships",
             'membership_type.required' => "Please select a membership type"
         ]);
     }
@@ -98,7 +94,6 @@ class AuthController extends Controller
     {
         // Create PDF membership application
         MembershipController::make_mmbrshp_application($data);
-        
         // handle roll, password
         $role = Role::firstOrCreate(['type' => 'general_user']);
         $user = User::create([
@@ -169,20 +164,21 @@ class AuthController extends Controller
         $user_profile->membership_id = $membership->id;
         $user_profile->save();
 
+        // Sponsor Functionality removed as requested
         // if the membership is of any type other than 'student' then
         // 2 sponsors are required
-        $mem_type_id = $data['membership_type'];
-        if ($mem_type_id != 4) {     // 4 = student type membership
-            MembershipSponsor::create([
-                'sponsor_name' => $data['sponsor1'],
-                'user_profile_id' => $user_profile->id
-            ]);
-            MembershipSponsor::create([
-                'sponsor_name' => $data['sponsor2'],
-                'user_profile_id' => $user_profile->id
-            ]);
+        // $mem_type_id = $data['membership_type'];
+        // if ($mem_type_id != 4) {     // 4 = student type membership
+        //     MembershipSponsor::create([
+        //         'sponsor_name' => $data['sponsor1'],
+        //         'user_profile_id' => $user_profile->id
+        //     ]);
+        //     MembershipSponsor::create([
+        //         'sponsor_name' => $data['sponsor2'],
+        //         'user_profile_id' => $user_profile->id
+        //     ]);
 
-        }
+        // }
         // how did they hear about us
         $rev_resource = $data['rev_resource'];
         $survey_details = $data['survey_details'];

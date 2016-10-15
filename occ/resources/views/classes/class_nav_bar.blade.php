@@ -8,7 +8,7 @@
 <ul class="nav nav-tabs">
   <li role="presentation"><a href="/class_info">Class Information</a></li>
   <li role="presentation"><a href="/pre_class_prep">Pre-Class Prep</a></li>
-  <li role="presentation" class="active"><a href="/classes_schedule/1">Class Schedule</a></li>
+  <li role="presentation" class="active"><a href="/classes_schedule/1">Class Registration</a></li>
 </ul>
 
 @elseif ($curr_view == 'pre_class_prep')
@@ -16,7 +16,7 @@
 <ul class="nav nav-tabs">
   <li role="presentation"><a href="/class_info">Class Information</a></li>
   <li role="presentation" class="active"><a href="/pre_class_prep">Pre-Class Prep</a></li>
-  <li role="presentation"><a href="/classes_schedule/1">Class Schedule</a></li>
+  <li role="presentation"><a href="/classes_schedule/1">Class Registration</a></li>
 </ul>
 
 
@@ -25,7 +25,7 @@
 <ul class="nav nav-tabs">
   <li role="presentation" class="active"><a href="/class_info">Class Information</a></li>
   <li role="presentation"><a href="/pre_class_prep">Pre-Class Prep</a></li>
-  <li role="presentation"><a href="/classes_schedule/1">Class Schedule</a></li>
+  <li role="presentation"><a href="/classes_schedule/1">Class Registration</a></li>
 </ul>
 
 @endif

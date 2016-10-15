@@ -31,7 +31,7 @@ class CreateInstructorRequest extends Request
         return [
             'first_name' => 'required|min:3',
             'last_name' => 'required|min:3',
-            'img_of_instructor' => 'mimes:jpeg,png,bmp',
+            'img_of_instructor' => 'image',
         ];
     }
 }

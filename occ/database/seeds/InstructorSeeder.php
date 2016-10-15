@@ -83,7 +83,7 @@ class InstructorSeeder extends Seeder
 		App\Instructor::create([
 			'first_name' => 'Debbie',
 			'last_name'  => 'Tuthill',
-			'biography_id' => 11,
+			'biography_id' => 12,
 			'user_id' => App\User::where('email', 'dltuthill@epbfi.com')
 						 ->first()->id,
 
@@ -100,7 +100,7 @@ class InstructorSeeder extends Seeder
 
 		App\Instructor::create([
 			'first_name' => 'Katherine',
-			'last_name'  => 'Worth-Taylor',
+			'last_name'  => 'Taylor-worth',
 			'biography_id' => 7,
 			'user_id' => App\User::where('email', 'ktw@taylorworth.com')
 						 ->first()->id,

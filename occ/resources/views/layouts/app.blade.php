@@ -23,7 +23,7 @@
     }
 
     .nav >li >a {
-      padding-top: 60px;
+      padding-top: 50px;
       padding-bottom: 30px;
     }
     .navbar-toggle {
@@ -41,14 +41,12 @@
         <!-- Collapsed Hamburger -->
         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
           <span class="sr-only">Toggle Navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
+          Main Menu
         </button>
 
         <!-- Branding Image -->
         <a class="navbar-brand" href="{{ url('/') }}">
-          <img  src="{{ asset('img/occ_brand.png') }}" alt="Obedience Club of Chattanooga">
+          <img  src="{{ asset('img/occ_brand_sm.png') }}" alt="Obedience Club of Chattanooga">
         </a>
       </div>
 
@@ -80,37 +78,37 @@
           <li><a href="{{ url('/login') }}">Login</a></li>
           <li><a href="{{ url('/register') }}">Become a Member</a></li>
           @elseif (Auth::user()->isAdmin())
+          <li><a href=" {{ url('/profiles', Auth::user()->user_profile->id) }} "><i class="fa fa-btn fa-sign-out"></i>My Profile</a></li>
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
               {{ "Welcome " . Auth::user()->user_profile->first_name  . " " . Auth::user()->user_profile->last_name}} <span class="caret"></span>
             </a>
 
             <ul class="dropdown-menu" role="menu">
-              <li><a href=" {{ url('/profiles', Auth::user()->user_profile->id) }} "><i class="fa fa-btn fa-sign-out"></i>My Profile</a></li>
+              
               <li><a href=" {{ url('/admin') }} "><i class="fa fa-btn fa-sign-out"></i>Admin View</a></li>
               <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
             </ul>
           </li>
           @elseif (Auth::user()->isInstructor())
+          <li><a href=" {{ url('/profiles', Auth::user()->user_profile->id) }} "><i class="fa fa-btn fa-sign-out"></i>My Profile</a></li>
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
               {{ "Welcome " . Auth::user()->user_profile->first_name  . " " . Auth::user()->user_profile->last_name}} <span class="caret"></span>
             </a>
-
             <ul class="dropdown-menu" role="menu">
-              <li><a href=" {{ url('/profiles', Auth::user()->user_profile->id) }} "><i class="fa fa-btn fa-sign-out"></i>My Profile</a></li>
               <li><a href=" {{ url('/instructor/roster/'. Auth::user()->id) }} "><i class="fa fa-btn fa-sign-out"></i>My Class Roster(s)</a></li>
               <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
             </ul>
           </li>
           @else
+          <li><a href=" {{ url('/profiles', Auth::user()->user_profile->id) }} "><i class="fa fa-btn fa-sign-out"></i>My Profile</a></li>
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
               {{ "Welcome " . Auth::user()->user_profile->first_name  . " " . Auth::user()->user_profile->last_name}} <span class="caret"></span>
             </a>
-
             <ul class="dropdown-menu" role="menu">
-              <li><a href=" {{ url('/profiles', Auth::user()->user_profile->id) }} "><i class="fa fa-btn fa-sign-out"></i>My Profile</a></li>
+              
               <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
             </ul>
           </li>

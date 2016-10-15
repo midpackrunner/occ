@@ -80,6 +80,13 @@ class User extends Authenticatable
         }
         return $cnt;
     }
+
+    public function has_pet_with_expired_shots() {
+        if($this->count_pets_with_expired_shots() > 0) {
+            return true;
+        }
+        return false;
+    }
     /**
      * Returns boolean if the User has signed up for a class from the
      * session prior to that given by $session_id

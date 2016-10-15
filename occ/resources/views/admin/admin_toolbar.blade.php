@@ -11,6 +11,7 @@
   <link rel="stylesheet" type="text/css" href="{{ asset('css/custom-theme/jquery-ui-1.10.0.custom.css') }}">
   <link rel="stylesheet" type="text/css" href="{{ asset('css/bs-select-css/bootstrap-select.min.css') }}">
   <link rel="stylesheet" type="text/css" href="{{ asset('css/custom-theme/custom.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ asset('css/morris.css') }}">
   {{-- <link href="{{ elixir('css/app.css') }}" rel="stylesheet"> --}}
 
   <style>
@@ -61,7 +62,7 @@
             </a>
             <ul class="dropdown-menu" role="menu">
               <li><a href="{{ url('/members/1/none') }}">Members Dashboard</a></li>
-              <li><a href="{{ url('/medical_records/1') }}">Medical Records</a></li>
+              <li><a href="{{ url('/medical_records/1/none') }}">Medical Records</a></li>
               <li><a href="{{ url('/volunteer') }}">Volunteer Time Verification</a></li>
             </ul>
           </li>      

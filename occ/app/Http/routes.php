@@ -24,7 +24,7 @@ Route::get('/member_cancel_pay_by_paypal', 'PaymentController@member_cancel_pay_
 Route::get('/member_renewal_confirmation_pay_by_paypal/{mem_id}', 'PaymentController@member_renewal_confirmation_pay_by_paypal');
 Route::get('/member_renewal_cancel_pay_by_paypal', 'PaymentController@member_renewal_cancel_pay_by_paypal');
 Route::get('/renew_membership_paypal_payout/{mem_id}', 'PaymentController@renew_membership_paypal_payout');
-
+//Route::get('mem_app_temp', 'MembershipController@mem_app_temp');
 
 Route::get('/class_pay_with_pay_pal/{token}', 'PaymentController@class_pay_with_pay_pal');
 Route::get('/class_confirmation_paypal/{token}', 'PaymentController@class_confirmation_paypal');
@@ -42,7 +42,7 @@ Route::resource('volunteer', 'VolunteerHourController');
 Route::get('memberships/{membership}/edit', array('as'=> 'memberships.edit', 
 									 'uses' => 'MembershipController@edit'));
 // ------- Public facing routes
-Route::get('/contact', 'ContactController@index');
+Route::get('/contact', ['uses' => 'ContactController@index']);
 Route::resource('announcements', 'AnnouncementController');
 Route::resource('faqs', 'FAQController');
 Route::resource('events', 'EventController');
@@ -95,9 +95,9 @@ Route::get('/upload_schedule', 'Admin\AdminClassesController@upload_schedule');
 Route::post('/upload_schedule', 'Admin\AdminClassesController@post_schedule');
 
 // -------- Admin Medical Records
-Route::get('medical_records/{curr_page}', 'Admin\AdminMedicalRecordsController@index');
+Route::get('medical_records/{curr_page}/{filter}', 'Admin\AdminMedicalRecordsController@index');
 Route::get('medical_records/{med_id}/edit', array('uses' => 'Admin\AdminMedicalRecordsController@edit', 'as' => 'medical_record.edit'));
-Route::get('medical_records/create/{usr_id}', array('uses' => 'Admin\AdminMedicalRecordsController@create', 'as' => 'medical_record.create'));
+Route::get('medical_records/create/{usr_id}/new', array('uses' => 'Admin\AdminMedicalRecordsController@create', 'as' => 'medical_record.create'));
 Route::post('medical_records/store', array('uses' => 'Admin\AdminMedicalRecordsController@store', 'as' => 'medical_record.store'));
 Route::match(array('PUT', 'PATCH'), 'medical_records/{med_id}', array('uses' => 'Admin\AdminMedicalRecordsController@update', 'as' => 'medical_record.update'));
 Route::get('roster/verified_payment/{class_id}/{pet_id}', 'Admin\AdminRosterController@verified_payment');

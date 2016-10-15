@@ -4,6 +4,7 @@ use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
+    private $env = 'test';
     /**
      * Run the database seeds.
      *
@@ -15,13 +16,15 @@ class DatabaseSeeder extends Seeder
         // clear all previous data
         DB::table('user_profiles')->delete();
         DB::table('users')->delete();
+        DB::table('memberships')->delete();
+
+
         DB::table('roles')->delete();
         DB::table('membership_types')->delete();
-        DB::table('memberships')->delete();
         DB::table('phone_numbers')->delete();
         DB::table('phone_number_user_profile')->delete();
-        DB::table('interests')->delete();
         DB::table('interest_user_profile')->delete();
+        DB::table('interests')->delete();
         DB::table('carousels')->delete();
         DB::table('announcements')->delete();
         DB::table('pets')->delete();
@@ -86,28 +89,31 @@ class DatabaseSeeder extends Seeder
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
 
 
-        // $this->call(UsersTableSeeder::class);
+        // test data for Dev only
+        if ($this->env == 'dev') {
+            $this->call(UserAndUserProfileSeeder::class);
+            $this->call(MembershipSeeder::class);
+            $this->call(PhoneNumberSeeder::class);
+            $this->call(PetSeeder::class);
+            $this->call(VolunteerHourSeeder::class);
+            $this->call(MembershipVerifiedPaymentsSeeder::class);
+            $this->call(SurveyAnswerSeeder::class);
+            $this->call(SpecialSkillSeeder::class);
+            $this->call(MedicalRecordSeeder::class);
+        }
+
         $this->call(RolesSeeder::class);
-        $this->call(UserAndUserProfileSeeder::class);
         $this->call(ProdMemberships::class);            // Prod
         $this->call(ProdUserandUserProfile::class);     // Prod
-        $this->call(MembershipSeeder::class);
-        $this->call(PhoneNumberSeeder::class);
         $this->call(InterestSeeder::class);
         $this->call(CarouselSeeder::class);
         $this->call(AnnouncementSeeder::class);
-        $this->call(PetSeeder::class);
         $this->call(ClassesDetailsSeeder::class);
         $this->call(BiographySeeder::class);            // Prod
         $this->call(InstructorSeeder::class);           // Prod
         $this->call(ClassSeeder::class);
         $this->call(BreedsSeeder::class);
-        $this->call(SpecialSkillSeeder::class);
-        $this->call(VolunteerHourSeeder::class);
-        $this->call(MedicalRecordSeeder::class);
-        $this->call(MembershipVerifiedPaymentsSeeder::class);
         $this->call(ProdRevenueResourceSeeder::class);
-        $this->call(SurveyAnswerSeeder::class);
         $this->call(ProdStateSeeder::class);
         $this->call(ProdFAQSeeder::class);         // Prod
         $this->call(EventSeeder::class);

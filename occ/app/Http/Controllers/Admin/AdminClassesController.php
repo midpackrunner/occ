@@ -198,7 +198,9 @@ class AdminClassesController extends Controller
         $schedule_loader->update();
         $num_of_records = $schedule_loader->get_num_of_new_records();
         $duplicate_results = $schedule_loader->get_duplicate_results();
+        $num_of_naming_errors = $schedule_loader->get_num_of_naming_errors();
 
-        return view('classes.upload_schedule', compact('num_of_records', 'duplicate_results'));
+        return view('classes.upload_schedule', compact('num_of_records', 'duplicate_results', 
+                                                       'num_of_naming_errors'));
     }
 }  

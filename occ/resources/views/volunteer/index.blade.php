@@ -132,6 +132,9 @@
 	    		console.log('success back');
 	    		$('#verified').modal('show'); 
 	    	}
+	    	else if (data == 'delete_success'){
+				location.reload();
+	    	}
 	    	else {
 	    		alert('Unknown Error: an unkown error has occured.' +
 	    			'Please contact the website\'s Administrator');

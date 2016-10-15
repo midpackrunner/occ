@@ -21,10 +21,16 @@ class Classes extends Model
     // use $classes->trashed() boolean to see if an item is soft deleted
     protected $dates = ['deleted_at'];
 
-    // App\Classes::ofSession('4')->get()
-    public function scopeOfSession($query, $session)
+    // App\Classes::ofSession('4', 2016)->get()
+    // This filters to the session belonging to the current year.
+    public function scopeOfSession($query, $session, $year)
     {
-    	return $query->where('session', $session);
+        return $query->where([
+                    ['session', $session],
+                    ['begin_date', '>=', Carbon::create($year, 1, 1)->toDateString()],
+                    ['begin_date', '<=', Carbon::create($year + 1, 1, 1)->toDateString()],
+               ]);
+
     }
 
     // return only those classes whose end date is not today

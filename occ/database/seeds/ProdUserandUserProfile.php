@@ -13,7 +13,7 @@ class ProdUserandUserProfile extends Seeder
     {
         $sm_user = App\User::create([
             'email' => 'sablmillican@gmail.com',
-            'password' =>  bcrypt('password'),
+            'password' =>  bcrypt('OCCRocks1959!@#'),
             'roles_id' => '2',
             'has_logged_in_once' => '0',
         ]);
@@ -43,7 +43,7 @@ class ProdUserandUserProfile extends Seeder
 
         $sm_user = App\User::create([
             'email' => 'jldavis012@yahoo.com',
-            'password' =>  bcrypt('password'),
+            'password' =>  bcrypt('OCCRocks1959!@#'),
             'roles_id' => '3',
             'has_logged_in_once' => '0',
         ]);
@@ -70,7 +70,7 @@ class ProdUserandUserProfile extends Seeder
 
         $sm_user = App\User::create([
             'email' => 'jmg@tnaqua.org',
-            'password' =>  bcrypt('password'),
+            'password' =>  bcrypt('OCCRocks1959!@#'),
             'roles_id' => '3',
             'has_logged_in_once' => '0',
         ]);
@@ -98,7 +98,7 @@ class ProdUserandUserProfile extends Seeder
 
         $sm_user = App\User::create([
             'email' => 'msbrett@87gdesign.com',
-            'password' =>  bcrypt('password'),
+            'password' =>  bcrypt('OCCRocks1959!@#'),
             'roles_id' => '3',
             'has_logged_in_once' => '0',
         ]);
@@ -125,7 +125,7 @@ class ProdUserandUserProfile extends Seeder
 
         $sm_user = App\User::create([
             'email' => 'stellarbt@charter.net',
-            'password' =>  bcrypt('password'),
+            'password' =>  bcrypt('OCCRocks1959!@#'),
             'roles_id' => '3',
             'has_logged_in_once' => '0',
         ]);
@@ -153,7 +153,7 @@ class ProdUserandUserProfile extends Seeder
 
         $sm_user = App\User::create([
             'email' => 'idreamofpinkcars@aol.com',
-            'password' =>  bcrypt('password'),
+            'password' =>  bcrypt('OCCRocks1959!@#'),
             'roles_id' => '3',
             'has_logged_in_once' => '0',
         ]);
@@ -181,7 +181,7 @@ class ProdUserandUserProfile extends Seeder
 
         $sm_user = App\User::create([
             'email' => 'geofay@bellsouth.net',
-            'password' =>  bcrypt('password'),
+            'password' =>  bcrypt('OCCRocks1959!@#'),
             'roles_id' => '3',
             'has_logged_in_once' => '0',
         ]);
@@ -209,7 +209,7 @@ class ProdUserandUserProfile extends Seeder
 
         $sm_user = App\User::create([
             'email' => 'mountainbirddogs@aol.com',
-            'password' =>  bcrypt('password'),
+            'password' =>  bcrypt('OCCRocks1959!@#'),
             'roles_id' => '3',
             'has_logged_in_once' => '0',
         ]);
@@ -237,7 +237,7 @@ class ProdUserandUserProfile extends Seeder
 
         $sm_user = App\User::create([
             'email' => 'dltuthill@epbfi.com',
-            'password' =>  bcrypt('password'),
+            'password' =>  bcrypt('OCCRocks1959!@#'),
             'roles_id' => '3',
             'has_logged_in_once' => '0',
         ]);
@@ -264,7 +264,7 @@ class ProdUserandUserProfile extends Seeder
 
         $sm_user = App\User::create([
             'email' => 'carolwetzel3@gmail.com',
-            'password' =>  bcrypt('password'),
+            'password' =>  bcrypt('OCCRocks1959!@#'),
             'roles_id' => '3',
             'has_logged_in_once' => '0',
         ]);
@@ -292,7 +292,7 @@ class ProdUserandUserProfile extends Seeder
 
         $sm_user = App\User::create([
             'email' => 'ktw@taylorworth.com',
-            'password' =>  bcrypt('password'),
+            'password' =>  bcrypt('OCCRocks1959!@#'),
             'roles_id' => '3',
             'has_logged_in_once' => '0',
         ]);
@@ -311,6 +311,33 @@ class ProdUserandUserProfile extends Seeder
             'city' => 'Signal Mountain' ,
             'state' => 'Tennessee' ,
             'zip' => '37377' ,
+            'is_occ_member' => 1,
+            'membership_id' => $membership->id,
+            'user_id' => $sm_user->id ,
+            'willing_to_work' => 'yes'
+        ]);
+
+        $sm_user = App\User::create([
+            'email' => 'cmbonham@hotmail.com',
+            'password' =>  bcrypt('BuDhA82!#%'),
+            'roles_id' => '2',
+            'has_logged_in_once' => '0',
+        ]);
+        $membership = App\Membership::create([
+            'membership_type_id' => 4,
+            'start_date' => new DateTime("2016-05-01"),
+            'end_date' =>   new DateTime("2017-05-01"),
+            'payment_method' => 'check',
+        ]);
+
+
+        $sm_usr_prf = App\UserProfile::create([
+        'first_name' => 'Chris' ,
+            'last_name' => 'Bonham' ,
+            'street_address' => '4019 Lost Oak Drive' ,
+            'city' => 'Ooltewah' ,
+            'state' => 'Tennessee' ,
+            'zip' => '37363' ,
             'is_occ_member' => 1,
             'membership_id' => $membership->id,
             'user_id' => $sm_user->id ,

@@ -209,32 +209,6 @@
             </div>
 
 
-            <div class="sponsors form-group{{ $errors->has('sponsor1') ? ' has-error' : '' }}">
-              <label class="col-md-4 control-label">Member Sponsor's Name (1)</label>
-
-              <div class="col-md-6">
-                <input type="text" class="form-control" name="sponsor1" value="{{ old('sponsor1') }}">
-
-                @if ($errors->has('sponsor1'))
-                <span class="help-block">
-                  <strong>{{ $errors->first('sponsor1') }}</strong>
-                </span>
-                @endif
-              </div>
-            </div>
-            <div class=" sponsors form-group{{ $errors->has('sponsor2') ? ' has-error' : '' }}">
-              <label class="col-md-4 control-label">Member Sponsor's Name (2)</label>
-
-              <div class="col-md-6">
-                <input type="text" class="form-control" name="sponsor2" value="{{ old('sponsor2') }}">
-
-                @if ($errors->has('sponsor2'))
-                <span class="help-block">
-                  <strong>{{ $errors->first('sponsor2') }}</strong>
-                </span>
-                @endif
-              </div>
-            </div>
 
             <div class="form-group{{ $errors->has('rev_resource') ? ' has-error' : '' }}">
               <label class="col-md-4 control-label">How did you here about Us?</label>
@@ -268,10 +242,7 @@
               </div>
             </div>
 
-
-
-
-            <div class="form-group {{ $errors->has('payment_method') ? 'has-error' : ''}}">
+            <div class="form-group {{ $errors->has('payment_method') ? 'has-error' : ''}}" hidden>
               <label class="col-md-4 control-label">Payment Method: 
                 <span data-toggle="modal" data-target="#payment-method-info"class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
               </label>
@@ -280,7 +251,11 @@
               <div class="col-md-6">
                 @foreach ($payment_methods as $payment_method)
                 <label class="radio-inline">
+                  @if($payment_method == "check")
+                 {{ Form::radio('payment_method', $payment_method, true)}} {{$payment_method}}
+                 @else
                  {{ Form::radio('payment_method', $payment_method)}} {{$payment_method}}
+                 @endif
                </label>
                @endforeach
 

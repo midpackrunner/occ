@@ -12,34 +12,44 @@ class InterestSeeder extends Seeder
     public function run()
     {
 		App\Interest::create([
-	        'name' => 'Publicity',
+	        'name' => 'Class Instructor',
 		]);
 		App\Interest::create([
-	        'name' => 'Newsletter',
+	        'name' => 'Class Assistant',
 		]);
 		App\Interest::create([
-	        'name' => 'Hospitality',
-		]);
-		App\Interest::create([
-	        'name' => 'Show/match',
-		]);
-		App\Interest::create([
-	        'name' => 'Membership',
-		]);
-		App\Interest::create([
-	        'name' => 'Sunshine',
-		]);
-		App\Interest::create([
-	        'name' => 'Fundraising',
+	        'name' => 'County Fair',
 		]);
 		App\Interest::create([
 	        'name' => 'Education',
 		]);
 		App\Interest::create([
-	        'name' => 'Class instructor',
+	        'name' => 'Facilities',
 		]);
 		App\Interest::create([
-	        'name' => 'Class assistant',
+	        'name' => 'Hospitality',
 		]);
+		App\Interest::create([
+	        'name' => 'Membership',
+		]);
+		App\Interest::create([
+	        'name' => 'Monthly Meeting Setup/Breakdown',
+		]);
+		App\Interest::create([
+	        'name' => 'Publicity - Facebook, Twitter, Instagram, etc.',
+		]);
+		App\Interest::create([
+	        'name' => 'Show/Match Volunteer',
+		]);
+		App\Interest::create([
+	        'name' => 'Technology',
+		]);
+		App\Interest::create([
+	        'name' => 'Trials',
+		]);
+		App\Interest::create([
+	        'name' => 'Newsletter',
+		]);
+
     }
 }

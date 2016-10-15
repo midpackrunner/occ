@@ -46,6 +46,7 @@
 			</div>
 			<div class="panel-body">
 				<ul>
+				<li><strong>Crate:</strong>  A crate is required for all AGILITY courses.  If dog is off leash and running the course, then all other dogs need to be in a crate.</li>
 					<li><strong>Collar:</strong> buckle, martingale, or snap collar for puppy classes. For adult dog classes training collars may be recommended by the instructor. No harnesses or head collars unless recommended by your instructor.</li>
 					<li><strong>Leash:</strong> 4-foot leash, preferably leather or cotton. No chain leashes. No flexible or extendible leashes may be used unless recommended by your instructor.</li>
 					<li><strong>Treat Bag:</strong> fanny pack or workman's pocket apron.</li>
