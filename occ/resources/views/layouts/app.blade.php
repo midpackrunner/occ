@@ -46,7 +46,7 @@
 
         <!-- Branding Image -->
         <a class="navbar-brand" href="{{ url('/') }}">
-          <img  src="{{ asset('img/occ_brand_sm.png') }}" alt="Obedience Club of Chattanooga">
+          <img  class="img-responsive" src="http://occ/img/occ_brand_sm.png" alt="Obedience Club of Chattanooga">
         </a>
       </div>
 
@@ -62,10 +62,10 @@
           <li><a href="{{ url('/instructor_bios') }}">Meet Our Instructors</a></li>
         </ul>
         <ul class="nav navbar-nav">
-          <li><a href="{{ url('/faqs') }}">FAQ</a></li>
+          <li><a href="{{ url('/faqs') }}">FAQ/Help</a></li>
         </ul>
         <ul class="nav navbar-nav">
-          <li><a href="{{ url('/events') }}">Events</a></li>
+          <li><a href="{{ url('/events') }}">Trials/Events</a></li>
         </ul>
         <ul class="nav navbar-nav">
           <li><a href="{{ url('/contact') }}">Contact Us</a></li>
@@ -87,6 +87,7 @@
             <ul class="dropdown-menu" role="menu">
               
               <li><a href=" {{ url('/admin') }} "><i class="fa fa-btn fa-sign-out"></i>Admin View</a></li>
+              <li><a href=" {{ url('/instructor/roster/'. Auth::user()->id) }} "><i class="fa fa-btn fa-sign-out"></i>My Class Roster(s)</a></li>
               <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
             </ul>
           </li>

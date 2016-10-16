@@ -95,7 +95,7 @@ Route::get('/upload_schedule', 'Admin\AdminClassesController@upload_schedule');
 Route::post('/upload_schedule', 'Admin\AdminClassesController@post_schedule');
 
 // -------- Admin Medical Records
-Route::get('medical_records/{curr_page}/{filter}', 'Admin\AdminMedicalRecordsController@index');
+Route::get('med_records/{curr_page}/{filter}', 'Admin\AdminMedicalRecordsController@index');
 Route::get('medical_records/{med_id}/edit', array('uses' => 'Admin\AdminMedicalRecordsController@edit', 'as' => 'medical_record.edit'));
 Route::get('medical_records/create/{usr_id}/new', array('uses' => 'Admin\AdminMedicalRecordsController@create', 'as' => 'medical_record.create'));
 Route::post('medical_records/store', array('uses' => 'Admin\AdminMedicalRecordsController@store', 'as' => 'medical_record.store'));

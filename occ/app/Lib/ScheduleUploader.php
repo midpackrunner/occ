@@ -35,11 +35,11 @@ class ScheduleUploader {
 
 				$session = $col[0];
 				$class_id = $this->get_class_id($col[1]);
-				$day_of_week = $col[2];
-				$time = $col[3];
-				$begin_date = $col[4];
-				$end_date = $col[5];
-				$entrance = $col[6];
+				$entrance = $col[2];
+				$day_of_week = $col[3];
+				$time = $col[4];
+				$begin_date = $col[5];
+				$end_date = $col[6];
 				$capacity = $col[7];
 				$instructor = $this->get_instructor($col[8]);
 				$is_open = $col[9];

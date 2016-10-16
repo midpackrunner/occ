@@ -44,7 +44,6 @@ class AdminMedicalRecordsController extends Controller
                                 config('app.max_viewable_med_recs'), $curr_page);
         $num_of_pages = $page_helper->get_num_of_pages();
         $users = $page_helper->get_sliced_collection();
-
         return view('admin.medical.index', compact('users', 'curr_page',
                                             'num_of_pages', 'filter')); 
     }
@@ -134,7 +133,7 @@ class AdminMedicalRecordsController extends Controller
         }
         $med_rec->save();
         \Session::flash('flash_message', 'Successfully Updated Medical Records ');
-        return  redirect('medical_records/1');
+        return  redirect('med_records/1/none');
     }
 
     /**

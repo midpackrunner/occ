@@ -33,10 +33,16 @@ class Classes extends Model
 
     }
 
-    // return only those classes whose end date is not today
+    // return only those classes whose end date is less than today
     public function scopeUpComing($query)
     {
     	return $query->where('end_date', '>=', Carbon::today());
+    }
+
+    // return only those classes whose end date is less than today
+    public function scopeTwoWeeksOut($query)
+    {
+        return $query->where('end_date', '>=', Carbon::today()->addWeeks(2));
     }
 
     // return only those classes that are open to the public

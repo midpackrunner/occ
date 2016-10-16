@@ -244,12 +244,12 @@
 				<h3 class="modal-title" id="myModalLabel">Hours for {{$class->details->title}}<small> You have {{$class->pivot->logged_hours}} logged hours</h3>
 			</div>
 			<div class="modal-body">
-				@if (count($pet->attendance) == 0)
+				@if (count($pet->attendance()->where('classes_id', $class->id)->get()) == 0)
 				<h4>No dates have been recorded for this class yet.</h4>
 				@else
 				<h4>Attended Dates on Record</h4>
 				<ul>
-					@foreach ($pet->attendance as $attendance)
+					@foreach ($pet->attendance()->where('classes_id', $class->id)->get() as $attendance)
 					<li>{{$attendance->pivot->attended_date}}</li>
 					@endforeach
 				</ul>

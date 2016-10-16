@@ -24,10 +24,10 @@
 		<div class="col-md-6 col-md-offset-6">
 			<ul class="pagination pagination-lg pull-right">
 				@for ($i = 1; $i <= $num_of_pages; $i++)
-				@if(Request::is('medical_records/*/none'))
-				<li class= <?php if($i == $curr_page) echo "active"; ?> ><a href="{{ '/medical_records/' . $i . '/none'  }}"> {{$i}}</a></li>
+				@if(Request::is('med_records/*/none'))
+				<li class= <?php if($i == $curr_page) echo "active"; ?> ><a href="{{ '/med_records/' . $i . '/none'  }}"> {{$i}}</a></li>
 				@else
-				<li class= <?php if($i == $curr_page) echo "active"; ?> ><a href="{{ '/medical_records/' . $i . '/expired'  }}"> {{$i}}</a></li>
+				<li class= <?php if($i == $curr_page) echo "active"; ?> ><a href="{{ '/med_records/' . $i . '/expired'  }}"> {{$i}}</a></li>
 				@endif
 				@endfor
 			</ul>
@@ -44,12 +44,12 @@
 					{{$user->user_profile->first_name . ' '. $user->user_profile->last_name . '\'s Registered Pets   '}}
 					<small style="color: rgb(255,255,255)">{{$user->email}} 
 					</small>
-						<button class="pull-right btn {{($user->count_pets_with_expired_shots() > 0) ? 'btn-danger': 'btn-primary'}}"type="button" data-toggle="collapse" data-target="#dropdown_{{$user->user_profile->last_name. $user->user_profile->last_name}}" aria-expanded="false" aria-controls="dropdown_{{$user->email}}">
+						<button class="pull-right btn {{($user->count_pets_with_expired_shots() > 0) ? 'btn-danger': 'btn-primary'}}"type="button" data-toggle="collapse" data-target="#dropdown_{{$user->user_profile->first_name. $user->user_profile->last_name}}" aria-expanded="false" aria-controls="dropdown_{{$user->email}}">
 							<span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
 						</button>
 				</h4>
 			</div>
-			<div class="collapse" id="dropdown_{{$user->user_profile->last_name. $user->user_profile->last_name}}">
+			<div class="collapse" id="dropdown_{{$user->user_profile->first_name.$user->user_profile->last_name}}">
 				<div class="row">
 				<div class="col-md-11 col-md-offset-1">
 

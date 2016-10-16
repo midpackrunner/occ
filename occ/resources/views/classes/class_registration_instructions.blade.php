@@ -42,7 +42,7 @@
 							</li>
 							<li class="list-group-item list-group-item-danger">
 								2. 
-								<a href="{{ url('/register') }}">
+								<a href="{{ url('/profiles', Auth::user()->user_profile->id) }}">
 									Add your dog(s) to your profile</a>
 									<div class="pull-right"><span class="glyphicon glyphicon-remove"></span></div>
 								</li>

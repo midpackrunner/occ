@@ -27,7 +27,8 @@ class CreateClassesTable extends Migration
             $table->string('session');
             $table->string('time');
             $table->string('is_open');
-            $table->unique(array('begin_date', 'end_date', 'class_details_id', 'session', 'time'));
+            // this unique may throw an error.  I did it manually
+            $table->unique(array('begin_date', 'end_date', 'class_details_id', 'session', 'time', 'day_of_week'));
         });
     }
 

@@ -8,7 +8,7 @@
 @include('admin.admin_class_nav_bar')
 <div class="container-fluid">
 	<div class="row">
-		<div class="col-md-2"><a class="btn btn-primary btn-sm" href="">Download List</a></div>
+		<div class="col-md-2" hidden><a class="btn btn-primary btn-sm" href="">Download List</a></div>
 		<div class="col-md-2"><a class="btn btn-primary btn-sm" href=" {{route('classes.create')}}">Add New Class</a></div>
 		<div class="col-md-3 col-md-offset-5">
 			<a class="btn btn-info pull-right" href="{{ url('/upload_schedule') }}" role="button">Upload Schedule</a>

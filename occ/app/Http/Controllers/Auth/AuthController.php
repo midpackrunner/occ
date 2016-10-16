@@ -105,8 +105,8 @@ class AuthController extends Controller
 
         // create profile
         $user_profile = UserProfile::create([
-            'first_name' => ucfirst($data['first_name']),
-            'last_name' => ucfirst($data['last_name']),
+            'first_name' => trim(ucfirst($data['first_name'])),
+            'last_name' => trim(ucfirst($data['last_name'])),
             'street_address' => $data['street_address'],
             'city' => $data['city'],
             'state' => $data['state'],
@@ -180,6 +180,7 @@ class AuthController extends Controller
 
         // }
         // how did they hear about us
+        $mem_type_id = $data['membership_type'];
         $rev_resource = $data['rev_resource'];
         $survey_details = $data['survey_details'];
         $survey_answer = SurveyAnswer::create([

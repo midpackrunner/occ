@@ -53,13 +53,13 @@
 							<h3 class="modal-title" id="myModalLabel">Hours for {{$class->details->title}}<small> {{ "  " . $class->begin_date . ' through ' . $class->end_date}}</h3>
 						</div>
 						<div class="modal-body">
-							@if (count($pet->attendance) == 0)
+							@if (count($attendance) == 0)
 							<h4>No dates have been recorded for this class yet.</h4>
 							@else
 							<h4>Attended Dates on Record</h4>
 							<ul>
-								@foreach ($pet->attendance as $attendance)
-								<li>{{$attendance->pivot->attended_date}}</li>
+								@foreach ($attendance as $att)
+								<li>{{$att->pivot->attended_date}}</li>
 								@endforeach
 							</ul>
 							@endif

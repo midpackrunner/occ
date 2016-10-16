@@ -164,7 +164,7 @@
 		<div class="form-group{{ $errors->has('accept') ? ' has-error' : '' }}">
 		
 			<label class="control-label col-md-8 col-md-offset-1">By checking this box you are acknowledging that (a) you are 18 or older, and (b) you agree to our class waiver.
-				<span data-toggle="modal" data-target="#class-waiver"class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
+				<a data-toggle="modal" href="#class-waiver">What's this?</a>
 			</label>
 			<div class="col-md-1">
 			<div class="checkbox pull-right">

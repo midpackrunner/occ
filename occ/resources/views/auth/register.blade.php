@@ -242,7 +242,7 @@
               </div>
             </div>
 
-            <div class="form-group {{ $errors->has('payment_method') ? 'has-error' : ''}}" hidden>
+            <div class="form-group {{ $errors->has('payment_method') ? 'has-error' : ''}}" >
               <label class="col-md-4 control-label">Payment Method: 
                 <span data-toggle="modal" data-target="#payment-method-info"class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
               </label>

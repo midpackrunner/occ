@@ -23,7 +23,7 @@ class FAQController extends Controller
      */
     public function index()
     {
-        $faqs = FAQ::all();
+        $faqs = FAQ::orderBy('view_order')->get();
         return view('faqs.index', compact('faqs'));
 
     }
