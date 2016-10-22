@@ -131,7 +131,6 @@ class AdminClassesController extends Controller
     public function update(Request $request, $id)
     {   
         $class = Classes::findOrFail($id);
-        
         // set new values
         $class->session = $request->session;
         $class->entrance = $request->entrance;
@@ -139,8 +138,12 @@ class AdminClassesController extends Controller
         $class->time = $request->time;
         $class->begin_date = $request->begin_date;
         $class->end_date = $request->end_date;
-        $class->vacant = $request->capacity;
-        $class->capacity = $request->capacity;
+        $cap = $request->capacity;
+        if ($cap != $class->vacant + $class->on_hold) {  // capacity has changed
+            $class->capacity = $cap;
+            $diff = $cap - ($class->vacant + $class->on_hold);
+            $class->vacant += $diff;                     // adjust vacant
+        }
         $class->is_open = $request->is_open;
 
         // clear all instructors
