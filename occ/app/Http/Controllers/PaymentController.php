@@ -335,6 +335,10 @@ class PaymentController extends Controller
         return view('classes.sign_up_confirmation_paypal', compact('class', 'pet'));
     }
 
+    /**
+     * If user decides to not complete PayPal payout, redirected here.
+     * @param  String $token token used in tmp paypal table.
+     */
     public function class_cancel_paypal(Request $request, $token)
     {
         $tmp = TempPaypalClassSignup::where('token', $token)->first();

@@ -179,7 +179,7 @@ class ClassController extends Controller
                                                ->discount_on_classes;
         
         if (Auth::user()->hasFiveOrMoreClasses()) {
-            return $class->details->cost - 35;
+            return $class->details->cost - 25;
         }
         if (Auth::user()->hasSuccessiveClass(substr($class->begin_date, 0, 4),
                                               $class->session)) {

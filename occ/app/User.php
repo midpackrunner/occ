@@ -148,7 +148,7 @@ class User extends Authenticatable
         foreach($this->pets as $pet) {
             $has_not_taken = true;
             foreach($pet->classes as $a_class) {
-                if ($class->details->id == $a_class->details->id) {
+                if ($class->id == $a_class->id) {
                     $has_not_taken = false;
                 }
             }

@@ -46,7 +46,7 @@
 
         <!-- Branding Image -->
         <a class="navbar-brand" href="{{ url('/') }}">
-          <img  class="img-responsive" src="http://occ/img/occ_brand_sm.png" alt="Obedience Club of Chattanooga">
+          <img  class="img-responsive" src="{{ asset('img/occ_brand_sm.png')}}" alt="Obedience Club of Chattanooga">
         </a>
       </div>
 

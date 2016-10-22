@@ -35,22 +35,10 @@ return [
         'secret' => env('STRIPE_SECRET'),
     ],
 
-    // -- DEV DEV DEV
-    'paypal' => [
-        'client_id' => 'Ae8VvIlxK8c8Gz2nJndlU4pOX16rwd-zNYmgzsUnnGboMiScKTFYEI_dVI9ko7HCvdC6BZ8mswTrHEiw',
-        'secret' => 'ELFqMdRwNjJcFOE5sAYK2TjY9CgKRGlcWIJOobenC6PNgxBqUGBERouQF_l-NuYhJbusbClsh7EWx9M-',
-        'membership_return_url' => 'https://crisgo-crazy.org/member_confirmation_pay_by_paypal',
-        'membership_cancel_url' => 'https://crisgo-crazy.org/member_cancel_pay_by_paypal',
-        'membership_renewal_return_url' => 'https://crisgo-crazy.org/member_renewal_confirmation_pay_by_paypal',
-        'membership_renewal_cancel_url' => 'https://crisgo-crazy.org/member_renewal_cancel_pay_by_paypal',
-        'class_confirmation_paypal' => 'https://crisgo-crazy.org/class_confirmation_paypal',
-        'class_cancel_paypal' => 'https://crisgo-crazy.org/class_cancel_paypal',
-    ],
-
-    // -- PROD PROD PRD
+    // -- TEST TEST TEST
     // 'paypal' => [
-    //     'client_id' => 'AX3BxriXfH9BbBLb4lEXSdSb3MrmKa2reh9zJnDL1R5JHp7D4gTp9nIEdesy0WoX66R8h-i94ei7mhuI',
-    //     'secret' => 'EGYRLgNx4aB85EX3KqeI2C3uhJ5FdSF9ayfJkBPzuwgP8FQbbMD2bAkJgOxKO6OxDyq2BB2zH8-WvyS2',
+    //     'client_id' => 'Ae8VvIlxK8c8Gz2nJndlU4pOX16rwd-zNYmgzsUnnGboMiScKTFYEI_dVI9ko7HCvdC6BZ8mswTrHEiw',
+    //     'secret' => 'ELFqMdRwNjJcFOE5sAYK2TjY9CgKRGlcWIJOobenC6PNgxBqUGBERouQF_l-NuYhJbusbClsh7EWx9M-',
     //     'membership_return_url' => 'https://crisgo-crazy.org/member_confirmation_pay_by_paypal',
     //     'membership_cancel_url' => 'https://crisgo-crazy.org/member_cancel_pay_by_paypal',
     //     'membership_renewal_return_url' => 'https://crisgo-crazy.org/member_renewal_confirmation_pay_by_paypal',
@@ -58,4 +46,16 @@ return [
     //     'class_confirmation_paypal' => 'https://crisgo-crazy.org/class_confirmation_paypal',
     //     'class_cancel_paypal' => 'https://crisgo-crazy.org/class_cancel_paypal',
     // ],
+
+    // -- PROD PROD PRD
+    'paypal' => [
+        'client_id' => 'ARbezcBJUAdzBOCtoRVoHODhYb9-Gt0-vrgGD7aF0ue8MHgTLpznuuPB4adMn_dUfkmTQWigRo9bXDuk',
+        'secret' => 'EBPyLP5udyujovqZ8ILAPkn6Ljk3dOtJNkLX7hhHQN9D3Bs353mx2fw8L90dqCIP9exdBiRV5mR3gK5E',
+        'membership_return_url' => 'https://www.chattanoogaobedienceclub.org//member_confirmation_pay_by_paypal',
+        'membership_cancel_url' => 'https://www.chattanoogaobedienceclub.org//member_cancel_pay_by_paypal',
+        'membership_renewal_return_url' => 'https://www.chattanoogaobedienceclub.org//member_renewal_confirmation_pay_by_paypal',
+        'membership_renewal_cancel_url' => 'https://www.chattanoogaobedienceclub.org//member_renewal_cancel_pay_by_paypal',
+        'class_confirmation_paypal' => 'https://www.chattanoogaobedienceclub.org//class_confirmation_paypal',
+        'class_cancel_paypal' => 'https://www.chattanoogaobedienceclub.org//class_cancel_paypal',
+    ],
 ];

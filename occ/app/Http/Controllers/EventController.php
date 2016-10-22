@@ -48,7 +48,6 @@ class EventController extends Controller
     {
         $event = new Event($request->all());
         $event->save();
-        dd($event);
         return redirect()->route('events.index');
     }
 

@@ -6,7 +6,7 @@
 		<div class="col-md-10 col-md-offset-1">
 			<div class="jumbotron">
 			<h1 class="display-3">Thank You For Applying To Our Club!</h1>
-				<p class="lead">A New Member Application has been created for you.  Your membership is contingent on participating in 2 meetings (i.e. readings) with our club.</p>
+				<p class="lead">If you have signed up with a regular membership (Individual, Household, or Associate), then a New Member Application has been created for you.  Regular memberships are contingent on participating in 2 meetings (i.e. readings) with our club.  </p>
 				<hr class="m-y-2">
 				@include('auth.partial_bring_application')
 				</p>

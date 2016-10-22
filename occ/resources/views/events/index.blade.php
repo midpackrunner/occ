@@ -24,7 +24,7 @@
 		@foreach ($events as $event)
 
 		<div class="panel panel-primary">
-			<div class="panel-heading">{{$event->title}}</div>
+			<div class="panel-heading" style="font-size: 24px">{{$event->title}}</div>
 			<div class="panel-body">
 				<h4 class="text-primary">When: {{Carbon\Carbon::parse($event->date_of_event)->format('m-d-Y')}}</h4>
 				<p class="text-primary">{!! $event->description !!}</p>
