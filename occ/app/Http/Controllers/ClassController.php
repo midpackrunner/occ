@@ -175,15 +175,19 @@ class ClassController extends Controller
     public static function calculate_class_cost($class)
     {
         $usr_prf = Auth::user()->user_profile;
-        $member_discount = $usr_prf->membership->membership_type
-                                               ->discount_on_classes;
+        $membership_type = $usr_prf->membership->membership_type->name;
+        if ($membership_type != 'student') {
+            $member_discount = $class->details->discounts->regular_member_discount;
+        }
+        
         
         if (Auth::user()->hasFiveOrMoreClasses()) {
-            return $class->details->cost - 25;
+            return $class->details->cost - $class->details->discounts->five_or_more_discount;
         }
         if (Auth::user()->hasSuccessiveClass(substr($class->begin_date, 0, 4),
                                               $class->session)) {
-            return $class->details->cost - $member_discount - 10;
+            return $class->details->cost - $member_discount - 
+                   $class->details->discounts->successive_class_discount;
         }
 
         return $class->details->cost - $member_discount;

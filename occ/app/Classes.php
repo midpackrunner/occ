@@ -39,7 +39,8 @@ class Classes extends Model
     	return $query->where('end_date', '>=', Carbon::today());
     }
 
-    // return only those classes whose end date is less than today
+    // return only those classes whose end date is at least out
+    // by two weeks from today.
     public function scopeTwoWeeksOut($query)
     {
         return $query->where('end_date', '>=', Carbon::today()->addWeeks(2));

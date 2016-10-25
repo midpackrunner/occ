@@ -33,4 +33,9 @@ class ClassesDetail extends Model
         return $query->where('is_active', '=', true);
     }
 
+    public function discounts()
+    {
+        return $this->belongsTo('App\Discount', 'discount_rates_id');
+    }
+
 }
