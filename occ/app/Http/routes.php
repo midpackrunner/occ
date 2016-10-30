@@ -80,13 +80,13 @@ Route::get('/update_membership/{usr_prf_id}/edit/',
 							   array('as' => 'admin.update_membership', 'uses' => 'Admin\AdminMembersController@update_membership_status'));
 Route::get('members/{page}/{filters}', 'Admin\AdminMembersController@members');
 Route::get('download_members/{filters}', 'Admin\AdminMembersController@download_members');
-Route::get('roster/list/{inst_filter}/{session_filter}/{curr_page}', 'Admin\AdminRosterController@roster');
+Route::get('roster/list/{inst_filter}/{session_filter}/{num_of_clm_hrs}/{curr_page}', 'Admin\AdminRosterController@roster');
 Route::get('roster_details/claimed_hours/{pet_id}/{class_id}', 'Admin\AdminRosterController@claimed_hours');
 
 Route::post('roster_details/claimed_hours/delete/{pet_id}/{class_id}/{date}', array('uses' => 'Admin\AdminRosterController@destroy', 'as' => 'roster.delete'));
 
 Route::post('/admin_log_hours/', 'Admin\AdminRosterController@admin_log_hours');
-Route::get('/download_roster/{inst_fltr}/{session_fltr}', 'Admin\AdminRosterController@download_roster');
+Route::get('/download_roster/{inst_fltr}/{session_fltr}/{num_of_clm_hrs}', 'Admin\AdminRosterController@download_roster');
 
 // ------- Admin Class/Course
 Route::resource('classes', 'Admin\AdminClassesController');

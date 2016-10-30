@@ -68,7 +68,7 @@
           </li>      
         </ul>
         <ul class="nav navbar-nav">
-          <li><a href="{{ url('/roster/list/none/none/1') }}">Roster</a></li>
+          <li><a href="{{ url('/roster/list/none/none/0/1') }}">Roster</a></li>
         </ul>
         <ul class="nav navbar-nav">
           <li><a href="{{ url('/instructors') }}">Instructors</a></li>

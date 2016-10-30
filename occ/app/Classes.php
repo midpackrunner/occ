@@ -58,10 +58,15 @@ class Classes extends Model
         return $query->where('vacant', '>', 0);
     }
 
-    // return details of a class
-    public function details()
+    public function scopeNumberOfClaimedHours($query, $hours=null)
     {
-    	return $this->belongsTo('App\ClassesDetail', 'class_details_id');
+        if ($hours === null) {
+            $hours = 4;             // default to 4 hours
+        }
+        $pivot = $this->pets()->getTable();
+        $query->whereHas('pets', function ($q) use ($hours, $pivot) {
+            $q->where("{$pivot}.logged_hours", ">=", $hours);
+        });
     }
 
     public function scopeHasInstructor($query,$inst_id)
@@ -70,6 +75,12 @@ class Classes extends Model
         $query->whereHas('instructors', function ($q) use ($inst_id, $pivot) {
             $q->where("{$pivot}.instructor_id", $inst_id);
         });
+    }
+    
+    // return details of a class
+    public function details()
+    {
+        return $this->belongsTo('App\ClassesDetail', 'class_details_id');
     }
 
     // return all instructors belonging to a class

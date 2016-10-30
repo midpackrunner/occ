@@ -15,17 +15,19 @@ class RosterFileManager
 {
 	private $instructor_filter;
 	private $session_filter;
+	private $num_of_clm_hrs;
 	private $file_name;
 	private $path_to_file;
 	private $roster;
 	private $full_path;
 	private $header;
 
-	function __construct($instructor_filter, $session_filter)
+	function __construct($instructor_filter, $session_filter, $num_of_clm_hrs)
 	{
 		$this->instructor_filter = $instructor_filter;
 		$this->session_filter = $session_filter;
-		$this->set_roster($this->instructor_filter, $session_filter);
+		$this->num_of_clm_hrs = $num_of_clm_hrs;
+		$this->set_roster($this->instructor_filter, $session_filter, $num_of_clm_hrs);
 		$this->file_name = 'Roster.csv';
 		$this->path_to_file = config('app.temp_folder');
 		$this->full_path = $this->path_to_file . $this->file_name;
@@ -34,15 +36,16 @@ class RosterFileManager
 
 
 	/** Get roster based on filter **/
-	protected function set_roster($instr_fltr, $sess_fltr)
+	protected function set_roster($instr_fltr, $sess_fltr, $num_of_clm_hrs)
 	{
 		$classes = Classes::upComing();
         if ($instr_fltr != 'none') {
         	$classes->hasInstructor($instr_fltr);
         }
         if ($sess_fltr != 'none') {
-        	$classes->ofSession($sess_fltr);
+        	$classes->ofSession($sess_fltr, Carbon::today()->year);
         }
+        $classes->numberOfClaimedHours($num_of_clm_hrs);
         $this->roster = $classes->get();
 	}
 
@@ -91,29 +94,35 @@ class RosterFileManager
 			}
 			
 			foreach ($rstr->pets as $pet) {
-				$owner = $pet->user->user_profile->first_name . " " . 
-						 $pet->user->user_profile->last_name;
-				$pet_name = $pet->name;
-				$breed = $pet->breed;
-				$clm_hrs = $pet->pivot->logged_hours;
-				$ph_nmbr_1 = $pet->user->user_profile->phone_numbers[0]->number;
-				if(count($pet->user->user_profile->phone_numbers) > 1) {
-					$ph_nmbr_2 = $pet->user->user_profile->phone_numbers[1]->number;
-				}
-				$email = $pet->user->email;
+				if ($pet->pivot->logged_hours >= $this->num_of_clm_hrs) {
+					$owner = $pet->user->user_profile->first_name . " " . 
+							 $pet->user->user_profile->last_name;
+					$pet_name = $pet->name;
+					$breed = $pet->breed;
+					$clm_hrs = $pet->pivot->logged_hours;
+					if(count($pet->user->user_profile->phone_numbers) > 0) {
+						$ph_nmbr_1 = $pet->user->user_profile->phone_numbers[0]->number;
+					} else {
+						$ph_nmbr_1 = 'none';
+					}
+					if(count($pet->user->user_profile->phone_numbers) > 1) {
+						$ph_nmbr_2 = $pet->user->user_profile->phone_numbers[1]->number;
+					}
+					$email = $pet->user->email;
 
-				$roster_rec = '"'. $session . '"' . ',' . '"' . $class_t . '"' . ',' . 
-							  '"'. $begin_date . '"' . ',' . '"' . $end_date . '"' . ',' .
-                              '"' . $day . '"' . ',' . '"' . $instrctr_1 . '"' . ',' .
-                              '"' . $instrctr_2 . '"' . ',' .
-                              '"' . $owner . '"' . ',' . '"' . $pet_name . '"' . ',' .
-                              '"' . $breed . '"' .',' .
-                              '"' . $clm_hrs . '"' . ',' . '"' . $email . '"' . ',' .
-                              '"' . $ph_nmbr_1 . '"' . ',' .
-                              '"' . $ph_nmbr_2 . '"' .$delmtr;
-				fwrite($m_file, $roster_rec);
-				$ph_nmbr_2 = "n/a";
-				$instrctr_2 = "n/a";
+					$roster_rec = '"'. $session . '"' . ',' . '"' . $class_t . '"' . ',' . 
+								  '"'. $begin_date . '"' . ',' . '"' . $end_date . '"' . ',' .
+	                              '"' . $day . '"' . ',' . '"' . $instrctr_1 . '"' . ',' .
+	                              '"' . $instrctr_2 . '"' . ',' .
+	                              '"' . $owner . '"' . ',' . '"' . $pet_name . '"' . ',' .
+	                              '"' . $breed . '"' .',' .
+	                              '"' . $clm_hrs . '"' . ',' . '"' . $email . '"' . ',' .
+	                              '"' . $ph_nmbr_1 . '"' . ',' .
+	                              '"' . $ph_nmbr_2 . '"' .$delmtr;
+					fwrite($m_file, $roster_rec);
+					$ph_nmbr_2 = "n/a";
+					$instrctr_2 = "n/a";
+				}
 			}
 		}
 		fclose($m_file);
@@ -129,5 +138,10 @@ class RosterFileManager
 	public function debug()
 	{
 		echo $this->file_name;
+	}
+
+	public function get_roster()
+	{
+		return $this->roster;
 	}
 }

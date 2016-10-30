@@ -23,12 +23,13 @@ class AdminRosterController extends Controller
     }  
 
     /**
-     * Display the Roster.  The roster is "filterable" by instructor
-     * and sessions.
+     * Display the Roster.  The roster is "filterable" by instructor, 
+     * sessions, and those members who have 4 or more class hours 
+     * (i.e. class completed).
      *
      * @return \Illuminate\Http\Response
      */
-    public function roster($inst_filter, $session_filter, $curr_page)
+    public function roster($inst_filter, $session_filter, $num_of_clm_hrs, $curr_page)
     {
         $instructors = Instructor::all();
         if($inst_filter != 'none') {
@@ -37,7 +38,7 @@ class AdminRosterController extends Controller
             $curr_instrctr = 'none';
         }
 
-        // get max session number
+        // get max session number for dropdown box
         $max_session = Classes::maxSession();
         // instructor and session filters (if any)
         $classes = Classes::upComing();
@@ -47,6 +48,10 @@ class AdminRosterController extends Controller
         if ($session_filter != 'none') {
             $classes->ofSession($session_filter, Carbon::now()->year);
         }
+        if ($num_of_clm_hrs != 0) {
+            $classes->numberOfClaimedHours($num_of_clm_hrs);
+        }
+
         $classes = $classes->get();
         $page_helper = new PaginationHelper($classes, 
                             config('app.max_viewable_rosters'), $curr_page);
@@ -54,7 +59,7 @@ class AdminRosterController extends Controller
         $classes = $page_helper->get_sliced_collection();
         
         return view('classes.roster', compact('classes', 'curr_page', 'num_of_pages', 
-                                     'instructors', 'curr_instrctr', 'session_filter', 'max_session', 'inst_filter'));
+                                     'instructors', 'curr_instrctr', 'session_filter', 'max_session', 'inst_filter', 'num_of_clm_hrs'));
     }
 
     /**
@@ -117,9 +122,9 @@ class AdminRosterController extends Controller
      * @param      <type>  $session_filter  The session filter
      *
      */
-    public function download_roster($inst_filter, $session_filter)
+    public function download_roster($inst_filter, $session_filter, $num_of_clm_hrs)
     {
-        $file_mngr = new RosterFileManager($inst_filter, $session_filter);
+        $file_mngr = new RosterFileManager($inst_filter, $session_filter, $num_of_clm_hrs);
 
         $file_mngr->write_to_file();
         return response()->download($file_mngr->get_file_path());

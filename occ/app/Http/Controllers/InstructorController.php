@@ -141,7 +141,7 @@ class InstructorController extends Controller
 		$instructor = Instructor::where('user_id', $user_id)->first();
 		return redirect()->action('Admin\AdminRosterController@roster', 
 						['inst_filter' => $instructor->id, 'session_filter' => 'none',
-						  'curr_page' => 1]);
+						  'num_of_clm_hrs' => 0 , 'curr_page' => 1]);
 	}
 
 	private function handleImgFormat($path_to_img) {

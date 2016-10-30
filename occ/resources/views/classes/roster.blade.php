@@ -7,7 +7,30 @@
 </div>
 @include('info_pop_ups.info_flash')
 <div class="row">
-	<div class="col-md-6"></div>
+	<div class="col-md-3"></div>
+	<div class="col-md-3">
+		<div class="dropdown">
+			<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+				@if(Request::is('roster/list/*/*/0/*'))
+				Filter By Claimed Attendance
+				@else
+				{{ $num_of_clm_hrs }} or more claimed attendance
+				@endif
+				<span class="caret"></span>
+			</button>
+			<ul class="dropdown-menu">
+				@for ($i = 1; $i < 7; $i++)
+				<li><a href="{{ url('/roster/list/'. $inst_filter . '/' . $session_filter . '/'. $i  . '/1') }}">
+					{{ $i }} or more
+				</a></li>
+				@endfor
+				<li><a href="{{ url('/roster/list/' . $inst_filter . '/'. $session_filter . '/' . '0' . '/1') }}">
+					Clear Filter
+				</a></li>
+			</ul>
+		</div>		
+	</div>
+
 	<div class="col-md-3">
 	@if(Auth::user()->isAdmin())
 
@@ -23,16 +46,16 @@
 			<ul class="dropdown-menu">
 				@foreach($instructors as $instructor)
 				@if($session_filter != 'none')
-				<li><a href="{{ url('/roster/list/'. $instructor->id . '/' . $session_filter .'/1') }}">
+				<li><a href="{{ url('/roster/list/'. $instructor->id . '/' . $session_filter . '/'. $num_of_clm_hrs  .'/1') }}">
 					{{$instructor->first_name . ' ' .$instructor->last_name}}
 				</a></li>
 				@else
-				<li><a href="{{ url('/roster/list/'. $instructor->id . '/none/1') }}">
+				<li><a href="{{ url('/roster/list/'. $instructor->id . '/none/' .$num_of_clm_hrs. '/1') }}">
 					{{$instructor->first_name . ' ' .$instructor->last_name}}
 				</a></li>
 				@endif
 				@endforeach
-				<li><a href="{{ url('/roster/list/none/none/1') }}">
+				<li><a href="{{ url('/roster/list/none/'. $session_filter . '/' .$num_of_clm_hrs. '/1') }}">
 					Clear Filter
 				</a></li>
 			</ul>
@@ -52,32 +75,27 @@
 			<ul class="dropdown-menu">
 				@for($i = 1; $i <= $max_session; $i++)
 				@if ($curr_instrctr != 'none')
-				<li><a href="{{ url('/roster/list/'). '/' . $curr_instrctr->id . '/' . $i . '/1' }}" >
+				<li><a href="{{ url('/roster/list/'). '/' . $inst_filter . '/' . $i . '/' . $num_of_clm_hrs .'/1' }}" >
 					{{ $i }}
 				</a></li>
 				@else
-				<li><a href="{{ url('/roster/list/none/').  '/' . $i . '/1' }}" >
+				<li><a href="{{ url('/roster/list/none/').  '/' . $i . '/' . $num_of_clm_hrs .'/1' }}" >
 					{{ $i }}
 				</a></li>
 				@endif
 				@endfor
-				@if($curr_instrctr != 'none')
-				<li><a href="{{ url('/roster/list/' . $curr_instrctr->id . '/none/1') }}">
-					Clear Filter
-				</a></li>
-				@else
-				<li><a href="{{ url('/roster/list/none/none/1') }}">
+
+				<li><a href="{{ url('/roster/list/' . $inst_filter . '/none/' . $num_of_clm_hrs . '/1') }}">
 					Clear Filter
 				</a></li>
 
-				@endif
 			</ul>
 		</div>
 	</div>
 </div>
 <div class="spacer-sm"></div>
 <div class="row">
-	<div class="col-md-2"><a class="btn btn-primary btn-sm" href="{{ url('/download_roster/' . $inst_filter . '/' . $session_filter) }}">Download List</a></div>
+	<div class="col-md-2"><a class="btn btn-primary btn-sm" href="{{ url('/download_roster/' . $inst_filter . '/' . $session_filter . '/' . $num_of_clm_hrs) }}">Download List</a></div>
 	<div class="col-md-6 col-md-offset-6">
 		<ul class="pagination pagination-lg pull-right">
 			@for ($i = 1; $i <= $num_of_pages; $i++)
@@ -134,6 +152,7 @@
 					</tr>
 					<tbody>
 						@foreach ($class->pets as $pet)
+						@if($pet->pivot->logged_hours >= $num_of_clm_hrs)
 						<tr>
 							<td>{{$pet->name}}</td>
 							<td>{{$pet->breed}}</td>
@@ -155,6 +174,7 @@
 							</td>
 							@endif
 						</tr>
+						@endif
 						@endforeach	
 					</tbody>
 				</table>
