@@ -27,6 +27,12 @@ class User extends Authenticatable
     ];
 
 
+    public function scopeOrderByLName($query)
+    {
+        return $query->join('user_profiles', 'user_profiles.user_id', '=', 'users.id')
+                     ->orderBy('user_profiles.last_name', 'asc');
+    }
+
     /**
      * Returns the user_profile belonging to this User
      *
@@ -95,15 +101,22 @@ class User extends Authenticatable
      * @param integer  $session_id  The session identifier
      *
      * @return     boolean  True if has successive class, False otherwise.
+     * @pre Assumption: 7 sessions in a year
      */
     public function hasSuccessiveClass($year, $session_id)
     {
         $result = false;
         foreach($this->pets as $pet) {
             foreach ($pet->completed_classes as $class) {
-                if($class->session == ($session_id - 1) && 
-                    substr($class->begin_date, 0, 4) == $year) {
-                    $result = true;
+                if ($session_id != 1) {
+                    if($class->session == ($session_id - 1) && 
+                        substr($class->begin_date, 0, 4) == $year) {
+                        $result = true;
+                    }
+                } else {    // compare to the previous year, last session
+                    if($class->session == 7 && 
+                        substr($class->begin_date, 0, 4) == $year - 1)
+                        $result = true;
                 }
             }
         }

@@ -70,7 +70,7 @@
 </div>
 
 <div class="form-group">
-    <label class="control-label col-md-8 ">Would you like to upload your pet's vaccination records at this time?</label>
+    <label class="control-label col-md-8 ">Would you like to upload your pet's vaccination records at this time? <small>(You must either upload here or email shot records to trainingdirector@chattanoogaobedienceclug.org)</small></label>
     <div class="col-md-4">
         <label class="radio-inline"><input class="upl_record_opt"type="radio" name="has_records" value="1" {{ $errors->has('pet_record') ? ' checked' : '' }}>Yes</label>
         <label class="radio-inline"><input class="upl_record_opt"type="radio" name="has_records" value="0" {{ $errors->has('pet_record') ? ' ' : 'checked' }}>No</label>

@@ -28,7 +28,7 @@ class AdminMedicalRecordsController extends Controller
      */
     public function index($curr_page, $filter)
     {
-        $users_t = User::all();
+        $users_t = User::orderByLName()->get();;
         if ($filter == 'expired') {
             $users = collect();
             foreach($users_t as $user) {
@@ -53,11 +53,11 @@ class AdminMedicalRecordsController extends Controller
      *
      * @return \Illuminate\Http\m_responsekeys(conn, identifier)
      */
-    public function create($user_id)
+    public function create($user_id, $filter, $curr_page)
     {
         $user = User::findOrFail($user_id);
         $pets = $user->pets;
-        return view('admin.medical.create', compact('user', 'pets'));
+        return view('admin.medical.create', compact('user', 'pets', 'filter', 'curr_page'));
     }
 
     /**
@@ -82,7 +82,7 @@ class AdminMedicalRecordsController extends Controller
         $med_rec->shots_expire = $request->shots_expire;
         $med_rec->save();
         \Session::flash('flash_message', 'Successfully Updated Medical Records ');
-        return redirect()->action('Admin\AdminMedicalRecordsController@index', ['curr_page' => 1, 'filter' => 'none']);
+        return redirect()->action('Admin\AdminMedicalRecordsController@index', ['curr_page' => $request->curr_page, 'filter' => $request->filter]);
     }
 
     /**
@@ -103,12 +103,12 @@ class AdminMedicalRecordsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id, $filter, $curr_page)
     {
 
         $medical_record = MedicalRecord::findOrFail($id);
         //dd($id);
-        return view('admin.medical.edit', compact('medical_record'));
+        return view('admin.medical.edit', compact('medical_record', 'filter', 'curr_page'));
     }
 
     /**
@@ -133,7 +133,7 @@ class AdminMedicalRecordsController extends Controller
         }
         $med_rec->save();
         \Session::flash('flash_message', 'Successfully Updated Medical Records ');
-        return  redirect('med_records/1/none');
+        return redirect()->action('Admin\AdminMedicalRecordsController@index', ['curr_page' => $request->curr_page, 'filter' => $request->filter]);
     }
 
     /**

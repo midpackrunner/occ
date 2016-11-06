@@ -119,7 +119,7 @@ class ClassController extends Controller
             }  // else we are paying by check
                 $pet = Pet::findOrFail($request->pet_id);
                 ClassController::handle_class_sign_up($request->class_id, 
-                                                      $request->pet_id);
+                                                      $request->pet_id, $pay_method);
                 return view('classes.sign_up_confirmation', compact('pet', 'class', 'pay_method'));
         }
     }
@@ -145,11 +145,11 @@ class ClassController extends Controller
      * @param      <type>  $pet_id    The pet identifier
      * @param      <type>  $token     The token
      */
-    public static function handle_class_sign_up($class_id, $pet_id, $token=null)
+    public static function handle_class_sign_up($class_id, $pet_id, $pay_meth, $token=null)
     {
         $pet = Pet::findOrFail($pet_id);
         $class = Classes::findOrFail($class_id);
-        $class->pets()->attach($pet);
+        $class->pets()->attach($pet, array('pay_method' => $pay_meth));
         $class->vacant = $class->vacant - 1;
         $class->on_hold = $class->on_hold + 1;
         $class->save();
@@ -170,7 +170,7 @@ class ClassController extends Controller
      *
      * @param      <type>  $class  The class
      *
-     * @return     <type>  The class cost.
+     * @pre Assumption: 7 sessions in a year
      */
     public static function calculate_class_cost($class)
     {
@@ -178,6 +178,8 @@ class ClassController extends Controller
         $membership_type = $usr_prf->membership->membership_type->name;
         if ($membership_type != 'student') {
             $member_discount = $class->details->discounts->regular_member_discount;
+        } else {
+            $member_discount = 0;
         }
         
         

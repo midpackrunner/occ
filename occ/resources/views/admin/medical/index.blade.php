@@ -44,16 +44,16 @@
 					{{$user->user_profile->first_name . ' '. $user->user_profile->last_name . '\'s Registered Pets   '}}
 					<small style="color: rgb(255,255,255)">{{$user->email}} 
 					</small>
-						<button class="pull-right btn {{($user->count_pets_with_expired_shots() > 0) ? 'btn-danger': 'btn-primary'}}"type="button" data-toggle="collapse" data-target="#dropdown_{{$user->user_profile->first_name. $user->user_profile->last_name}}" aria-expanded="false" aria-controls="dropdown_{{$user->email}}">
+						<button class="pull-right btn {{($user->count_pets_with_expired_shots() > 0) ? 'btn-danger': 'btn-primary'}}"type="button" data-toggle="collapse" data-target="#dropdown_{{$user->user_profile->id}}" aria-expanded="false" aria-controls="dropdown_{{$user->email}}">
 							<span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
 						</button>
 				</h4>
 			</div>
-			<div class="collapse" id="dropdown_{{$user->user_profile->first_name.$user->user_profile->last_name}}">
+			<div class="collapse" id="dropdown_{{$user->user_profile->id}}">
 				<div class="row">
 				<div class="col-md-11 col-md-offset-1">
 
-				<a class="pull-right btn btn-primary btn-sm" href="{{ route('medical_record.create', $user->id) }}" role="button">Create Verification Record</a>
+				<a class="pull-right btn btn-primary btn-sm" href="{{ route('medical_record.create', ['usr_id' => $user->id, 'filter'=> $filter, 'curr_page' => $curr_page]) }}" role="button">Create Verification Record</a>
 				</div>
 				</div>
 				<div class="spacer-sm"></div>
@@ -84,7 +84,7 @@
 							<a class="btn btn-primary btn-sm" href="{{ url('/download_med_rec/' . $record->id) }}">Download Medical Record</a>
 							@endif
 							</td>
-							<td><a class="btn btn-warning btn-sm" href="{{ route('medical_record.edit', $record->id) }}" role="button">Verify Record</a>
+							<td><a class="btn btn-warning btn-sm" href="{{ route('medical_record.edit', [$record->id, 'filter'=> $filter, 'curr_page' => $curr_page]) }}" role="button">Verify Record</a>
 							</td>
 						</tr>
 						@endforeach

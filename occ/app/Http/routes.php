@@ -80,6 +80,7 @@ Route::get('/update_membership/{usr_prf_id}/edit/',
 							   array('as' => 'admin.update_membership', 'uses' => 'Admin\AdminMembersController@update_membership_status'));
 Route::get('members/{page}/{filters}', 'Admin\AdminMembersController@members');
 Route::get('download_members/{filters}', 'Admin\AdminMembersController@download_members');
+Route::post('/membership_pay_confirm/{mem_id}', 'Admin\AdminMembersController@membership_pay_confirm');
 Route::get('roster/list/{inst_filter}/{session_filter}/{num_of_clm_hrs}/{curr_page}', 'Admin\AdminRosterController@roster');
 Route::get('roster_details/claimed_hours/{pet_id}/{class_id}', 'Admin\AdminRosterController@claimed_hours');
 
@@ -96,8 +97,9 @@ Route::post('/upload_schedule', 'Admin\AdminClassesController@post_schedule');
 
 // -------- Admin Medical Records
 Route::get('med_records/{curr_page}/{filter}', 'Admin\AdminMedicalRecordsController@index');
-Route::get('medical_records/{med_id}/edit', array('uses' => 'Admin\AdminMedicalRecordsController@edit', 'as' => 'medical_record.edit'));
-Route::get('medical_records/create/{usr_id}/new', array('uses' => 'Admin\AdminMedicalRecordsController@create', 'as' => 'medical_record.create'));
+Route::get('medical_records/{med_id}/edit/{filter}/{curr_page}', array('uses' => 'Admin\AdminMedicalRecordsController@edit', 'as' => 'medical_record.edit'));
+Route::get('medical_records/create/{usr_id}/{filter}/{curr_page}', array('uses' => 'Admin\AdminMedicalRecordsController@create', 'as' => 'medical_record.create'));
 Route::post('medical_records/store', array('uses' => 'Admin\AdminMedicalRecordsController@store', 'as' => 'medical_record.store'));
 Route::match(array('PUT', 'PATCH'), 'medical_records/{med_id}', array('uses' => 'Admin\AdminMedicalRecordsController@update', 'as' => 'medical_record.update'));
 Route::get('roster/verified_payment/{class_id}/{pet_id}', 'Admin\AdminRosterController@verified_payment');
+

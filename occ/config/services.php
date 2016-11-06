@@ -35,6 +35,20 @@ return [
         'secret' => env('STRIPE_SECRET'),
     ],
 
+    // -- DEV DEV DEV
+    'paypal' => [
+        'client_id' => 'Ae8VvIlxK8c8Gz2nJndlU4pOX16rwd-zNYmgzsUnnGboMiScKTFYEI_dVI9ko7HCvdC6BZ8mswTrHEiw',
+        'secret' => 'ELFqMdRwNjJcFOE5sAYK2TjY9CgKRGlcWIJOobenC6PNgxBqUGBERouQF_l-NuYhJbusbClsh7EWx9M-',
+        'membership_return_url' => '68.169.149.104/member_confirmation_pay_by_paypal',
+        'membership_cancel_url' => '68.169.149.104/member_cancel_pay_by_paypal',
+        'membership_renewal_return_url' => '68.169.149.104/member_renewal_confirmation_pay_by_paypal',
+        'membership_renewal_cancel_url' => '68.169.149.104/member_renewal_cancel_pay_by_paypal',
+        'class_confirmation_paypal' => '68.169.149.104/class_confirmation_paypal',
+        'class_cancel_paypal' => '68.169.149.104/class_cancel_paypal',
+    ],
+
+
+
     // -- TEST TEST TEST
     // 'paypal' => [
     //     'client_id' => 'Ae8VvIlxK8c8Gz2nJndlU4pOX16rwd-zNYmgzsUnnGboMiScKTFYEI_dVI9ko7HCvdC6BZ8mswTrHEiw',
@@ -48,14 +62,14 @@ return [
     // ],
 
     // -- PROD PROD PRD
-    'paypal' => [
-        'client_id' => 'ARbezcBJUAdzBOCtoRVoHODhYb9-Gt0-vrgGD7aF0ue8MHgTLpznuuPB4adMn_dUfkmTQWigRo9bXDuk',
-        'secret' => 'EBPyLP5udyujovqZ8ILAPkn6Ljk3dOtJNkLX7hhHQN9D3Bs353mx2fw8L90dqCIP9exdBiRV5mR3gK5E',
-        'membership_return_url' => 'https://www.chattanoogaobedienceclub.org//member_confirmation_pay_by_paypal',
-        'membership_cancel_url' => 'https://www.chattanoogaobedienceclub.org//member_cancel_pay_by_paypal',
-        'membership_renewal_return_url' => 'https://www.chattanoogaobedienceclub.org//member_renewal_confirmation_pay_by_paypal',
-        'membership_renewal_cancel_url' => 'https://www.chattanoogaobedienceclub.org//member_renewal_cancel_pay_by_paypal',
-        'class_confirmation_paypal' => 'https://www.chattanoogaobedienceclub.org//class_confirmation_paypal',
-        'class_cancel_paypal' => 'https://www.chattanoogaobedienceclub.org//class_cancel_paypal',
-    ],
+    // 'paypal' => [
+    //     'client_id' => 'ARbezcBJUAdzBOCtoRVoHODhYb9-Gt0-vrgGD7aF0ue8MHgTLpznuuPB4adMn_dUfkmTQWigRo9bXDuk',
+    //     'secret' => 'EBPyLP5udyujovqZ8ILAPkn6Ljk3dOtJNkLX7hhHQN9D3Bs353mx2fw8L90dqCIP9exdBiRV5mR3gK5E',
+    //     'membership_return_url' => 'https://www.chattanoogaobedienceclub.org//member_confirmation_pay_by_paypal',
+    //     'membership_cancel_url' => 'https://www.chattanoogaobedienceclub.org//member_cancel_pay_by_paypal',
+    //     'membership_renewal_return_url' => 'https://www.chattanoogaobedienceclub.org//member_renewal_confirmation_pay_by_paypal',
+    //     'membership_renewal_cancel_url' => 'https://www.chattanoogaobedienceclub.org//member_renewal_cancel_pay_by_paypal',
+    //     'class_confirmation_paypal' => 'https://www.chattanoogaobedienceclub.org//class_confirmation_paypal',
+    //     'class_cancel_paypal' => 'https://www.chattanoogaobedienceclub.org//class_cancel_paypal',
+    // ],
 ];

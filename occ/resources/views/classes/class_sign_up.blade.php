@@ -149,7 +149,7 @@
 
 			<div class="col-md-6">
 				<label class="radio-inline"><input type="radio" name="payment_method" value="check" checked>Check</label>
-				<label class="radio-inline"><input type="radio" name="payment_method" value="paypal" >Pay Pal</label>
+				<label class="radio-inline"><input type="radio" name="payment_method" value="paypal" >Credit Card or Pay Pal</label>
 				@if($user_profile->total_volunteer_hrs >= 15)
 				<label class="radio-inline"><input type="radio" name="payment_method" value="volhours" >Use My Volunteer Hours</label>
 				@endif

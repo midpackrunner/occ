@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\UserProfile;
+use App\Membership;
 use Auth;
 use Carbon\Carbon;
 use App\Lib\MemberFileManager;
@@ -55,6 +56,19 @@ class AdminMembersController extends Controller
         			compact('user_profiles', 'curr_page', 'num_of_pages', 'filter', 'now'));
     }
 
+    public function membership_pay_confirm($mem_id)
+    {
+        $membership = Membership::findOrFail($mem_id);
+        $membership->pay_verified = 1;
+        $membership->pay_verified_by = Auth::user()->email;
+        $membership->verified_on = Carbon::now();
+        $membership->save();
+
+        return back();
+
+    }
+
+    // Updates the end of the membership.
     public function update_membership_status($usr_prf_id)
     {
     	$usr_prf = UserProfile::findOrFail($usr_prf_id);

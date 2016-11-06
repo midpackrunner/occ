@@ -41,9 +41,11 @@ class Classes extends Model
 
     // return only those classes whose end date is at least out
     // by two weeks from today.
+    // TODO: Hotfixed this to extend to three weeks, need to correct
+    // the name of the function
     public function scopeTwoWeeksOut($query)
     {
-        return $query->where('end_date', '>=', Carbon::today()->addWeeks(2));
+        return $query->where('end_date', '>=', Carbon::today()->addWeeks(3));
     }
 
     // return only those classes that are open to the public
@@ -93,7 +95,7 @@ class Classes extends Model
     public function pets()
     {
         return $this->belongsToMany('App\Pet')
-                    ->withPivot('is_completed', 'logged_hours', 'verified_payment')
+                    ->withPivot('is_completed', 'logged_hours', 'verified_payment', 'pay_method')
                     ->withTimestamps();
     }
 

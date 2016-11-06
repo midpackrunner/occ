@@ -37,7 +37,7 @@ trait RegistersUsers
         $membership_types = MembershipType::all();
         $states = State::all();
         $rev_resources = RevenueResource::all();
-        $payment_methods = ['paypal', 'check'];
+        $payment_methods = ['credit card or paypal', 'check'];
 
 
 

@@ -27,7 +27,7 @@ class InstructorController extends Controller
 	 */
 	public function index() {
 		// using scope in the model
-		$instructors = Instructor::all();
+		$instructors = Instructor::orderBy('last_name')->get();
 		return view('instructors.index')->with('instructors', $instructors);
 	}
 
@@ -92,16 +92,19 @@ class InstructorController extends Controller
 
 	/**
 	 * Update an Instructor.  If the email has changed, then the user specified
-	 * by the old email is set back to role="general".
+	 * by the old email is set back to role="general_user".  jldavis232
 	 *
 	 */
 	public function update(CreateInstructorRequest $request, $instructor) {
-		// user email has changed
-		if ($request->email != $instructor->user_id) {  
+		// user email has changed, email here is actually the user id
+		if ($request->email != $instructor->user->id) {
 			$user = User::findOrFail($instructor->user_id);
-			$user->roles_id = Role::where('type', 'general')->first()->id;
-			$user->save();			
-			$instructor->user_id = $request->email;
+			$user->roles_id = Role::where('type', 'general_user')->first()->id;
+			$user->save();
+			$new_user = User::findOrFail($request->email); 			
+			$instructor->user_id = $new_user->id;
+			$new_user->roles_id = Role::where('type', 'instructor')->first()->id;
+			$new_user->save();
 		}
         $destinationPath = config('app.instructor_img_loc');
 		$instructor->update($request->all());
@@ -113,8 +116,6 @@ class InstructorController extends Controller
                                                 $fileName);
             $instructor_bio->path_to_pic = $destinationPath . $fileName;
         	$this->handleImgFormat($instructor_bio->path_to_pic);
-        } else {
-            $instructor_bio->path_to_pic = '';
         }
 		$instructor_bio->update($request->all());
 		$instructor_bio->save();

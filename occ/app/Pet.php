@@ -37,7 +37,7 @@ class Pet extends Model
     public function classes()
     {
     	return $this->belongsToMany('App\Classes')
-    				->withPivot('is_completed', 'logged_hours', 'verified_payment')
+    				->withPivot('is_completed', 'logged_hours', 'verified_payment', 'pay_method')
     				->withTimestamps();
     }
 
@@ -45,7 +45,7 @@ class Pet extends Model
     // allow two weeks after class ends to log hours
     public function upcoming_classes()
     {
-    	return $this->classes()->where('end_date', '>=', Carbon::now()->addWeeks(2));
+    	return $this->classes()->where('end_date', '>=', Carbon::now()->addWeeks(3));
     }
 
     // get all classses the pet has completed

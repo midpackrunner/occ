@@ -148,7 +148,7 @@
 						<th>Email</th>
 						<th>Phone #</th>
 						<th>Claimed <br/> Attendance(hrs.)</th>
-						@if(Auth::user()->isAdmin())<th>Verified Payment</th> @endif
+						@if(Auth::user()->isAdmin()) <th>Pay Method</th> <th>Verified Payment</th>  @endif
 					</tr>
 					<tbody>
 						@foreach ($class->pets as $pet)
@@ -165,6 +165,9 @@
 							</td>
 							<td><a href="{{ url('roster_details/claimed_hours/' . $pet->id . '/' .$class->id) }}">{{$pet->pivot->logged_hours}} </a></td>
 							@if(Auth::user()->isAdmin())
+							<td>
+								{{ $pet->pivot->pay_method }}
+							</td>
 							<td>
 								@if ($pet->pivot->verified_payment)
 								Yes

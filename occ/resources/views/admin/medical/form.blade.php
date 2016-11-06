@@ -1,3 +1,6 @@
+{{ Form::hidden('filter', $filter) }}
+{{ Form::hidden('curr_page', $curr_page) }}
+
 
 <div class="form-group{{ $errors->has('shots_verified') ? ' has-error' : '' }}">
     {!! Form::label('shots_verified', 'Verified', ['class' => 'control-label col-md-4']) !!}
