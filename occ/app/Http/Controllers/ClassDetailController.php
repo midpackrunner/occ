@@ -35,7 +35,12 @@ class ClassDetailController extends Controller
      */
     public function create()
     {
-        return view('class_details.create');
+        $prereq_arry = ClassesDetail::all()->toArray();
+        $pre_reqs = array();
+        foreach ($prereq_arry as $prerq) {
+            $pre_reqs[$prerq['id']] = $prerq['title'];
+        }
+        return view('class_details.create', compact('pre_reqs'));
     }
 
     /**
@@ -47,6 +52,13 @@ class ClassDetailController extends Controller
     public function store(CreateClassesDetailRequest $request)
     {
         $class_details = new ClassesDetail($request->all());
+        // pre-req logic
+        $pre_reqs = $request->pre_reqs;
+        if ($pre_reqs == null) {
+            $class_details->pre_reqs()->sync([]);
+        } else {
+            $class_details->pre_reqs()->sync($pre_reqs);
+        }
         $class_details->save();
         \Session::flash('message', 'Successfully created class ' .
                                     $class_details->title);
@@ -74,8 +86,12 @@ class ClassDetailController extends Controller
     public function edit($id)
     {
         $classes_details = ClassesDetail::findOrFail($id);
-       // dd($class_detail);
-        return view('class_details.edit', compact('classes_details'));
+        $prereq_arry = ClassesDetail::all()->toArray();
+        $pre_reqs = array();
+        foreach ($prereq_arry as $prerq) {
+            $pre_reqs[$prerq['id']] = $prerq['title'];
+        }
+        return view('class_details.edit', compact('classes_details', 'pre_reqs'));
     }
 
     /**
@@ -94,6 +110,15 @@ class ClassDetailController extends Controller
         $classes_details->is_active = $request->is_active;
         $classes_details->minimum_age_requirement = $request->minimum_age_requirement;
         $classes_details->maximum_age_requirement = $request->maximum_age_requirement;
+
+        // pre-req logic
+        $pre_reqs = $request->pre_reqs;
+        if ($pre_reqs == null) {
+            $classes_details->pre_reqs()->sync([]);
+        } else {
+            $classes_details->pre_reqs()->sync($pre_reqs);
+        }
+
         $classes_details->save();
         \Session::flash('message', 'Successfully updated class ' .
                                     $classes_details->title);

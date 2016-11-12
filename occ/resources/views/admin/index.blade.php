@@ -10,5 +10,8 @@
 	@include('admin.admin_notifications_partial')
 	@include('admin.admin_class_overview_partial')
 	</div>
+	<div class="row">
+	@include('admin.admin_task_bar_partial')
+	</div>
 
 @endsection
