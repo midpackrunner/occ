@@ -3,33 +3,28 @@
 <div class="col-md-10 col-md-offset-1">
     <div id="carousel-main" class="carousel slide" data-ride="carousel">
       <ol class="carousel-indicators">
-        <li data-target="#carousel-main" data-slide-to="0" class="active"></li>
-        <li data-target="#carousel-main" data-slide-to="1"></li>
-        <li data-target="#carousel-main" data-slide-to="2"></li>
+        @for ($i = 0; $i < count($carousels); $i++)
+          @if ($i == 0)
+            <li data-target="#carousel-main" data-slide-to="{{ $i }}" class="active"></li>
+          @else
+            <li data-target="#carousel-main" data-slide-to="{{ $i }}"></li>
+          @endif
+        @endfor
       </ol>
       <div class="carousel-inner" role="listbox">
-        <div class="item active">
-          <img class="img-responsive center-block" src= {{ asset ('img/carousel_img_1.jpg') }} alt="First slide">
-          <div class="carousel-caption">
-            <h3> {{ $carousels[0]->header }} </h3>
-            <p> {{ $carousels[0]->caption }} </p>
-          </div>
-        </div>
-        <div class="item">
-          <img class="img-responsive center-block" src="{{ asset('img/carousel_img_2.jpg') }}" alt="Second slide">
-          <div class="carousel-caption">
-            <h3> {{ $carousels[1]->header }} </h3>
-            <p> {{ $carousels[1]->caption }} </p>
-          </div>
-        </div>
-        <div class="item">
-          <img class="img-responsive center-block" src="{{ asset('img/carousel_img_3.jpg') }}" alt="Third slide">
-          <div class="carousel-caption">
-            <h3> {{ $carousels[2]->header }} </h3>
-            <p> {{ $carousels[2]->caption }} </p>
-          </div>
-        </div>
-      </div>
+        @for ($i = 1; $i <= count($carousels); $i++)
+            @if($i == 1)
+            <div class="item active">
+            @else
+            <div class="item">
+            @endif
+              <img class="img-responsive center-block" src= {{ asset('img/carousel/carousel_img_'.$i.'.jpg') }} alt="slide">
+              <div class="carousel-caption">
+                <h3> {{ $carousels[$i - 1]->header }} </h3>
+                <p> {{ $carousels[$i - 1]->caption }} </p>
+              </div>
+            </div>
+        @endfor
       <a class="left carousel-control" href="#carousel-main" role="button" data-slide="prev">
         <span class="icon-prev" aria-hidden="true"></span>
         <span class="sr-only">Previous</span>
@@ -40,5 +35,6 @@
       </a>
     </div>
   </div>
+</div>
 </div>
 <div class="spacer-md"></div>
