@@ -153,9 +153,9 @@ class PetController extends Controller
             $pet->attendance()->attach($class, ['attended_date'=> $request->attended_date]);
             foreach ($pet->classes as $class1) {   // loop thru each class the pet is in until match
                 if ($class1->id == $class->id ){
-                    if($class1->pivot->logged_hours == 5) {
+                    if($class1->pivot->logged_hours == 3) {
                         $pet->classes()->detach($class);
-                        $pet->classes()->attach($class, ['logged_hours' => 6,
+                        $pet->classes()->attach($class, ['logged_hours' => 4,
                                                          'is_completed' => true]);   // update as complete
                     } else {
                         $pet->classes()->detach($class);

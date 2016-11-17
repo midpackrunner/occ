@@ -45,7 +45,7 @@ class Pet extends Model
     // allow two weeks after class ends to log hours
     public function upcoming_classes()
     {
-    	return $this->classes()->where('end_date', '>=', Carbon::now()->addWeeks(3));
+    	return $this->classes()->where('end_date', '>=', Carbon::now()->subWeeks(3));
     }
 
     // get all classses the pet has completed

@@ -6,9 +6,6 @@ $.ajaxSetup({
 $(document).on('click', 'a.jq-postback', function(e) {
     e.preventDefault(); // does not go through with the link.
     var $this = $(this);
-    console.log($this.data('method'));
-    console.log($this.attr('href'));
-
     $.post({
         type: $this.data('method'),
         url: $this.attr('href')
@@ -17,13 +14,13 @@ $(document).on('click', 'a.jq-postback', function(e) {
             alert('Forbidden: You do not have rights to this User\'s Profile');
         }    
         else if (data == 'success'){
-            alert('success');
+            alert('Your Pet has been removed from our system');
             location.reload(); 
         }
         else {
             alert('Unknown Error: an unkown error has occured.' +
                   'Please contact the website\'s Administrator');
+            alert(data);
         }
-        console.log(data);
     });
 });

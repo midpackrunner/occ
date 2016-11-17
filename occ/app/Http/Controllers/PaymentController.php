@@ -26,8 +26,8 @@ class PaymentController extends Controller
             config('services.paypal.secret'));
 
         $this->_apiContext->setConfig(array(
-            'mode' => 'live',
-            'service.EndPoint' => 'https://api.paypal.com',
+            'mode' => config('services.paypal_env.mode'),
+            'service.EndPoint' => config('services.paypal_env.endpoint'),
             'http.ConnectionTimeOut' => 30,
             'log.LogEnabled' => true,
             'log.FileName' => storage_path('logs/paypal.log'),
@@ -134,12 +134,15 @@ class PaymentController extends Controller
 	    								  ->membership->id;
 	    $pop->save();
 
+        $membership = Auth::user()->user_profile->membership;
+
 	    Auth::user()->user_profile->membership
 						   ->verified_payments()->save($pop);
         $mem = Auth::user()->user_profile->membership;
         $mem->pay_verified = 1;
         $mem->pay_verified_by = 'paypal_auto';
         $mem->verified_on = Carbon::now();
+        $mem->save();
 
 	    return view('auth.member_confirmation_pay_by_paypal');
     }
@@ -333,7 +336,7 @@ class PaymentController extends Controller
         $temp_class_record = TempPaypalClassSignup::where('token', '=', $token)->first();
         $class_id = $temp_class_record->class_id;
         $pet_id = $temp_class_record->pet_id;
-        ClassController::handle_class_sign_up($class_id, $pet_id, 'Pay Pal' $token);
+        ClassController::handle_class_sign_up($class_id, $pet_id, $token);
         $class = Classes::findOrFail($class_id);
         $pet = Pet::findOrFail($pet_id);
         return view('classes.sign_up_confirmation_paypal', compact('class', 'pet'));

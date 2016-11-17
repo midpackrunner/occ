@@ -45,7 +45,7 @@ class Classes extends Model
     // the name of the function
     public function scopeTwoWeeksOut($query)
     {
-        return $query->where('end_date', '>=', Carbon::today()->addWeeks(3));
+        return $query->where('end_date', '>=', Carbon::today()->subWeeks(3));
     }
 
     // return only those classes that are open to the public

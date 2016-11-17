@@ -194,7 +194,7 @@
 						<td>{{$class->day_of_week}} at {{$class->time}}</td>
 						<td>{{$class->pivot->logged_hours}} out of 6</td>
 						<td>
-							@if ($class->pivot->is_completed)	
+							@if ($class->pivot->logged_hours > 5 )	
 							<p class="text-success">Class Completed!</p>
 							@else
 							<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#log-hour{{$i}}">Log Hours</button>
