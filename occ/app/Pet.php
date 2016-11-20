@@ -14,7 +14,7 @@ class Pet extends Model
     use SoftDeletes;
     protected $fillable = [
 		'name', 'gender', 'is_spayed_neutered' ,
-		'birth_date', 'breed', 'user_id',
+		'birth_date', 'breed', 'user_id', 'overrride_class_id'
     ];
 
     public function user() {
@@ -42,7 +42,7 @@ class Pet extends Model
     }
 
     // get upcoming classes the pet is registered for
-    // allow two weeks after class ends to log hours
+    // allow three weeks after class ends to log hours
     public function upcoming_classes()
     {
     	return $this->classes()->where('end_date', '>=', Carbon::now()->subWeeks(3));
@@ -54,6 +54,31 @@ class Pet extends Model
         return $this->classes()->where('is_completed', true);
     }
 
+    public function has_pre_req($class)
+    {
+        $class_detail = $class->details;
+        if (sizeof($class_detail->pre_reqs) == 0) {
+            return true;
+        }
+        $has_pre_req = false;
+        foreach ($this->completed_classes as $comp_class) {
+            foreach ($class_detail->pre_reqs as $pre_req) {
+                if($comp_class->details->id == $pre_req->id) {
+                    $has_pre_req = true;
+                }
+            }
+        }
+        return $has_pre_req;
+    }
+
+    public function is_taking_class($class) {
+        foreach ($this->classes as $cl) {
+            if ($cl->id == $class->id) {
+                return true;
+            }
+        }
+        return false;
+    }
     // check if pet has taken a class
     public function has_taken($class)
     {
@@ -64,25 +89,5 @@ class Pet extends Model
             }
         }
         return $has_taken;
-    }
-
-    // Remove claimed attendance hours
-    public static function detach_claimed_attendance($pet_id, $class_id, $date) 
-    {
-        DB::table('class_attendances')->where([
-            ['pet_id', '=' , $pet_id],
-            ['classes_id', '=', $class_id],
-            ['attended_date', '=', $date]
-        ])->delete();
-
-        DB::table('classes_pet')->where([
-            ['pet_id', '=' , $pet_id],
-            ['classes_id', '=', $class_id]
-        ])->decrement('logged_hours');
-
-        DB::table('classes_pet')->where([
-            ['pet_id', '=' , $pet_id],
-            ['classes_id', '=', $class_id]
-        ])->update(['is_completed'=> 0]);
     }
 } 

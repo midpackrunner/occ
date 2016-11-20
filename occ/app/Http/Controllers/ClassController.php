@@ -47,8 +47,8 @@ class ClassController extends Controller
      */
     public function schedule($curr_page)
     {
-        $max_viewable = 10;
-        $classes = Classes::upComing()->isOpen()->hasRoom()->get();
+        $max_viewable = 10;  //
+        $classes = Classes::upComing()->canSignUp(Auth::user())->isOpen()->hasRoom()->get();
 
         $num_of_pages = count($classes) / $max_viewable;
         $num_of_pages = ceil($num_of_pages);
@@ -76,7 +76,7 @@ class ClassController extends Controller
 
         $class = Classes::findOrFail($class_id);
         $user_profile = Auth::user()->user_profile;
-        $pets = Auth::user()->pets_not_taken_class($class);
+        $pets = Auth::user()->eligible_pets_to_take_class($class);
         $class_cost = ClassController::calculate_class_cost($class);
         $pet_arry = [];
         if ($pets != null) {

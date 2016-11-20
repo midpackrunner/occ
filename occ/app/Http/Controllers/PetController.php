@@ -146,21 +146,20 @@ class PetController extends Controller
     public function log_hours(Request $request)
     {
         $class = Classes::findOrFail($request->class_id);
+        $pet = Pet::findOrFail($request->pet_id);
         if($request->attended_date > $class->end_date || $request->attended_date < $class->begin_date) {
             session()->flash('error_message', 'Error: ' . $request->attended_date . ' does not fall in between the beginning and ending of this class!  Time has not been logged, please try again.');
         } else {
-            $pet = Pet::findOrFail($request->pet_id);
             $pet->attendance()->attach($class, ['attended_date'=> $request->attended_date]);
             foreach ($pet->classes as $class1) {   // loop thru each class the pet is in until match
                 if ($class1->id == $class->id ){
                     if($class1->pivot->logged_hours == 3) {
-                        $pet->classes()->detach($class);
-                        $pet->classes()->attach($class, ['logged_hours' => 4,
-                                                         'is_completed' => true]);   // update as complete
+                        $class1->pivot->logged_hours = 4;
+                        $class1->pivot->is_completed = 1;
                     } else {
-                        $pet->classes()->detach($class);
-                        $pet->classes()->attach($class, ['logged_hours' => $class1->pivot->logged_hours + 1]);
+                        $class1->pivot->logged_hours = $class1->pivot->logged_hours + 1;
                     }
+                $class1->pivot->save();
                 }
             }
             session()->flash('flash_message', $pet->name . '\'s hours for ' . 

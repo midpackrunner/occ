@@ -10,8 +10,11 @@ use App\ClassesDetail;
 use Auth;
 use App\Classes;
 use App\Instructor;
+use App\UserProfile;
+use App\Pet;
 use App\Lib\PaginationHelper;
 use App\Lib\ScheduleUploader;
+use Response;
 
 class AdminClassesController extends Controller
 {
@@ -81,7 +84,6 @@ class AdminClassesController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
      */
     public function create()
     {
@@ -105,8 +107,7 @@ class AdminClassesController extends Controller
     /**
      * Show the form for editing a Class.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  $classes the classes model to edit
      */
     public function edit(Classes $classes)
     {
@@ -124,9 +125,7 @@ class AdminClassesController extends Controller
     /**
      * Update the Class in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  int  $id the id of the class to update
      */
     public function update(Request $request, $id)
     {   
@@ -205,5 +204,42 @@ class AdminClassesController extends Controller
 
         return view('classes.upload_schedule', compact('num_of_records', 'duplicate_results', 
                                                        'num_of_naming_errors'));
+    }
+
+    public function class_override_form()
+    {   
+        $classes = ClassesDetail::all();
+        $class_array = [];
+        foreach ($classes as $class) {
+            $class_array[$class->id] = $class->title;
+        }
+        $usr_prf = UserProfile::orderBy('last_name')
+                   ->get(array('id', 'last_name', 'first_name'))
+                   ->toArray();
+
+        
+        return view('admin.class_override_form', compact('usr_prf', 'class_array'));
+    }
+
+    public function class_override_form_post(Request $request)
+    {
+        $pet = Pet::findOrFail($request->pet_id);
+        $class_details = ClassesDetail::findOrFail($request->class_details_id);
+        $pet->overrride_class_id = $request->class_details_id;
+        $pet->save();
+        session()->flash('flash_message', 
+                          $pet->name . " can now take " . $class_details->title);
+        return redirect()->action('Admin\AdminClassesController@class_override_form');
+    }
+
+    public function ajax_get_pets(Request $request)
+    {   
+        $pets = UserProfile::findOrFail($request->usr_prf_id)->user->pets;
+        $pet_array = [];
+        foreach ($pets as $pet) {
+            $pet_array[$pet->id] = $pet->name;
+        }
+
+        return Response::json($pet_array);
     }
 }  

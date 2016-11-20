@@ -9,7 +9,7 @@ use DB;
 
 class Classes extends Model
 {
-	use SoftDeletes;
+	use SoftDeletes;  //<-- Retain DATA.
 
     protected $table = 'classes';
     protected $fillable = [
@@ -21,8 +21,10 @@ class Classes extends Model
     // use $classes->trashed() boolean to see if an item is soft deleted
     protected $dates = ['deleted_at'];
 
-    // App\Classes::ofSession('4', 2016)->get()
-    // This filters to the session belonging to the current year.
+    /**
+     * Scope: only those classes that fall in (a) a particular session AND
+     * (b) a particular year.
+     */
     public function scopeOfSession($query, $session, $year)
     {
         return $query->where([
@@ -39,27 +41,57 @@ class Classes extends Model
     	return $query->where('end_date', '>=', Carbon::today());
     }
 
-    // return only those classes whose end date is at least out
-    // by two weeks from today.
-    // TODO: Hotfixed this to extend to three weeks, need to correct
-    // the name of the function
+    /**
+     * Scope only those classes whose end date is at least out
+     * by two weeks from today.
+     * TODO: Hotfixed this to extend to three weeks, need to correct
+     * the name of the function
+     */
     public function scopeTwoWeeksOut($query)
     {
         return $query->where('end_date', '>=', Carbon::today()->subWeeks(3));
     }
 
-    // return only those classes that are open to the public
+    /**
+     * Scope: only those classes that are open to the public
+     */
     public function scopeIsOpen($query)
     {
         return $query->where('is_open', '=', 'yes');
     }
 
-    // return on those classes that have vacany still
+    /**
+     * Scope: those classes that have vacany still
+     */
     public function scopeHasRoom($query)
     {
         return $query->where('vacant', '>', 0);
     }
 
+    /**
+     * Scope to classes that can be signed up for.  
+     * Members can only sign up if (a) the class is only a week into the
+     * schedule, and (b) depending on membership type, can sign up given
+     * a number of weeks prior to the beginning of class.  Student
+     * members can sign up 10 days prior, while all others can sign up
+     * 14 days prior.
+     */
+    public function scopeCanSignUp($query, $user)
+    {
+        $membership = $user->user_profile->membership->membership_type->name;
+        if ($membership == 'student') {
+            $i = 10;
+        }else {
+            $i = 14;
+        }
+        return $query->where('begin_date', '>=', Carbon::today()->subWeeks(1))
+                ->where('begin_date', '<=', Carbon::today()->addDays($i));
+    }
+
+    /**
+     * Scope classes and pets that have claimed ATLEAST a certain number
+     * of hours.  The default is 4.
+     */
     public function scopeNumberOfClaimedHours($query, $hours=null)
     {
         if ($hours === null) {
@@ -71,6 +103,9 @@ class Classes extends Model
         });
     }
 
+    /**
+     * Scope classes by Instructor
+     */
     public function scopeHasInstructor($query,$inst_id)
     {
         $pivot = $this->instructors()->getTable();
@@ -99,17 +134,22 @@ class Classes extends Model
                     ->withTimestamps();
     }
 
+    // Returns attendance (i.e. logged hours by attendance date)
     public function attendees()
     {
         return $this->belongsToMany('App\Pet', 'class_attendances')
             ->withPivot('attended_date')
             ->withTimestamps();
     }
+    // returns the string rep. of a day of the week
     public function get_day()
     {
         return $this->day_of_week;
     }
 
+    // get the maximum session number.  As of now, OCC has a max of 7,
+    // but this value is used throughout different views, and needs
+    // to be dynamically changed.
     public static function maxSession()
     {
         return DB::table('classes')->max('session');

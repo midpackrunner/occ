@@ -10,6 +10,7 @@ use Auth;
 use App\Classes;
 use App\Instructor;
 use App\Pet;
+use App\Attendance;
 use App\Lib\PaginationHelper;
 use App\Lib\RosterFileManager;
 use Carbon\Carbon;
@@ -79,7 +80,26 @@ class AdminRosterController extends Controller
      */
     public function destroy($pet_id, $class_id, $date)
     {
-        Pet::detach_claimed_attendance($pet_id, $class_id, $date);
+        $class = Classes::findOrFail($class_id);
+        $pet = Pet::findOrFail($pet_id);
+        foreach ($pet->classes as $class1) {   // loop thru each class the pet is in until match
+            if ($class1->id == $class->id ){
+                if($class1->pivot->logged_hours == 4) {
+                    $class1->pivot->logged_hours = 3;
+                    $class1->pivot->is_completed = 0;
+                } else {
+                    $class1->pivot->logged_hours = $class1->pivot->logged_hours - 1;
+                }
+            $class1->pivot->save();
+            }
+        }
+        foreach ($pet->attendance as $att) {
+            if ($att->pet_id == $pet && $att->class_id == $class_id && $att->attended_date == $date) {
+                $att->delete();
+                break;
+            }
+        }       
+
         session()->flash('flash_message', "Hours have been removed.");
         return redirect()->action('Admin\AdminRosterController@claimed_hours', 
                                    ['pet_id' => $pet_id, 'class_id' => $class_id]);
@@ -98,14 +118,13 @@ class AdminRosterController extends Controller
             $pet->attendance()->attach($class, ['attended_date'=> $request->attended_date]);
             foreach ($pet->classes as $class1) {   // loop thru each class the pet is in until match
                 if ($class1->id == $class->id ){
-                    if($class1->pivot->logged_hours == 5) {
-                        $pet->classes()->detach($class);
-                        $pet->classes()->attach($class, ['logged_hours' => 6,
-                                                         'is_completed' => true]);   // update as complete
+                    if($class1->pivot->logged_hours == 3) {
+                        $class1->pivot->logged_hours = 4;
+                        $class1->pivot->is_completed = 1;
                     } else {
-                        $pet->classes()->detach($class);
-                        $pet->classes()->attach($class, ['logged_hours' => $class1->pivot->logged_hours + 1]);
+                        $class1->pivot->logged_hours = $class1->pivot->logged_hours + 1;
                     }
+                $class1->pivot->save();
                 }
             }
             session()->flash('flash_message', $pet->name . '\'s hours for ' . 

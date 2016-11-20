@@ -53,7 +53,6 @@ Route::get('/pet_added_conformation', 'PetController@confirmation');
 Route::post('/log_hours', 'PetController@log_hours');
 Route::get('/download_med_rec/{med_rec_id}', 'PetController@download_med_rec');
 
-
 // ------- Class Related Routes
 Route::get('/pre_class_prep', 'ClassController@pre_class_prep');
 Route::get('/class_info', 'ClassController@class_info');
@@ -94,6 +93,9 @@ Route::resource('classes', 'Admin\AdminClassesController');
 Route::get('/classes_full_list/{curr_page}', 'Admin\AdminClassesController@classes_full_list');
 Route::get('/upload_schedule', 'Admin\AdminClassesController@upload_schedule');
 Route::post('/upload_schedule', 'Admin\AdminClassesController@post_schedule');
+Route::get('/class_override_form', 'Admin\AdminClassesController@class_override_form');
+Route::post('/class_override_form', 'Admin\AdminClassesController@class_override_form_post');
+Route::post('/ajax_get_pets', 'Admin\AdminClassesController@ajax_get_pets');
 
 // -------- Admin Medical Records
 Route::get('med_records/{curr_page}/{filter}', 'Admin\AdminMedicalRecordsController@index');

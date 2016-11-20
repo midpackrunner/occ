@@ -10,9 +10,10 @@
 		<h2 class="text-center text-danger">You do not have any Registered Pets that can take this Class!</h2>
 		<h3 class="text-danger">Details</h3>
 		<blockquote>
-			<p class="lead text-danger">Our records show that all of your registered dogs have either already taken this class or are currently registered to take {{$class->details->title}}.</p>
-			<p>You can find all of your registered dogs and the classes your dogs have taken on <a href="{{ url('/profiles', Auth::user()->user_profile->id) }}" role="button">your profile page</a>.
-			  If you feel there is an error with our records, please contact our <a href="{{ url('/contact') }}">OCC Director</a>.  Thank you.</p>
+			<p class="lead text-danger">Our records show that all of your registered dogs have already registered for this class or none of your registered dogs have met the prerequisites to take {{$class->details->title}}.</p>
+			<p>You can find all of your registered dogs and the classes your dogs have taken on <a href="{{ url('/profiles', Auth::user()->user_profile->id) }}" role="button">your profile page</a>.  You can also find the age restrictions and the class prerequisite classes on the <a href="{{ url('/class_info') }}">Class Information</a> page.</p>
+			<p>
+			  If you feel there is an error with our records or to request a Class Override, please contact our <a href="{{ url('/contact') }}">OCC Director</a>.  Thank you.</p>
 		</blockquote>
 	</div>
 </div>

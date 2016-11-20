@@ -154,18 +154,22 @@ class User extends Authenticatable
      * @return array of Pet Objects that has not taken the course
      * If all pets have taken the class then it returns null  
      */
-    public function pets_not_taken_class($class)
+    public function eligible_pets_to_take_class($class)
     {
         $pet_lst = [];
 
         foreach($this->pets as $pet) {
-            $has_not_taken = true;
-            foreach($pet->classes as $a_class) {
-                if ($class->id == $a_class->id) {
-                    $has_not_taken = false;
-                }
+            $can_take_class = true;
+            if (!$pet->has_pre_req($class)) {    // does not have pre req
+                $can_take_class = false;
             }
-            if ($has_not_taken) {
+            if ($pet->overrride_class_id == $class->details->id) {  // has override
+                $can_take_class = true;
+            }
+            if ($pet->is_taking_class($class)) {  // already taking the course
+                $can_take_class = false;
+            }
+            if ($can_take_class) {
                 array_push($pet_lst, $pet);
             }    
         }
